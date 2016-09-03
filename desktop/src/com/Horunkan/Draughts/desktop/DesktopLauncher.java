@@ -7,6 +7,11 @@ import com.Horunkan.Draughts.Draughts;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		
+		config.title = Draughts.GAME_TITLE;
+		config.height = Draughts.HEIGHT;
+		config.width = Draughts.WIDTH;
+		
 		new LwjglApplication(new Draughts(), config);
 	}
 }
