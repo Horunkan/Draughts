@@ -11,6 +11,7 @@ public class DesktopLauncher {
 		config.title = Draughts.GAME_TITLE;
 		config.height = Draughts.HEIGHT;
 		config.width = Draughts.WIDTH;
+		config.resizable = false;
 		
 		new LwjglApplication(new Draughts(), config);
 	}

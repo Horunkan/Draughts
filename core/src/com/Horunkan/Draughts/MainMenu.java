@@ -18,6 +18,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 public class MainMenu implements Screen {
 	private OrthographicCamera camera;
 	private Stage stage;
+	private ButtonStyle buttonStyle;
 	
 	public MainMenu() {
 		//Create camera
@@ -27,38 +28,23 @@ public class MainMenu implements Screen {
 		
 		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
 		Gdx.input.setInputProcessor(stage);	
-		
-		FontLoader loader = FontLoader.getInstance();
-		
-		//Create white texture for button - TEMP
-		Pixmap pixmap = new Pixmap(100, 100, Format.RGBA8888);
-		pixmap.setColor(Color.WHITE);
-		pixmap.fill();
-		
-		Skin skin = new Skin();
-		skin.add("white", new Texture(pixmap));
-		
-		//Create buttons
-		TextButtonStyle style = new TextButtonStyle();
-		style.font = loader.getFont(25);
-		style.up = skin.newDrawable("white", Color.DARK_GRAY);
-		style.down = skin.newDrawable("white", Color.LIGHT_GRAY);
-		
-		TextButton testButtonA = new TextButton("Test button 1", style);
-		TextButton testButtonB = new TextButton("Test button 2", style);
-		TextButton testButtonC = new TextButton("Test button 3", style);
+				
+		buttonStyle = ButtonStyle.getInstance();
+		TextButton testButtonA = new TextButton("Test button 1", buttonStyle);
+		TextButton testButtonB = new TextButton("Test button 2", buttonStyle);
+		TextButton testButtonC = new TextButton("Test button 3", buttonStyle);
 		
 		//Add buttons to scene
 		Table container = new Table();
 		container.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2);
 		//container.setDebug(true);
 		
-		container.add(testButtonA).size(250, 65);
-		container.row().padTop(10);
-		container.add(testButtonB).size(250, 65);
-		container.row().padTop(10);
-		container.add(testButtonC).size(250, 65);
-		container.row().padTop(10);
+		container.add(testButtonA).size(300, 87);
+		container.row().padTop(5);
+		container.add(testButtonB).size(300, 87);
+		container.row().padTop(5);
+		container.add(testButtonC).size(300, 87);
+		container.row().padTop(5);
 	
 		stage.addActor(container);
 	}
