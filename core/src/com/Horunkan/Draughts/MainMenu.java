@@ -32,18 +32,17 @@ public class MainMenu implements Screen {
 		
 		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
 		Gdx.input.setInputProcessor(stage);	
-			
+		
+		createLogo();
 		createButtons();
 		createButtonsListeners();
 
-		//Logo
-		Pixmap pixmap = new Pixmap( 500, 150, Format.RGBA8888 );
-		pixmap.setColor(Color.WHITE);
-		pixmap.fill();
+
 				
-		logoSprite = new Sprite(new Texture(pixmap));
 		spriteBatch = new SpriteBatch();
-		logoSprite.setPosition(Draughts.WIDTH/2 - logoSprite.getWidth()/2, Draughts.HEIGHT/2 - logoSprite.getHeight()/2 + 150);
+		
+		
+		
 		
 		//Add buttons to scene
 		Table container = new Table();
@@ -55,6 +54,16 @@ public class MainMenu implements Screen {
 		container.add(exitGameButton).size(300, 87);
 	
 		stage.addActor(container);
+	}
+	
+	private void createLogo() {
+		//Create texture [PLACEHOLDER]
+		Pixmap pixmap = new Pixmap( 500, 150, Format.RGBA8888 );
+		pixmap.setColor(Color.WHITE);
+		pixmap.fill();
+		
+		logoSprite = new Sprite(new Texture(pixmap));
+		logoSprite.setPosition(Draughts.WIDTH/2 - logoSprite.getWidth()/2, Draughts.HEIGHT/2 - logoSprite.getHeight()/2 + 150);
 	}
 	
 	private void createButtons() {
