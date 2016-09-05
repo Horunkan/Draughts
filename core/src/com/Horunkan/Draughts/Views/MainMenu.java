@@ -3,31 +3,26 @@ package com.Horunkan.Draughts.Views;
 import com.Horunkan.Draughts.ButtonStyle;
 import com.Horunkan.Draughts.Draughts;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class MainMenu extends AbstractScreen {
-	private Sprite logoSprite;
+	private Sprite gameLogo;
 	private Table buttonContainer;
 	private TextButton newGameButton, exitGameButton;
 	
 	public MainMenu() {
 		super();
 
-		createLogo();
+		createGameLogo();
 		createButtons();
 		createButtonsListeners();
 		createButtonsContainer();
@@ -35,14 +30,14 @@ public class MainMenu extends AbstractScreen {
 		stage.addActor(buttonContainer);
 	}
 	
-	private void createLogo() {
+	private void createGameLogo() {
 		//Create texture [PLACEHOLDER]
-		Pixmap pixmap = new Pixmap( 500, 150, Format.RGBA8888 );
+		Pixmap pixmap = new Pixmap(500, 150, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
 		
-		logoSprite = new Sprite(new Texture(pixmap));
-		logoSprite.setPosition(Draughts.WIDTH/2 - logoSprite.getWidth()/2, Draughts.HEIGHT/2 - logoSprite.getHeight()/2 + 150);
+		gameLogo = new Sprite(new Texture(pixmap));
+		gameLogo.setPosition(Draughts.WIDTH/2 - gameLogo.getWidth()/2, Draughts.HEIGHT/2 - gameLogo.getHeight()/2 + 150);
 	}
 	
 	private void createButtonsContainer() {
@@ -64,15 +59,13 @@ public class MainMenu extends AbstractScreen {
 	
 	private void createButtonsListeners() {
 		newGameButton.addListener(new ChangeListener() {
-	        @Override
-	        public void changed (ChangeEvent event, Actor actor) {
+			@Override public void changed (ChangeEvent event, Actor actor) {
 	           System.out.println("New Game");
 	        }
 	    });
 		
 		exitGameButton.addListener(new ChangeListener() {
-	        @Override
-	        public void changed (ChangeEvent event, Actor actor) {
+			@Override public void changed (ChangeEvent event, Actor actor) {
 	            Gdx.app.exit();
 	        }
 	    });
@@ -85,13 +78,12 @@ public class MainMenu extends AbstractScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		spriteBatch.begin();
-		logoSprite.draw(spriteBatch);
+		gameLogo.draw(spriteBatch);
 		spriteBatch.end();
 		stage.draw();
 	}
 	
-	@Override
-	public void dispose() { 
+	@Override public void dispose() { 
 		super.dispose();
 	}
 }
