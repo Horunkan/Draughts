@@ -1,5 +1,6 @@
 package com.Horunkan.Draughts;
 
+import com.Horunkan.Draughts.Views.MainMenu;
 import com.badlogic.gdx.Game;
 
 public class Draughts extends Game {

@@ -1,5 +1,7 @@
-package com.Horunkan.Draughts;
+package com.Horunkan.Draughts.Views;
 
+import com.Horunkan.Draughts.ButtonStyle;
+import com.Horunkan.Draughts.Draughts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
