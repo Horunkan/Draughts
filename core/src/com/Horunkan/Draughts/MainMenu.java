@@ -10,17 +10,19 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 public class MainMenu implements Screen {
 	private OrthographicCamera camera;
 	private Stage stage;
-	private ButtonStyle buttonStyle;
 	private SpriteBatch spriteBatch;
 	private Sprite logoSprite;
+	private TextButton newGameButton, exitGameButton;
 	
 	public MainMenu() {
 		//Create camera
@@ -30,13 +32,10 @@ public class MainMenu implements Screen {
 		
 		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
 		Gdx.input.setInputProcessor(stage);	
-		
-		//Buttons
-		buttonStyle = ButtonStyle.getInstance();
-		TextButton testButtonA = new TextButton("Test button 1", buttonStyle);
-		TextButton testButtonB = new TextButton("Test button 2", buttonStyle);
-		TextButton testButtonC = new TextButton("Test button 3", buttonStyle);
-		
+			
+		createButtons();
+		createButtonsListeners();
+
 		//Logo
 		Pixmap pixmap = new Pixmap( 500, 150, Format.RGBA8888 );
 		pixmap.setColor(Color.WHITE);
@@ -51,14 +50,35 @@ public class MainMenu implements Screen {
 		container.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2 - 80);
 		//container.setDebug(true);
 		
-		container.add(testButtonA).size(300, 87);
+		container.add(newGameButton).size(300, 87);
 		container.row().padTop(5);
-		container.add(testButtonB).size(300, 87);
-		container.row().padTop(5);
-		container.add(testButtonC).size(300, 87);
-		container.row().padTop(5);
+		container.add(exitGameButton).size(300, 87);
 	
 		stage.addActor(container);
+	}
+	
+	private void createButtons() {
+		ButtonStyle style = ButtonStyle.getInstance();
+		
+		newGameButton = new TextButton("New game", style);
+		exitGameButton = new TextButton("Exit game", style);
+	}
+	
+	private void createButtonsListeners() {
+		newGameButton.addListener(new ChangeListener() {
+	        @Override
+	        public void changed (ChangeEvent event, Actor actor) {
+	           System.out.println("New Game");
+	        }
+	    });
+		
+		exitGameButton.addListener(new ChangeListener() {
+	        @Override
+	        public void changed (ChangeEvent event, Actor actor) {
+	        	dispose();
+	            Gdx.app.exit();
+	        }
+	    });
 	}
 	
 	@Override
