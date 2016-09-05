@@ -19,24 +19,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
-public class MainMenu implements Screen {
-	private OrthographicCamera camera;
-	private Stage stage;
-	private SpriteBatch spriteBatch;
+public class MainMenu extends AbstractScreen {
 	private Sprite logoSprite;
 	private Table buttonContainer;
 	private TextButton newGameButton, exitGameButton;
 	
 	public MainMenu() {
-		//Create camera
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, Draughts.WIDTH, Draughts.HEIGHT);
-		camera.update();
-		
-		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
-		Gdx.input.setInputProcessor(stage);	
-		spriteBatch = new SpriteBatch();
-		
+		super();
+
 		createLogo();
 		createButtons();
 		createButtonsListeners();
@@ -101,23 +91,7 @@ public class MainMenu implements Screen {
 	}
 	
 	@Override
-	public void show() { }
-
-	@Override
-	public void resize(int width, int height) { }
-
-	@Override
-	public void pause() { }
-
-	@Override
-	public void resume() { }
-
-	@Override
-	public void hide() { }
-
-	@Override
 	public void dispose() { 
-		stage.dispose();
-		spriteBatch.dispose();
+		super.dispose();
 	}
 }
