@@ -22,6 +22,7 @@ public class MainMenu implements Screen {
 	private Stage stage;
 	private SpriteBatch spriteBatch;
 	private Sprite logoSprite;
+	private Table buttonContainer;
 	private TextButton newGameButton, exitGameButton;
 	
 	public MainMenu() {
@@ -32,28 +33,14 @@ public class MainMenu implements Screen {
 		
 		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
 		Gdx.input.setInputProcessor(stage);	
+		spriteBatch = new SpriteBatch();
 		
 		createLogo();
 		createButtons();
 		createButtonsListeners();
+		createButtonsContainer();
 
-
-				
-		spriteBatch = new SpriteBatch();
-		
-		
-		
-		
-		//Add buttons to scene
-		Table container = new Table();
-		container.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2 - 80);
-		//container.setDebug(true);
-		
-		container.add(newGameButton).size(300, 87);
-		container.row().padTop(5);
-		container.add(exitGameButton).size(300, 87);
-	
-		stage.addActor(container);
+		stage.addActor(buttonContainer);
 	}
 	
 	private void createLogo() {
@@ -64,6 +51,16 @@ public class MainMenu implements Screen {
 		
 		logoSprite = new Sprite(new Texture(pixmap));
 		logoSprite.setPosition(Draughts.WIDTH/2 - logoSprite.getWidth()/2, Draughts.HEIGHT/2 - logoSprite.getHeight()/2 + 150);
+	}
+	
+	private void createButtonsContainer() {
+		buttonContainer = new Table();
+		buttonContainer.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2 - 80);
+		//container.setDebug(true);
+		
+		buttonContainer.add(newGameButton).size(300, 87);
+		buttonContainer.row().padTop(5);
+		buttonContainer.add(exitGameButton).size(300, 87);
 	}
 	
 	private void createButtons() {
