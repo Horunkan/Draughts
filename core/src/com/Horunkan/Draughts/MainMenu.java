@@ -81,7 +81,6 @@ public class MainMenu implements Screen {
 		exitGameButton.addListener(new ChangeListener() {
 	        @Override
 	        public void changed (ChangeEvent event, Actor actor) {
-	        	dispose();
 	            Gdx.app.exit();
 	        }
 	    });
@@ -115,5 +114,8 @@ public class MainMenu implements Screen {
 	public void hide() { }
 
 	@Override
-	public void dispose() { }
+	public void dispose() { 
+		stage.dispose();
+		spriteBatch.dispose();
+	}
 }
