@@ -15,8 +15,8 @@ public class ButtonStyle extends TextButtonStyle {
 	
 	private ButtonStyle() { 
 		Skin skin = new Skin();
-		skin.add("ButtonStandard", new Texture(Gdx.files.internal("buttonStandard.png")));
-		skin.add("ButtonPressed", new Texture(Gdx.files.internal("buttonPressed.png")));
+		skin.add("ButtonStandard", new Texture(Gdx.files.internal("Textures/buttonStandard.png")));
+		skin.add("ButtonPressed", new Texture(Gdx.files.internal("Textures/buttonPressed.png")));
 		
 		FontLoader font = FontLoader.getInstance();
 		
