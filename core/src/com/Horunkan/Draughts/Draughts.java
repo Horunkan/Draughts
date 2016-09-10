@@ -16,8 +16,8 @@ public class Draughts extends Game {
 	
 	@Override
 	public void create() {
-		menu = new MainMenu();
-		game = new GameScreen();
+		menu = new MainMenu(this);
+		game = new GameScreen(this);
 		this.setScreen(menu);
 	}
 	

@@ -12,8 +12,10 @@ public abstract class AbstractScreen implements Screen {
 	protected OrthographicCamera camera;
 	protected Stage stage;
 	protected SpriteBatch spriteBatch;
+	protected Draughts game;
 	
-	public AbstractScreen() {
+	public AbstractScreen(Draughts game) {
+		this.game = game;
 		createCamera();
 		
 		stage = new Stage(new StretchViewport(Draughts.WIDTH, Draughts.HEIGHT, camera));
