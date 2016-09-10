@@ -4,11 +4,17 @@ import com.Horunkan.Draughts.Draughts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class GameScreen extends AbstractScreen {
+	private Skin skin;
 
 	public GameScreen(Draughts game) {
 		super(game);
+		
+		skin = new Skin();
+		loadTextures();
 	}
 	
 	@Override
@@ -20,5 +26,12 @@ public class GameScreen extends AbstractScreen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
 		
 		stage.draw();
+	}
+	
+	private void loadTextures() {
+		skin.add("boardBright", new Texture(Gdx.files.internal("Textures/boardCell_bright.png")));
+		skin.add("boardDark", new Texture(Gdx.files.internal("Textures/boardCell_dark.png")));
+		skin.add("pawnBright", new Texture(Gdx.files.internal("Textures/pawn_bright.png")));
+		skin.add("pawnDark", new Texture(Gdx.files.internal("Textures/pawn_dark.png")));
 	}
 }
