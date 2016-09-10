@@ -12,7 +12,6 @@ public class GameScreen extends AbstractScreen {
 
 	public GameScreen(Draughts game) {
 		super(game);
-		
 		skin = new Skin();
 		loadTextures();
 	}
