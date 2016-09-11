@@ -31,4 +31,16 @@ public class Board {
 	public int getWidth() { return boardWidth; }
 	public int getHeight() { return boardHeight; }
 	public int getValue(int x, int y) { return board[x][y]; }
+	
+	public int countPawns(int val) {
+		int counter = 0;
+		
+		for(int y = 0; y < boardHeight; ++y){
+			for(int x = 0; x < boardWidth; ++x){
+				if(board[x][y] == val) ++counter;
+			}
+		}
+		
+		return counter;
+	}
 }

@@ -2,11 +2,13 @@ package com.Horunkan.Draughts.Views;
 
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
+import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -15,6 +17,7 @@ public class GameScreen extends AbstractScreen {
 	private Table boardCellContainer;
 	private Board board;
 	private DrawCell[][] boardCells;
+	private DrawPawn[] pawnsBright;
 
 	public GameScreen(Draughts game) {
 		super(game);
@@ -22,11 +25,16 @@ public class GameScreen extends AbstractScreen {
 		loadTextures();
 		
 		boardCellContainer = new Table();
-		boardCellContainer.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2);
+		boardCellContainer.setFillParent(true);
 		board = new Board();
 		loadBoard();
 		
+		pawnsBright = new DrawPawn[board.countPawns(2)];
+		
 		stage.addActor(boardCellContainer);
+		boardCellContainer.validate();
+		
+		loadFirstPawnsGroup();
 	}
 	
 	@Override
@@ -58,6 +66,19 @@ public class GameScreen extends AbstractScreen {
 				boardCellContainer.add(boardCells[x][y]).size(65);
 			}
 			boardCellContainer.row();
+		}
+	}
+	
+	private void loadFirstPawnsGroup() {
+		for(int y = 0, i = 0; y < board.getHeight(); ++y) {
+			for(int x = 0; x < board.getWidth(); ++x) {
+				if(board.getValue(x, y) == 2) {
+					pawnsBright[i] = new DrawPawn(skin,2);
+					pawnsBright[i].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
+					stage.addActor(pawnsBright[i]);
+					++i;
+				}
+			}
 		}
 	}
 }
