@@ -17,7 +17,7 @@ public class GameScreen extends AbstractScreen {
 	private Table boardCellContainer;
 	private Board board;
 	private DrawCell[][] boardCells;
-	private DrawPawn[] pawnsBright;
+	private DrawPawn[] pawnsBright, pawnsDark;
 
 	public GameScreen(Draughts game) {
 		super(game);
@@ -30,11 +30,12 @@ public class GameScreen extends AbstractScreen {
 		loadBoard();
 		
 		pawnsBright = new DrawPawn[board.countPawns(2)];
+		pawnsDark = new DrawPawn[board.countPawns(3)];
 		
 		stage.addActor(boardCellContainer);
 		boardCellContainer.validate();
 		
-		loadFirstPawnsGroup();
+		loadPawnsGroups();
 	}
 	
 	@Override
@@ -69,14 +70,20 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-	private void loadFirstPawnsGroup() {
-		for(int y = 0, i = 0; y < board.getHeight(); ++y) {
+	private void loadPawnsGroups() {
+		for(int y = 0, i = 0, j = 0; y < board.getHeight(); ++y) {
 			for(int x = 0; x < board.getWidth(); ++x) {
 				if(board.getValue(x, y) == 2) {
 					pawnsBright[i] = new DrawPawn(skin,2);
 					pawnsBright[i].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
 					stage.addActor(pawnsBright[i]);
 					++i;
+				}
+				else if(board.getValue(x, y) == 3) {
+					pawnsDark[j] = new DrawPawn(skin,3);
+					pawnsDark[j].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
+					stage.addActor(pawnsDark[j]);
+					++j;
 				}
 			}
 		}
