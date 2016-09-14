@@ -19,7 +19,7 @@ public class DrawCell extends Image {
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	        	if(board.canMove(getCell())) {
-	        		System.out.println("Moved pawn to position: [" + pos.x + "," + pos.y + "]");
+	        		System.out.println("Moved pawn to position: " + pos);
 	        		board.movePawn(getPosition(), pos.x, pos.y);
 	        		board.unselectPawn();
 	        	}

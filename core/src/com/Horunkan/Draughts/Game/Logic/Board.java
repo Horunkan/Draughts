@@ -45,10 +45,9 @@ public class Board {
 		if(activePawn == null) return false;
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
-			int distX = Math.abs(cellPos.x - activePawn.getBoardPosition().x);
-			int distY = Math.abs(cellPos.y - activePawn.getBoardPosition().y);
+			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			
-			if(distX == 1 && distY == 1) return true; //Across movement
+			if(distance.x == 1 && distance.y == 1) return true; //Across movement
 		}
 		
 		return false;

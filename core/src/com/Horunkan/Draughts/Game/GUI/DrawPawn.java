@@ -20,7 +20,7 @@ public class DrawPawn extends Image {
 		
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	        	System.out.println("Pressed pawn on position: [" + pos.x + "," + pos.y + "]");
+	        	System.out.println("Pressed pawn on position: " + pos);
 	        	
 	        	if(board.getPawn() == getPawn()) board.unselectPawn();
 	        	else {

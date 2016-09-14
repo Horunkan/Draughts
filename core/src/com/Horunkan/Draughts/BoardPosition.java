@@ -12,4 +12,13 @@ public class BoardPosition {
 		this.x = x;
 		this.y = y;
 	}
+	
+	public static BoardPosition getDistance(BoardPosition posA, BoardPosition posB) {
+		int distX = Math.abs(posA.x - posB.x);
+		int distY = Math.abs(posA.y - posB.y);
+		
+		return new BoardPosition(distX, distY);
+	}
+	
+	public String toString() { return "[" + x + "," + y + "]"; }
 }
