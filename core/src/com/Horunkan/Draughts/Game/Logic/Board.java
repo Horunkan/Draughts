@@ -1,5 +1,6 @@
 package com.Horunkan.Draughts.Game.Logic;
 
+import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -37,10 +38,19 @@ public class Board {
 		activePawn.setColor(Color.CYAN);
 	}
 	
+	public boolean canMove(DrawCell cell) {
+		if(activePawn == null) return false;
+		else if(board[cell.getBoardPositionX()][cell.getBoardPositionY()] == 0) return false;
+		
+		return true;
+	}
+	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
-		activePawn.setPosition(pos.x, pos.y);
-		board[activePawn.getBoardPositionX()][activePawn.getBoardPositionY()] = 0;
+		board[activePawn.getBoardPositionX()][activePawn.getBoardPositionY()] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
+		//System.out.println("Distance x: " + Math.abs(newPosX - activePawn.getBoardPositionX()));
+		//System.out.println("Distance y: " + Math.abs(newPosY - activePawn.getBoardPositionY()));
+		activePawn.setPosition(pos.x, pos.y);
 		activePawn.setPositionOnBoard(newPosX, newPosY);
 	}
 	
