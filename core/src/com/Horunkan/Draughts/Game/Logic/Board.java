@@ -1,5 +1,6 @@
 package com.Horunkan.Draughts.Game.Logic;
 
+import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
@@ -39,26 +40,25 @@ public class Board {
 	}
 	
 	public boolean canMove(DrawCell cell) {
-		int cellPosX = cell.getBoardPositionX();
-		int cellPosY = cell.getBoardPositionY();
-		int distX = Math.abs(cellPosX - activePawn.getBoardPositionX());
-		int distY = Math.abs(cellPosY - activePawn.getBoardPositionY());
-		
-		System.out.println(distX + "," + distY);
+		BoardPosition cellPos = cell.getBoardPosition();
 		
 		if(activePawn == null) return false;
-		else if(board[cellPosX][cellPosY] == 0) return false;
+		else if(board[cellPos.x][cellPos.y] == 0) return false;
+		else {
+			int distX = Math.abs(cellPos.x - activePawn.getBoardPosition().x);
+			int distY = Math.abs(cellPos.y - activePawn.getBoardPosition().y);
+			
+			if(distX == 1 && distY == 1) return true; //Across movement
+		}
 		
-		if(distX == 1 && distY == 1) return true; //Across movement
-				
 		return false;
 	}
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
-		board[activePawn.getBoardPositionX()][activePawn.getBoardPositionY()] = 1;
+		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
 		activePawn.setPosition(pos.x, pos.y);
-		activePawn.setPositionOnBoard(newPosX, newPosY);
+		activePawn.setBoardPosition(newPosX, newPosY);
 	}
 	
 	public void unselectPawn() {
