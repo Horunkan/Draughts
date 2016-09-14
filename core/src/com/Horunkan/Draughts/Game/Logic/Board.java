@@ -39,17 +39,24 @@ public class Board {
 	}
 	
 	public boolean canMove(DrawCell cell) {
-		if(activePawn == null) return false;
-		else if(board[cell.getBoardPositionX()][cell.getBoardPositionY()] == 0) return false;
+		int cellPosX = cell.getBoardPositionX();
+		int cellPosY = cell.getBoardPositionY();
+		int distX = Math.abs(cellPosX - activePawn.getBoardPositionX());
+		int distY = Math.abs(cellPosY - activePawn.getBoardPositionY());
 		
-		return true;
+		System.out.println(distX + "," + distY);
+		
+		if(activePawn == null) return false;
+		else if(board[cellPosX][cellPosY] == 0) return false;
+		
+		if(distX == 1 && distY == 1) return true; //Across movement
+				
+		return false;
 	}
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPositionX()][activePawn.getBoardPositionY()] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
-		//System.out.println("Distance x: " + Math.abs(newPosX - activePawn.getBoardPositionX()));
-		//System.out.println("Distance y: " + Math.abs(newPosY - activePawn.getBoardPositionY()));
 		activePawn.setPosition(pos.x, pos.y);
 		activePawn.setPositionOnBoard(newPosX, newPosY);
 	}
