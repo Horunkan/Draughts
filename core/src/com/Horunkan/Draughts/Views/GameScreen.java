@@ -74,13 +74,13 @@ public class GameScreen extends AbstractScreen {
 		for(int y = 0, i = 0, j = 0; y < board.getHeight(); ++y) {
 			for(int x = 0; x < board.getWidth(); ++x) {
 				if(board.getValue(x, y) == 2) {
-					pawnsBright[i] = new DrawPawn(skin,2, x, y);
+					pawnsBright[i] = new DrawPawn(skin, board, 2, x, y);
 					pawnsBright[i].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
 					stage.addActor(pawnsBright[i]);
 					++i;
 				}
 				else if(board.getValue(x, y) == 3) {
-					pawnsDark[j] = new DrawPawn(skin,3, x, y);
+					pawnsDark[j] = new DrawPawn(skin, board, 3, x, y);
 					pawnsDark[j].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
 					stage.addActor(pawnsDark[j]);
 					++j;

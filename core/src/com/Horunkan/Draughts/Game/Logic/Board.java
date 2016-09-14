@@ -1,11 +1,13 @@
 package com.Horunkan.Draughts.Game.Logic;
 
+import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class Board {
 	private int board[][];
 	private int boardWidth, boardHeight;
+	private DrawPawn activePawn = null;
 	
 	public Board() {
 		loadFromFile();
@@ -26,6 +28,14 @@ public class Board {
 				board[x][y] = Character.getNumericValue(lines[y].charAt(x));
 			}
 		}
+	}
+	
+	public void setActivePawn(DrawPawn pawn) {
+		activePawn = pawn;
+	}
+	
+	public void unselectPawn() {
+		activePawn = null;
 	}
 	
 	public int getWidth() { return boardWidth; }
