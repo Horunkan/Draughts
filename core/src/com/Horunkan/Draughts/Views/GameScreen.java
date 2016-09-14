@@ -63,7 +63,7 @@ public class GameScreen extends AbstractScreen {
 		
 		for(int y = 0; y < height; ++y) {
 			for(int x = 0; x < width; ++x) {
-				boardCells[x][y] = new DrawCell(skin, board.getValue(x, y));
+				boardCells[x][y] = new DrawCell(skin, board, board.getValue(x, y), x, y);
 				boardCellContainer.add(boardCells[x][y]).size(65);
 			}
 			boardCellContainer.row();

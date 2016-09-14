@@ -8,10 +8,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawPawn extends Image {
-	private int posX, posY;
+	private int posX, posY, pawnType;
 	
 	public DrawPawn(Skin skin, Board board, int pawnType, int posX, int posY) {
-		setPosition(posX, posY);
+		this.pawnType = pawnType;
+		setPositionOnBoard(posX, posY);
 		if(pawnType == 2) this.setDrawable(skin, "pawnBright");
 		else if(pawnType == 3) this.setDrawable(skin, "pawnDark");
 		this.setSize(65, 65);
@@ -30,10 +31,14 @@ public class DrawPawn extends Image {
 		});
 	}
 	
-	public void setPosition(int x, int y) {
+	public void setPositionOnBoard(int x, int y) {
 		posX = x;
 		posY = y;
 	}
+	
+	public int getBoardPositionX() { return posX; }
+	public int getBoardPositionY() { return posY; }
+	public int getPawnType() { return pawnType; }
 		
 	private DrawPawn getPawn() { return this; }
 }

@@ -4,6 +4,7 @@ import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 public class Board {
 	private int board[][];
@@ -34,6 +35,13 @@ public class Board {
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
 		activePawn.setColor(Color.CYAN);
+	}
+	
+	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
+		activePawn.setPosition(pos.x, pos.y);
+		board[activePawn.getBoardPositionX()][activePawn.getBoardPositionY()] = 0;
+		board[newPosX][newPosY] = activePawn.getPawnType();
+		activePawn.setPositionOnBoard(newPosX, newPosY);
 	}
 	
 	public void unselectPawn() {
