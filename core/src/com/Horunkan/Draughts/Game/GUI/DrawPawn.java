@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.Board;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

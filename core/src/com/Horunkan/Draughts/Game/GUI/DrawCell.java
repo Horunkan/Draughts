@@ -8,10 +8,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawCell extends Image {
-	private final int posX, posY, cellType;
+	private final int posX, posY;
 	
 	public DrawCell(Skin skin, Board board, int cellType, int posX, int posY) {
-		this.cellType = cellType;
 		this.posX = posX;
 		this.posY = posY;
 		if(cellType == 0) this.setDrawable(skin, "boardBright");
