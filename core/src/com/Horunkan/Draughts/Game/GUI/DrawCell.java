@@ -8,9 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawCell extends Image {
-	private final int posX, posY;
+	private final int posX, posY, cellType;
 	
 	public DrawCell(Skin skin, Board board, int cellType, int posX, int posY) {
+		this.cellType = cellType;
 		this.posX = posX;
 		this.posY = posY;
 		if(cellType == 0) this.setDrawable(skin, "boardBright");
@@ -18,7 +19,7 @@ public class DrawCell extends Image {
 		
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-	        	if(board.getPawn() != null) {
+	        	if(board.getPawn() != null && cellType != 0) {
 	        		System.out.println("Move pawn to position: [" + posX + "," + posY + "]");
 	        		board.movePawn(getPosition(), posX, posY);
 	        		board.unselectPawn();
