@@ -1,6 +1,7 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -18,7 +19,12 @@ public class DrawPawn extends Image {
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 	        	System.out.println("Pressed pawn on position: [" + posX + "," + posY + "]");
-	        	board.setActivePawn(DrawPawn.this);
+	        	
+	        	if(board.getPawn() == getPawn()) board.unselectPawn();
+	        	else {
+	        		if(board.getPawn() != null) board.unselectPawn();
+	        		board.setActivePawn(getPawn());
+	        	}
                 return false;
 	        }
 		});
@@ -28,4 +34,6 @@ public class DrawPawn extends Image {
 		posX = x;
 		posY = y;
 	}
+		
+	private DrawPawn getPawn() { return this; }
 }

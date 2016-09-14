@@ -3,6 +3,7 @@ package com.Horunkan.Draughts.Game.Logic;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 
 public class Board {
 	private int board[][];
@@ -32,11 +33,15 @@ public class Board {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
+		activePawn.setColor(Color.CYAN);
 	}
 	
 	public void unselectPawn() {
+		activePawn.setColor(Color.WHITE);
 		activePawn = null;
 	}
+	
+	public DrawPawn getPawn() { return activePawn; }
 	
 	public int getWidth() { return boardWidth; }
 	public int getHeight() { return boardHeight; }
