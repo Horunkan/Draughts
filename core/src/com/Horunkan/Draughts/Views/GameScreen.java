@@ -36,7 +36,7 @@ public class GameScreen extends AbstractScreen {
 		
 		loadPawnsGroups();
 		
-		board.debug(boardCells, pawnsBright, pawnsDark);
+		board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
 	
 	@Override
@@ -48,6 +48,7 @@ public class GameScreen extends AbstractScreen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
 		
 		stage.draw();
+		if(board.debug)board.renderDebug();
 	}
 	
 	private void loadTextures() {
