@@ -36,7 +36,8 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		activePawn.setColor(Color.CYAN);
+		if(!debug) activePawn.setColor(Color.CYAN);
+		else setColorDebug(true);
 	}
 	
 	public boolean canMove(DrawCell cell) {
@@ -61,7 +62,8 @@ public class Board extends BoardDebug {
 	}
 	
 	public void unselectPawn() {
-		activePawn.setColor(Color.WHITE);
+		if(!debug) activePawn.setColor(Color.WHITE);
+		else setColorDebug(false);
 		activePawn = null;
 	}
 	
