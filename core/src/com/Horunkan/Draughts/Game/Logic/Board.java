@@ -8,7 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
-public class Board {
+public class Board extends BoardDebug {
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;

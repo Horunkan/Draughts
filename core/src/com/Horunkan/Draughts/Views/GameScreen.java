@@ -35,6 +35,8 @@ public class GameScreen extends AbstractScreen {
 		boardCellContainer.validate();
 		
 		loadPawnsGroups();
+		
+		board.debug(boardCells, pawnsBright, pawnsDark);
 	}
 	
 	@Override
