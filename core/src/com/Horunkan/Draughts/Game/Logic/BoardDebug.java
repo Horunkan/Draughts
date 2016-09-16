@@ -49,94 +49,94 @@ public class BoardDebug {
 		else {
 			checkCaptures = 0;
 			highlightMovement();
-			highlightCaptures(board.getPawn().getBoardPosition().x, board.getPawn().getBoardPosition().y);
+			highlightCaptures(board.getPawn().getBoardPosition());
 		}
 	}
 	
-	private void highlightCaptures(int startPosX, int startPosY) {
-		if(canCaptureTopLeft(startPosX, startPosY)) {
-			boardCells[startPosX - 1][startPosY - 1].setColor(Color.BLUE);
-			boardCells[startPosX - 2][startPosY - 2].setColor(Color.GREEN);
+	private void highlightCaptures(BoardPosition pos/*int startPosX, int startPosY*/) {
+		if(canCaptureTopLeft(pos)) {
+			boardCells[pos.x - 1][pos.y - 1].setColor(Color.BLUE);
+			boardCells[pos.x - 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
 			
-			if(checkCaptures < maxCapturesCheck) highlightCaptures(startPosX - 2, startPosY - 2);
+			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y - 2));
 		}
 		
-		if(canCaptureTopRight(startPosX, startPosY)) {
-			boardCells[startPosX + 1][startPosY - 1].setColor(Color.BLUE);
-			boardCells[startPosX + 2][startPosY - 2].setColor(Color.GREEN);
+		if(canCaptureTopRight(pos)) {
+			boardCells[pos.x + 1][pos.y - 1].setColor(Color.BLUE);
+			boardCells[pos.x + 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
 			
-			if(checkCaptures < maxCapturesCheck) highlightCaptures(startPosX + 2, startPosY - 2);
+			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y - 2));
 		}
 		
-		if(canCaptureBottomLeft(startPosX, startPosY)) {
-			boardCells[startPosX - 1][startPosY + 1].setColor(Color.BLUE);
-			boardCells[startPosX - 2][startPosY + 2].setColor(Color.GREEN);
+		if(canCaptureBottomLeft(pos)) {
+			boardCells[pos.x - 1][pos.y + 1].setColor(Color.BLUE);
+			boardCells[pos.x - 2][pos.y + 2].setColor(Color.GREEN);
 			++checkCaptures;
 			
-			if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX - 2, startPosY + 2);
+			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y + 2));
 		}
 		
-		if(canCaptureBottomRight(startPosX, startPosY)) {
-			boardCells[startPosX + 1][startPosY + 1].setColor(Color.BLUE);
-			boardCells[startPosX + 2][startPosY + 2].setColor(Color.GREEN);
+		if(canCaptureBottomRight(pos)) {
+			boardCells[pos.x + 1][pos.y + 1].setColor(Color.BLUE);
+			boardCells[pos.x + 2][pos.y + 2].setColor(Color.GREEN);
 			++checkCaptures;
 			
-			if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX + 2, startPosY + 2);
+			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y + 2));
 		}
 	}
 	
-	private boolean canCaptureTopLeft(int x, int y) {
-		if(x > 0 && y > 0) {
+	private boolean canCaptureTopLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y > 0) {
 			int pawnValue = board.getPawn().getPawnType();
-			int cellValue = board.getValue(x - 1, y - 1);
+			int cellValue = board.getValue(pos.x - 1, pos.y - 1);
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
-				if(x - 2 >= 0 && y - 2 >= 0) {
-					if(board.getValue(x - 2, y - 2) == 1) return true;
+				if(pos.x - 2 >= 0 && pos.y - 2 >= 0) {
+					if(board.getValue(pos.x - 2, pos.y - 2) == 1) return true;
 				}
 			}
 		}
 		return false;
 	}
 	
-	private boolean canCaptureTopRight(int x, int y) {
-		if(x + 1 < board.getWidth() && y > 0) {
+	private boolean canCaptureTopRight(BoardPosition pos) {
+		if(pos.x + 1 < board.getWidth() && pos.y > 0) {
 			int pawnValue = board.getPawn().getPawnType();
-			int cellValue = board.getValue(x + 1, y - 1);
+			int cellValue = board.getValue(pos.x + 1, pos.y - 1);
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
-				if(x + 3 <= board.getWidth() && y - 2 >= 0) {
-					if(board.getValue(x + 2, y - 2) == 1) return true;
+				if(pos.x + 3 <= board.getWidth() && pos.y - 2 >= 0) {
+					if(board.getValue(pos.x + 2, pos.y - 2) == 1) return true;
 				}
 			}
 		}
 		return false;
 	}
 	
-	private boolean canCaptureBottomLeft(int x, int y) {
-		if(x > 0 && y + 1 < board.getHeight()) {
+	private boolean canCaptureBottomLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y + 1 < board.getHeight()) {
 			int pawnValue = board.getPawn().getPawnType();
-			int cellValue = board.getValue(x - 1, y + 1);
+			int cellValue = board.getValue(pos.x - 1, pos.y + 1);
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
-				if(x - 2 >= 0 && y + 3 <= board.getHeight()) {
-					if(board.getValue(x - 2, y + 2) == 1) return true;
+				if(pos.x - 2 >= 0 && pos.y + 3 <= board.getHeight()) {
+					if(board.getValue(pos.x - 2, pos.y + 2) == 1) return true;
 				}
 			}
 		}
 		return false;
 	}
 	
-	private boolean canCaptureBottomRight(int x, int y) {
-		if(x + 1 < board.getWidth() && y + 1 < board.getHeight()) {
+	private boolean canCaptureBottomRight(BoardPosition pos) {
+		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) {
 			int pawnValue = board.getPawn().getPawnType();
-			int cellValue = board.getValue(x + 1, y + 1);
+			int cellValue = board.getValue(pos.x + 1, pos.y + 1);
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
-				if(x + 3 <= board.getWidth() && y + 3 <= board.getHeight()) {
-					if(board.getValue(x + 2, y + 2) == 1) return true;
+				if(pos.x + 3 <= board.getWidth() && pos.y + 3 <= board.getHeight()) {
+					if(board.getValue(pos.x + 2, pos.y + 2) == 1) return true;
 				}
 			}
 		}
