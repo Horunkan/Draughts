@@ -2,6 +2,7 @@ package com.Horunkan.Draughts.Views;
 
 import com.Horunkan.Draughts.ButtonStyle;
 import com.Horunkan.Draughts.Draughts;
+import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,8 +20,8 @@ public class MainMenu extends AbstractScreen {
 	private Table buttonContainer;
 	private TextButton newGameButton, exitGameButton;
 	
-	public MainMenu() {
-		super();
+	public MainMenu(Draughts game) {
+		super(game);
 
 		createGameLogo();
 		createButtons();
@@ -60,7 +61,7 @@ public class MainMenu extends AbstractScreen {
 	private void createButtonsListeners() {
 		newGameButton.addListener(new ChangeListener() {
 			@Override public void changed (ChangeEvent event, Actor actor) {
-	           System.out.println("New Game");
+	           game.setScreen(ScreenMode.GAME);
 	        }
 	    });
 		
