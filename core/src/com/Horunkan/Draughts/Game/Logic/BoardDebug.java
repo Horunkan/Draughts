@@ -53,13 +53,7 @@ public class BoardDebug {
 	private void highlightMovement() {
 		BoardPosition pawnPosition = board.getPawn().getBoardPosition();
 		boardCells[pawnPosition.x][pawnPosition.y].setColor(Color.CYAN); //Highlight cell where pawn is selected
-		
-		//Highlight possible movement
-		if(pawnPosition.x > 0 && board.getValue(pawnPosition.x - 1, pawnPosition.y) == 0) boardCells[pawnPosition.x - 1][pawnPosition.y].setColor(Color.RED); //Left
-		if(pawnPosition.x + 1 < board.getWidth() && board.getValue(pawnPosition.x + 1, pawnPosition.y) == 0) boardCells[pawnPosition.x + 1][pawnPosition.y].setColor(Color.RED); //Right
-		if(pawnPosition.y > 0 && board.getValue(pawnPosition.x, pawnPosition.y - 1) == 0) boardCells[pawnPosition.x][pawnPosition.y - 1].setColor(Color.RED); //Up
-		if(pawnPosition.y + 1 < board.getHeight() && board.getValue(pawnPosition.x, pawnPosition.y + 1) == 0) boardCells[pawnPosition.x][pawnPosition.y + 1].setColor(Color.RED); //Down
-		
+				
 		if(pawnPosition.x > 0 && pawnPosition.y > 0) setCellCornerColor(-1, -1); //Top left
 		if(pawnPosition.x + 1 < board.getWidth() && pawnPosition.y > 0) setCellCornerColor(1, -1); //Top right
 		if(pawnPosition.x > 0 && pawnPosition.y + 1 < board.getHeight()) setCellCornerColor(-1, 1); //Bottom left
@@ -67,16 +61,15 @@ public class BoardDebug {
 	}
 	
 	private void setCellCornerColor(int changeX, int changeY) {
-		BoardPosition pawnPos = board.getPawn().getBoardPosition();
-		int val = board.getValue(pawnPos.x + changeX, pawnPos.y + changeY);
+		BoardPosition pawnPosition = board.getPawn().getBoardPosition();
+		int cellValue = board.getValue(pawnPosition.x + changeX, pawnPosition.y + changeY);
 		int pawnType = board.getPawn().getPawnType();
 		
-		if(val == 0) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.RED);
-		else if(val == 1) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.GREEN);
-		else if(val == 2 && pawnType == 2) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.RED);
-		else if(val == 2 && pawnType == 3) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.MAGENTA);
-		else if(val == 3 && pawnType == 3) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.RED);
-		else if(val == 3 && pawnType == 2) boardCells[pawnPos.x + changeX][pawnPos.y + changeY].setColor(Color.MAGENTA);
+		if(cellValue == 1) boardCells[pawnPosition.x + changeX][pawnPosition.y + changeY].setColor(Color.GREEN);
+		else if(cellValue == 2 && pawnType == 2) boardCells[pawnPosition.x + changeX][pawnPosition.y + changeY].setColor(Color.RED);
+		else if(cellValue == 2 && pawnType == 3) boardCells[pawnPosition.x + changeX][pawnPosition.y + changeY].setColor(Color.MAGENTA);
+		else if(cellValue == 3 && pawnType == 3) boardCells[pawnPosition.x + changeX][pawnPosition.y + changeY].setColor(Color.RED);
+		else if(cellValue == 3 && pawnType == 2) boardCells[pawnPosition.x + changeX][pawnPosition.y + changeY].setColor(Color.MAGENTA);
 	}
 	
 	private void drawBoardState() {
