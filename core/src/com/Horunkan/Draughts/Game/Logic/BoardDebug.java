@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Game.Logic;
 
 import com.Horunkan.Draughts.BoardPosition;
-import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.FontLoader;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
@@ -18,6 +17,8 @@ public class BoardDebug {
 	private Board board;
 	private SpriteBatch batch;
 	private BitmapFont font;
+	private int checkCaptures = 0;
+	private int maxCapturesCheck = 10;
 	
 	public void debug(GameScreen screen, Board board, DrawCell[][] cells, DrawPawn[] pawnsBright, DrawPawn[] pawnsDark) {
 		boardCells = cells;
@@ -45,7 +46,79 @@ public class BoardDebug {
 				for(DrawCell clx : cly) clx.setColor(Color.WHITE); //Reset cells color
 			}
 		}
-		else highlightMovement();
+		else {
+			checkCaptures = 0;
+			highlightMovement();
+			highlightCaptures(board.getPawn().getBoardPosition().x, board.getPawn().getBoardPosition().y);
+		}
+	}
+	
+	private void highlightCaptures(int startPosX, int startPosY) {
+		int pawnValue = board.getPawn().getPawnType();
+		
+		if(startPosX > 0 && startPosY > 0) { //Top left
+			int cellValue = board.getValue(startPosX - 1, startPosY - 1);
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(startPosX - 2 >= 0 && startPosY - 2 >= 0) {
+					if(board.getValue(startPosX - 2, startPosY - 2) == 1) {
+						boardCells[startPosX - 1][startPosY - 1].setColor(Color.BLUE);
+						boardCells[startPosX - 2][startPosY - 2].setColor(Color.GREEN);
+						++checkCaptures;
+						
+						if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX - 2, startPosY - 2);
+					}
+				}
+			}
+		}
+		
+		if(startPosX + 1 < board.getWidth() && startPosY > 0) { //Top right
+			int cellValue = board.getValue(startPosX + 1, startPosY - 1);
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(startPosX + 3 <= board.getWidth() && startPosY - 2 >= 0) {
+					if(board.getValue(startPosX + 2, startPosY - 2) == 1) {
+						boardCells[startPosX + 1][startPosY - 1].setColor(Color.BLUE);
+						boardCells[startPosX + 2][startPosY - 2].setColor(Color.GREEN);
+						++checkCaptures;
+						
+						if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX + 2, startPosY - 2);
+					}
+				}
+			}
+		}
+		
+		if(startPosX > 0 && startPosY + 1 < board.getHeight()) { //Bottom left
+			int cellValue = board.getValue(startPosX - 1, startPosY + 1);
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(startPosX - 2 >= 0 && startPosY + 3 <= board.getHeight()) {
+					if(board.getValue(startPosX - 2, startPosY + 2) == 1) {
+						boardCells[startPosX - 1][startPosY + 1].setColor(Color.BLUE);
+						boardCells[startPosX - 2][startPosY + 2].setColor(Color.GREEN);
+						++checkCaptures;
+						
+						if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX - 2, startPosY + 2);
+					}
+				}
+			}
+		}
+		
+		if(startPosX + 1 < board.getWidth() && startPosY + 1 < board.getHeight()) { //Bottom right
+			int cellValue = board.getValue(startPosX + 1, startPosY + 1);
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(startPosX + 3 <= board.getWidth() && startPosY + 3 <= board.getHeight()) {
+					if(board.getValue(startPosX + 2, startPosY + 2) == 1) {
+						boardCells[startPosX + 1][startPosY + 1].setColor(Color.BLUE);
+						boardCells[startPosX + 2][startPosY + 2].setColor(Color.GREEN);
+						++checkCaptures;
+						
+						if(checkCaptures < maxCapturesCheck)highlightCaptures(startPosX + 2, startPosY + 2);
+					}
+				}
+			}
+		}
 	}
 	
 	private void highlightMovement() {
@@ -63,9 +136,9 @@ public class BoardDebug {
 		
 		if(cellValue == 1) cell.setColor(Color.GREEN);
 		else if(cellValue == 2 && pawnType == 2) cell.setColor(Color.RED);
-		else if(cellValue == 2 && pawnType == 3) cell.setColor(Color.MAGENTA);
+		//else if(cellValue == 2 && pawnType == 3) cell.setColor(Color.MAGENTA);
 		else if(cellValue == 3 && pawnType == 3) cell.setColor(Color.RED);
-		else if(cellValue == 3 && pawnType == 2) cell.setColor(Color.MAGENTA);
+		//else if(cellValue == 3 && pawnType == 2) cell.setColor(Color.MAGENTA);
 	}
 		
 	private void drawBoardState() {
