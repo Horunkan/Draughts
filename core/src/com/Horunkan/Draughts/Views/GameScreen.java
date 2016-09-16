@@ -48,7 +48,7 @@ public class GameScreen extends AbstractScreen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
 		
 		stage.draw();
-		if(board.debug)board.renderDebug();
+		if(Draughts.debug)board.renderDebug();
 	}
 	
 	private void loadTextures() {

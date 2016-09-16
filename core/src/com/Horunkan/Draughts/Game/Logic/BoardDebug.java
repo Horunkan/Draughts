@@ -1,6 +1,7 @@
 package com.Horunkan.Draughts.Game.Logic;
 
 import com.Horunkan.Draughts.BoardPosition;
+import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.FontLoader;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
@@ -10,8 +11,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class BoardDebug {
-	public boolean debug = false;
-	
 	protected DrawCell[][] boardCells;
 	protected DrawPawn[] pawnsBright, pawnsDark;
 	protected GameScreen screen;
@@ -21,7 +20,6 @@ public class BoardDebug {
 	private BitmapFont font;
 	
 	public void debug(GameScreen screen, Board board, DrawCell[][] cells, DrawPawn[] pawnsBright, DrawPawn[] pawnsDark) {
-		debug = true;
 		boardCells = cells;
 		this.pawnsBright = pawnsBright;
 		this.pawnsDark = pawnsDark;

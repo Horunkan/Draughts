@@ -1,6 +1,7 @@
 package com.Horunkan.Draughts.Game.Logic;
 
 import com.Horunkan.Draughts.BoardPosition;
+import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.badlogic.gdx.Gdx;
@@ -36,7 +37,7 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		if(!debug) activePawn.setColor(Color.CYAN);
+		if(!Draughts.debug) activePawn.setColor(Color.CYAN);
 		else setColorDebug(true);
 	}
 	
@@ -62,7 +63,7 @@ public class Board extends BoardDebug {
 	}
 	
 	public void unselectPawn() {
-		if(!debug) activePawn.setColor(Color.WHITE);
+		if(!Draughts.debug) activePawn.setColor(Color.WHITE);
 		else setColorDebug(false);
 		activePawn = null;
 	}
