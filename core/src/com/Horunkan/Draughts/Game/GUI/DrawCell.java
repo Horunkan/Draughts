@@ -2,6 +2,7 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.Horunkan.Draughts.Game.Logic.Board.CaptureDirection;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -32,13 +33,17 @@ public class DrawCell extends Image {
     		board.movePawn(getPosition(), pos.x, pos.y);
     		board.unselectPawn();
     	}
-		else if(board.canCapture()) {
-			//System.out.println("Pawn captured and moved to position: " + pos);
-			board.movePawn(getPosition(), pos.x, pos.y);
-			if(!board.canCapture()) board.unselectPawn();
-			board.updatePawnColor();
-		}
-		
+		else {
+			CaptureDirection dir = board.canCapture();
+			
+			if(dir != CaptureDirection.NO_CAPTURE) {
+				//System.out.println("Pawn captured and moved to position: " + pos);
+				board.movePawn(getPosition(), pos.x, pos.y);
+				board.capture(dir);
+				if(board.canCapture() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
+				board.updatePawnColor();
+			}
+		}		
 		return false;
 	}
 }

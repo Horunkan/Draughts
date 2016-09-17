@@ -54,17 +54,30 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
-	public boolean canCapture() {
-		if(activePawn == null) return false;
+	
+	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	
+	public CaptureDirection canCapture() {
+		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
 		
 		BoardPosition pawnPos = activePawn.getBoardPosition();
 		
-		if(canCaptureTopLeft(pawnPos)) return true;
-		if(canCaptureTopRight(pawnPos)) return true;
-		if(canCaptureBottomLeft(pawnPos)) return true;
-		if(canCaptureBottomRight(pawnPos)) return true;
+		if(canCaptureTopLeft(pawnPos)) return CaptureDirection.TOP_LEFT;
+		if(canCaptureTopRight(pawnPos)) return CaptureDirection.TOP_RIGHT;
+		if(canCaptureBottomLeft(pawnPos)) return CaptureDirection.BOTTOM_LEFT;
+		if(canCaptureBottomRight(pawnPos)) return CaptureDirection.BOTTOM_RIGHT;
 		
-		return false;
+		return CaptureDirection.NO_CAPTURE;
+	}
+	
+	//TODO Remove captured pawn image from arena
+	public void capture(CaptureDirection dir) {
+		BoardPosition pos = activePawn.getBoardPosition();
+		
+		if(dir == CaptureDirection.TOP_LEFT) board[pos.x + 1][pos.y + 1] = 1;
+		else if(dir == CaptureDirection.TOP_RIGHT) board[pos.x - 1][pos.y + 1] = 1;
+		else if(dir == CaptureDirection.BOTTOM_LEFT) board[pos.x + 1][pos.y - 1] = 1;
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) board[pos.x - 1][pos.y - 1] = 1;
 	}
 	
 	//TODO Separate canCapture.... to different class
