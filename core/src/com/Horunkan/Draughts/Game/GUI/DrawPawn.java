@@ -50,7 +50,9 @@ public class DrawPawn extends Image {
 		
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
-	public int getPawnType() { return type.ordinal() + 2; }
+	public int getPawnTypeInt() { return type.ordinal() + 2; }
+	
+	public PawnType getPawnType() { return type; }
 		
 	private DrawPawn getPawn() { return this; }
 }

@@ -79,7 +79,7 @@ public class Board extends BoardDebug {
 	public void capture(CaptureDirection dir) {
 		if(dir == CaptureDirection.TOP_LEFT) removePawn(1, 1);
 		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(-1, 1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(+1, 1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(1, -1);
 		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(-1, -1);
 	}
 	
@@ -92,7 +92,7 @@ public class Board extends BoardDebug {
 	//TODO Separate canCapture.... to different class
 	public boolean canCaptureTopLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y > 0) {
-			int pawnValue = activePawn.getPawnType();
+			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x - 1][pos.y - 1];
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
@@ -106,7 +106,7 @@ public class Board extends BoardDebug {
 	
 	public boolean canCaptureTopRight(BoardPosition pos) {
 		if(pos.x + 1 < getWidth() && pos.y > 0) {
-			int pawnValue = activePawn.getPawnType();
+			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x + 1][pos.y - 1];
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
@@ -120,7 +120,7 @@ public class Board extends BoardDebug {
 	
 	public boolean canCaptureBottomLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y + 1 < getHeight()) {
-			int pawnValue = activePawn.getPawnType();
+			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x - 1][pos.y + 1];
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
@@ -134,7 +134,7 @@ public class Board extends BoardDebug {
 	
 	public boolean canCaptureBottomRight(BoardPosition pos) {
 		if(pos.x + 1 < getWidth() && pos.y + 1 < getHeight()) {
-			int pawnValue = activePawn.getPawnType();
+			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x + 1][pos.y + 1];
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
@@ -148,7 +148,7 @@ public class Board extends BoardDebug {
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnType();
+		board[newPosX][newPosY] = activePawn.getPawnTypeInt();
 		activePawn.setPosition(pos.x, pos.y);
 		activePawn.setBoardPosition(newPosX, newPosY);
 	}

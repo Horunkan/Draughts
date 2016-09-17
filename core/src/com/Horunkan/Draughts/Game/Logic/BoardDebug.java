@@ -4,6 +4,7 @@ import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.FontLoader;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.Logic.Board.PawnType;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -97,14 +98,9 @@ public class BoardDebug {
 		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1)); //Bottom right
 	}
 	
-	private void setCellCornerColor(DrawCell cell, int cellValue) {
-		int pawnType = board.getPawn().getPawnType();
-		
+	private void setCellCornerColor(DrawCell cell, int cellValue) {	
 		if(cellValue == 1) cell.setColor(Color.GREEN);
-		else if(cellValue == 2 && pawnType == 2) cell.setColor(Color.RED);
-		else if(cellValue == 2 && pawnType == 3) cell.setColor(Color.RED);
-		else if(cellValue == 3 && pawnType == 3) cell.setColor(Color.RED);
-		else if(cellValue == 3 && pawnType == 2) cell.setColor(Color.RED);
+		else cell.setColor(Color.RED);
 	}
 		
 	private void drawBoardState() {
