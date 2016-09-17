@@ -4,6 +4,7 @@ import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -13,8 +14,10 @@ public class Board extends BoardDebug {
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
+	private GameScreen screen;
 	
-	public Board() {
+	public Board(GameScreen screen) {
+		this.screen = screen;
 		loadFromFile();
 	}
 	
@@ -74,10 +77,22 @@ public class Board extends BoardDebug {
 	public void capture(CaptureDirection dir) {
 		BoardPosition pos = activePawn.getBoardPosition();
 		
-		if(dir == CaptureDirection.TOP_LEFT) board[pos.x + 1][pos.y + 1] = 1;
-		else if(dir == CaptureDirection.TOP_RIGHT) board[pos.x - 1][pos.y + 1] = 1;
-		else if(dir == CaptureDirection.BOTTOM_LEFT) board[pos.x + 1][pos.y - 1] = 1;
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) board[pos.x - 1][pos.y - 1] = 1;
+		if(dir == CaptureDirection.TOP_LEFT) {
+			board[pos.x + 1][pos.y + 1] = 1;
+			screen.removePawn(pos.x + 1, pos.y + 1);
+		}
+		else if(dir == CaptureDirection.TOP_RIGHT) {
+			board[pos.x - 1][pos.y + 1] = 1;
+			screen.removePawn(pos.x - 1, pos.y + 1);
+		}
+		else if(dir == CaptureDirection.BOTTOM_LEFT) {
+			board[pos.x + 1][pos.y - 1] = 1;
+			screen.removePawn(pos.x + 1, pos.y - 1);
+		}
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) {
+			board[pos.x - 1][pos.y - 1] = 1;
+			screen.removePawn(pos.x - 1, pos.y - 1);
+		}
 	}
 	
 	//TODO Separate canCapture.... to different class

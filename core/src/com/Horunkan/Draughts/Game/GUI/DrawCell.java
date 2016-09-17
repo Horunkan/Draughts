@@ -29,7 +29,7 @@ public class DrawCell extends Image {
 	
 	private boolean touched() {
 		if(board.canMove(this)) {
-    		//System.out.println("Moved pawn to position: " + pos);
+    		System.out.println("Moved pawn to position: " + pos);
     		board.movePawn(getPosition(), pos.x, pos.y);
     		board.unselectPawn();
     	}
@@ -37,7 +37,7 @@ public class DrawCell extends Image {
 			CaptureDirection dir = board.canCapture();
 			
 			if(dir != CaptureDirection.NO_CAPTURE) {
-				//System.out.println("Pawn captured and moved to position: " + pos);
+				System.out.println("Pawn captured and moved to position: " + pos);
 				board.movePawn(getPosition(), pos.x, pos.y);
 				board.capture(dir);
 				if(board.canCapture() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
