@@ -60,6 +60,9 @@ public class Board extends BoardDebug {
 	
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
 	
+	
+	public enum PawnType {PLAYER_A, PLAYER_B}
+	
 	public CaptureDirection getCaptureDirection() {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
 		
