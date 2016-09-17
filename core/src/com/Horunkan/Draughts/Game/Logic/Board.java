@@ -45,6 +45,22 @@ public class Board extends BoardDebug {
 		updatePawnColor();
 	}
 	
+	public void unselectPawn() {
+		activePawn = null;
+		updatePawnColor();
+	}
+	
+	public void updatePawnColor() {
+		if(!Draughts.debug) {
+			if(activePawn == null) activePawn.setColor(Color.WHITE);
+			else activePawn.setColor(Color.CYAN);
+		}
+		else {
+			 setColorDebug(false);
+			 if(activePawn != null) setColorDebug(true);
+		}
+	}
+	
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
@@ -54,6 +70,28 @@ public class Board extends BoardDebug {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(distance.x == 1 && distance.y == 1) return true; //Across movement
 			else if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
+		}
+		
+		return false;
+	}
+	
+	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
+		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
+		board[newPosX][newPosY] = activePawn.getPawnType();
+		activePawn.setPosition(pos.x, pos.y);
+		activePawn.setBoardPosition(newPosX, newPosY);
+	}
+	
+	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
+		int pawnValue = activePawn.getPawnType();
+		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
+		
+		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
+		else if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(cellToMove.x, cellToMove.y);
+			
+			if(cellValueToMove == 1) return true;
+			else return false;
 		}
 		
 		return false;
@@ -84,46 +122,7 @@ public class Board extends BoardDebug {
 		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
 	
-	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
-		int pawnValue = activePawn.getPawnType();
-		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
-		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		else if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(cellToMove.x, cellToMove.y);
-			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
-		
-		return false;
-	}
-	
-	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
-		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnType();
-		activePawn.setPosition(pos.x, pos.y);
-		activePawn.setBoardPosition(newPosX, newPosY);
-	}
-	
-	public void unselectPawn() {
-		activePawn = null;
-		updatePawnColor();
-	}
-	
-	public void updatePawnColor() {
-		if(!Draughts.debug) {
-			if(activePawn == null) activePawn.setColor(Color.WHITE);
-			else activePawn.setColor(Color.CYAN);
-		}
-		else {
-			 setColorDebug(false);
-			 if(activePawn != null) setColorDebug(true);
-		}
-	}
-	
 	public DrawPawn getPawn() { return activePawn; }
-	
 	public int getWidth() { return boardWidth; }
 	public int getHeight() { return boardHeight; }
 	

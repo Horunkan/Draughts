@@ -1,8 +1,7 @@
 package com.Horunkan.Draughts;
 
 public class BoardPosition {
-	public int x = 0;
-	public int y = 0;
+	public int x , y;
 	
 	public BoardPosition(int x, int y) {
 		setPosition(x, y);

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class BoardDebug {
+public abstract class BoardDebug {
 	protected DrawCell[][] boardCells;
 	protected DrawPawn[] pawnsBright, pawnsDark;
 	protected GameScreen screen;
@@ -40,6 +40,14 @@ public class BoardDebug {
 		batch.end();
 	}
 	
+	private void drawBoardState() {
+		for(int y = 0; y < board.getHeight(); ++y) {
+			for(int x = 0; x < board.getWidth(); ++x) {
+				font.draw(batch, Integer.toString(board.getValue(x, y)), boardCells[x][y].getPosition().x + 2, boardCells[x][y].getPosition().y + 63);
+			}
+		}
+	}
+	
 	protected void setColorDebug(boolean selectedPawn) {
 		if(!selectedPawn) {
 			for(DrawCell cly[] : boardCells) {
@@ -51,6 +59,21 @@ public class BoardDebug {
 			highlightMovement();
 			highlightCaptures(board.getPawn().getBoardPosition());
 		}
+	}
+	
+	private void highlightMovement() {
+		BoardPosition pos = board.getPawn().getBoardPosition();
+		boardCells[pos.x][pos.y].setColor(Color.CYAN); //Highlight cell where pawn is selected
+		
+		if(pos.x > 0 && pos.y > 0) setCellCornerColor(boardCells[pos.x - 1][pos.y - 1], board.getValue(pos.x - 1, pos.y - 1)); //Top left
+		if(pos.x + 1 < board.getWidth() && pos.y > 0) setCellCornerColor(boardCells[pos.x + 1][pos.y - 1], board.getValue(pos.x + 1, pos.y - 1)); //Top right
+		if(pos.x > 0 && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x - 1][pos.y + 1], board.getValue(pos.x - 1, pos.y + 1)); //Bottom left
+		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1)); //Bottom right
+	}
+	
+	private void setCellCornerColor(DrawCell cell, int cellValue) {	
+		if(cellValue == 1) cell.setColor(Color.GREEN);
+		else cell.setColor(Color.RED);
 	}
 	
 	private void highlightCaptures(BoardPosition pos) {
@@ -101,28 +124,5 @@ public class BoardDebug {
 	
 	private boolean canCaptureBottomRight(BoardPosition pos) {
 		return board.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2));
-	}
-	
-	private void highlightMovement() {
-		BoardPosition pos = board.getPawn().getBoardPosition();
-		boardCells[pos.x][pos.y].setColor(Color.CYAN); //Highlight cell where pawn is selected
-		
-		if(pos.x > 0 && pos.y > 0) setCellCornerColor(boardCells[pos.x - 1][pos.y - 1], board.getValue(pos.x - 1, pos.y - 1)); //Top left
-		if(pos.x + 1 < board.getWidth() && pos.y > 0) setCellCornerColor(boardCells[pos.x + 1][pos.y - 1], board.getValue(pos.x + 1, pos.y - 1)); //Top right
-		if(pos.x > 0 && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x - 1][pos.y + 1], board.getValue(pos.x - 1, pos.y + 1)); //Bottom left
-		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1)); //Bottom right
-	}
-	
-	private void setCellCornerColor(DrawCell cell, int cellValue) {	
-		if(cellValue == 1) cell.setColor(Color.GREEN);
-		else cell.setColor(Color.RED);
-	}
-		
-	private void drawBoardState() {
-		for(int y = 0; y < board.getHeight(); ++y) {
-			for(int x = 0; x < board.getWidth(); ++x) {
-				font.draw(batch, Integer.toString(board.getValue(x, y)), boardCells[x][y].getPosition().x + 2, boardCells[x][y].getPosition().y + 63);
-			}
-		}
 	}
 }

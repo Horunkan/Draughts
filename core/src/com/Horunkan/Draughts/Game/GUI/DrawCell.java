@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawCell extends Image {
 	private final BoardPosition pos;
-	private Board board;
+	private final Board board;
 	
 	public DrawCell(Skin skin, Board board, int cellType, int posX, int posY) {
 		pos = new BoardPosition(posX, posY);
@@ -24,9 +24,6 @@ public class DrawCell extends Image {
 		});
 	}
 	
-	public Vector2 getPosition() { return this.localToParentCoordinates(new Vector2(0,0)); }	
-	public BoardPosition getBoardPosition() { return pos; }
-	
 	private boolean touched() {
 		if(board.canMove(this)) {
 			System.out.print("Moved pawn to position: " + pos);
@@ -36,11 +33,16 @@ public class DrawCell extends Image {
 			if(dir != CaptureDirection.NO_CAPTURE) {
 				System.out.print(" - CAPTURED");
 				board.capture(dir);
+				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
 			}
-			if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
+			else board.unselectPawn();
+			
 			board.updatePawnColor();
 			System.out.print("\n");
     	}		
 		return false;
 	}
+	
+	public Vector2 getPosition() { return this.localToParentCoordinates(new Vector2(0,0)); }	
+	public BoardPosition getBoardPosition() { return pos; }
 }
