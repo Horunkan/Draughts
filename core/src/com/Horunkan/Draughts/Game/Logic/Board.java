@@ -4,6 +4,7 @@ import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -13,13 +14,15 @@ public class Board extends BoardDebug {
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
+	private GameScreen screen;
 	
-	public Board() {
+	public Board(GameScreen screen) {
+		this.screen = screen;
 		loadFromFile();
 	}
 	
 	private void loadFromFile() {
-		FileHandle file = Gdx.files.internal("Boards/8x8.txt");
+		FileHandle file = Gdx.files.internal("Boards/CapturesDebug.txt"); //8x8.txt
 		String lines[] = file.readString().split(" #END");
 		for(int i = 0; i < lines.length; ++i) lines[i] = lines[i].replaceAll("\\s", ""); //Remove white chars
 		
@@ -37,8 +40,7 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		if(!Draughts.debug) activePawn.setColor(Color.CYAN);
-		else setColorDebug(true);
+		updatePawnColor();
 	}
 	
 	public boolean canMove(DrawCell cell) {
@@ -55,6 +57,101 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
+	
+	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	
+	public CaptureDirection canCapture() {
+		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
+		
+		BoardPosition pawnPos = activePawn.getBoardPosition();
+		
+		if(canCaptureTopLeft(pawnPos)) return CaptureDirection.TOP_LEFT;
+		if(canCaptureTopRight(pawnPos)) return CaptureDirection.TOP_RIGHT;
+		if(canCaptureBottomLeft(pawnPos)) return CaptureDirection.BOTTOM_LEFT;
+		if(canCaptureBottomRight(pawnPos)) return CaptureDirection.BOTTOM_RIGHT;
+		
+		return CaptureDirection.NO_CAPTURE;
+	}
+	
+	//TODO Remove captured pawn image from arena
+	public void capture(CaptureDirection dir) {
+		BoardPosition pos = activePawn.getBoardPosition();
+		
+		if(dir == CaptureDirection.TOP_LEFT) {
+			board[pos.x + 1][pos.y + 1] = 1;
+			screen.removePawn(pos.x + 1, pos.y + 1);
+		}
+		else if(dir == CaptureDirection.TOP_RIGHT) {
+			board[pos.x - 1][pos.y + 1] = 1;
+			screen.removePawn(pos.x - 1, pos.y + 1);
+		}
+		else if(dir == CaptureDirection.BOTTOM_LEFT) {
+			board[pos.x + 1][pos.y - 1] = 1;
+			screen.removePawn(pos.x + 1, pos.y - 1);
+		}
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) {
+			board[pos.x - 1][pos.y - 1] = 1;
+			screen.removePawn(pos.x - 1, pos.y - 1);
+		}
+	}
+	
+	//TODO Separate canCapture.... to different class
+	private boolean canCaptureTopLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y > 0) {
+			int pawnValue = activePawn.getPawnType();
+			int cellValue = board[pos.x - 1][pos.y - 1];
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(pos.x - 2 >= 0 && pos.y - 2 >= 0) {
+					if(board[pos.x - 2][pos.y - 2] == 1) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean canCaptureTopRight(BoardPosition pos) {
+		if(pos.x + 1 < getWidth() && pos.y > 0) {
+			int pawnValue = activePawn.getPawnType();
+			int cellValue = board[pos.x + 1][pos.y - 1];
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(pos.x + 3 <= getWidth() && pos.y - 2 >= 0) {
+					if(board[pos.x + 2][pos.y - 2] == 1) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean canCaptureBottomLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y + 1 < getHeight()) {
+			int pawnValue = activePawn.getPawnType();
+			int cellValue = board[pos.x - 1][pos.y + 1];
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(pos.x - 2 >= 0 && pos.y + 3 <= getHeight()) {
+					if(board[pos.x - 2][pos.y + 2] == 1) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean canCaptureBottomRight(BoardPosition pos) {
+		if(pos.x + 1 < getWidth() && pos.y + 1 < getHeight()) {
+			int pawnValue = activePawn.getPawnType();
+			int cellValue = board[pos.x + 1][pos.y + 1];
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(pos.x + 3 <= getWidth() && pos.y + 3 <= getHeight()) {
+					if(board[pos.x + 2][pos.y + 2] == 1) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
@@ -63,9 +160,19 @@ public class Board extends BoardDebug {
 	}
 	
 	public void unselectPawn() {
-		if(!Draughts.debug) activePawn.setColor(Color.WHITE);
-		else setColorDebug(false);
 		activePawn = null;
+		updatePawnColor();
+	}
+	
+	public void updatePawnColor() {
+		if(!Draughts.debug) {
+			if(activePawn == null) activePawn.setColor(Color.WHITE);
+			else activePawn.setColor(Color.CYAN);
+		}
+		else {
+			 setColorDebug(false);
+			 if(activePawn != null) setColorDebug(true);
+		}
 	}
 	
 	public DrawPawn getPawn() { return activePawn; }

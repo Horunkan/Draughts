@@ -25,7 +25,7 @@ public class GameScreen extends AbstractScreen {
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
-		board = new Board();
+		board = new Board(this);
 		loadBoard();
 		
 		pawnsBright = new DrawPawn[board.countPawns(2)];
@@ -37,6 +37,21 @@ public class GameScreen extends AbstractScreen {
 		loadPawnsGroups();
 		
 		board.debug(this, board, boardCells, pawnsBright, pawnsDark);
+	}
+	
+	public void removePawn(int x, int y) {
+		for(DrawPawn pawn : pawnsBright) {
+			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
+				pawn.remove();
+				break;
+			}
+		}
+		for(DrawPawn pawn : pawnsDark) {
+			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
+				pawn.remove();
+				break;
+			}
+		}
 	}
 	
 	@Override
