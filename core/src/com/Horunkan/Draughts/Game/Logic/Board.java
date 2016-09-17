@@ -52,15 +52,12 @@ public class Board extends BoardDebug {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			
 			if(distance.x == 1 && distance.y == 1) return true; //Across movement
+			else if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
 	}
-	
-	
-	public enum PawnType {PLAYER_A, PLAYER_B}
 	
 	public CaptureDirection getCaptureDirection() {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
@@ -88,7 +85,7 @@ public class Board extends BoardDebug {
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
-		int pawnValue = activePawn.getPawnTypeInt();
+		int pawnValue = activePawn.getPawnType();
 		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
 		
 		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
@@ -104,7 +101,7 @@ public class Board extends BoardDebug {
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnTypeInt();
+		board[newPosX][newPosY] = activePawn.getPawnType();
 		activePawn.setPosition(pos.x, pos.y);
 		activePawn.setBoardPosition(newPosX, newPosY);
 	}
