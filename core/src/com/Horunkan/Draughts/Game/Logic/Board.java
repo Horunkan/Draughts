@@ -59,8 +59,8 @@ public class Board extends BoardDebug {
 		
 		BoardPosition pawnPos = activePawn.getBoardPosition();
 		
-		//if(canCaptureTopLeft(pawnPos)) return true;
-		//if(canCaptureTopRight(pawnPos)) return true;
+		if(canCaptureTopLeft(pawnPos)) return true;
+		if(canCaptureTopRight(pawnPos)) return true;
 		if(canCaptureBottomLeft(pawnPos)) return true;
 		if(canCaptureBottomRight(pawnPos)) return true;
 		
@@ -99,7 +99,6 @@ public class Board extends BoardDebug {
 	private boolean canCaptureBottomLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y + 1 < getHeight()) {
 			int pawnValue = activePawn.getPawnType();
-			//int cellValue = board.getValue(pos.x - 1, pos.y + 1);
 			int cellValue = board[pos.x - 1][pos.y + 1];
 			
 			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {

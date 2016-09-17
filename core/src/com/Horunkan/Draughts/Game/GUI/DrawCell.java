@@ -28,12 +28,12 @@ public class DrawCell extends Image {
 	
 	private boolean touched() {
 		if(board.canMove(this)) {
-    		System.out.println("Moved pawn to position: " + pos);
+    		//System.out.println("Moved pawn to position: " + pos);
     		board.movePawn(getPosition(), pos.x, pos.y);
     		board.unselectPawn();
     	}
 		else if(board.canCapture()) {
-			System.out.println("Pawn captured and moved to position: " + pos);
+			//System.out.println("Pawn captured and moved to position: " + pos);
 			board.movePawn(getPosition(), pos.x, pos.y);
 			if(!board.canCapture()) board.unselectPawn();
 			board.updatePawnColor();
