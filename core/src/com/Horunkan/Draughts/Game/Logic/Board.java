@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 public class Board extends BoardDebug {
+	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
@@ -58,21 +60,17 @@ public class Board extends BoardDebug {
 	}
 	
 	
-	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
-	
-	
 	public enum PawnType {PLAYER_A, PLAYER_B}
 	
 	public CaptureDirection getCaptureDirection() {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
+		BoardPosition pos = activePawn.getBoardPosition();
 		
-		BoardPosition pawnPos = activePawn.getBoardPosition();
-		
-		if(canCaptureTopLeft(pawnPos)) return CaptureDirection.TOP_LEFT;
-		if(canCaptureTopRight(pawnPos)) return CaptureDirection.TOP_RIGHT;
-		if(canCaptureBottomLeft(pawnPos)) return CaptureDirection.BOTTOM_LEFT;
-		if(canCaptureBottomRight(pawnPos)) return CaptureDirection.BOTTOM_RIGHT;
-		
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
+				
 		return CaptureDirection.NO_CAPTURE;
 	}
 	
@@ -89,64 +87,18 @@ public class Board extends BoardDebug {
 		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
 	
-	//TODO Separate canCapture.... to different class
-	public boolean canCaptureTopLeft(BoardPosition pos) {
+	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
 		int pawnValue = activePawn.getPawnTypeInt();
-		int cellValueToCheck = getValue(pos.x - 1, pos.y - 1);
+		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
 		
 		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		
-		if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(pos.x - 2, pos.y - 2);
+		else if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(cellToMove.x, cellToMove.y);
 			
 			if(cellValueToMove == 1) return true;
 			else return false;
 		}
-		return false;
-	}
-	
-	public boolean canCaptureTopRight(BoardPosition pos) {
-		int pawnValue = activePawn.getPawnTypeInt();
-		int cellValueToCheck = getValue(pos.x + 1, pos.y - 1);
 		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		
-		if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(pos.x + 2, pos.y - 2);
-			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
-		return false;
-	}
-	
-	public boolean canCaptureBottomLeft(BoardPosition pos) {
-		int pawnValue = activePawn.getPawnTypeInt();
-		int cellValueToCheck = getValue(pos.x - 1, pos.y + 1);
-		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		
-		if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(pos.x - 2, pos.y + 2);
-			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
-		return false;
-	}
-	
-	public boolean canCaptureBottomRight(BoardPosition pos) {
-		int pawnValue = activePawn.getPawnTypeInt();
-		int cellValueToCheck = getValue(pos.x + 1, pos.y + 1);
-		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		
-		if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(pos.x + 2, pos.y + 2);
-			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
 		return false;
 	}
 	

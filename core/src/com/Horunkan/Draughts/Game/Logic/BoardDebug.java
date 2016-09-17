@@ -4,7 +4,6 @@ import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.FontLoader;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
-import com.Horunkan.Draughts.Game.Logic.Board.PawnType;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -54,8 +53,8 @@ public class BoardDebug {
 		}
 	}
 	
-	private void highlightCaptures(BoardPosition pos/*int startPosX, int startPosY*/) {
-		if(board.canCaptureTopLeft(pos)) {
+	private void highlightCaptures(BoardPosition pos) {
+		if(canCaptureTopLeft(pos)) {
 			boardCells[pos.x - 1][pos.y - 1].setColor(Color.BLUE);
 			boardCells[pos.x - 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
@@ -63,7 +62,7 @@ public class BoardDebug {
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y - 2));
 		}
 		
-		if(board.canCaptureTopRight(pos)) {
+		if(canCaptureTopRight(pos)) {
 			boardCells[pos.x + 1][pos.y - 1].setColor(Color.BLUE);
 			boardCells[pos.x + 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
@@ -71,7 +70,7 @@ public class BoardDebug {
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y - 2));
 		}
 		
-		if(board.canCaptureBottomLeft(pos)) {
+		if(canCaptureBottomLeft(pos)) {
 			boardCells[pos.x - 1][pos.y + 1].setColor(Color.BLUE);
 			boardCells[pos.x - 2][pos.y + 2].setColor(Color.GREEN);
 			++checkCaptures;
@@ -79,13 +78,29 @@ public class BoardDebug {
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y + 2));
 		}
 		
-		if(board.canCaptureBottomRight(pos)) {
+		if(canCaptureBottomRight(pos)) {
 			boardCells[pos.x + 1][pos.y + 1].setColor(Color.BLUE);
 			boardCells[pos.x + 2][pos.y + 2].setColor(Color.GREEN);
 			++checkCaptures;
 			
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y + 2));
 		}
+	}
+	
+	private boolean canCaptureTopLeft(BoardPosition pos) {
+		return board.canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2));
+	}
+	
+	private boolean canCaptureTopRight(BoardPosition pos) {
+		return board.canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2));
+	}
+	
+	private boolean canCaptureBottomLeft(BoardPosition pos) {
+		return board.canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2));
+	}
+	
+	private boolean canCaptureBottomRight(BoardPosition pos) {
+		return board.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2));
 	}
 	
 	private void highlightMovement() {
