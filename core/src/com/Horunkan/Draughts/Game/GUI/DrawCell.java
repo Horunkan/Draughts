@@ -34,13 +34,13 @@ public class DrawCell extends Image {
     		board.unselectPawn();
     	}
 		else {
-			CaptureDirection dir = board.canCapture();
+			CaptureDirection dir = board.getCaptureDirection();
 			
 			if(dir != CaptureDirection.NO_CAPTURE) {
 				System.out.println("Pawn captured and moved to position: " + pos);
 				board.movePawn(getPosition(), pos.x, pos.y);
 				board.capture(dir);
-				if(board.canCapture() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
+				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
 				board.updatePawnColor();
 			}
 		}		

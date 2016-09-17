@@ -60,7 +60,7 @@ public class Board extends BoardDebug {
 	
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
 	
-	public CaptureDirection canCapture() {
+	public CaptureDirection getCaptureDirection() {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
 		
 		BoardPosition pawnPos = activePawn.getBoardPosition();
