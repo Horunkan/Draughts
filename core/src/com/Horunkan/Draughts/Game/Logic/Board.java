@@ -91,69 +91,61 @@ public class Board extends BoardDebug {
 	
 	//TODO Separate canCapture.... to different class
 	public boolean canCaptureTopLeft(BoardPosition pos) {
-		if(pos.x > 0 && pos.y > 0) {
-			int pawnValue = activePawn.getPawnTypeInt();
-			int cellValue = board[pos.x - 1][pos.y - 1];
+		int pawnValue = activePawn.getPawnTypeInt();
+		int cellValueToCheck = getValue(pos.x - 1, pos.y - 1);
+		
+		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
+		
+		if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(pos.x - 2, pos.y - 2);
 			
-			if(cellValue == 0 || cellValue == 1) return false;
-			
-			if(cellValue != pawnValue) {
-				if(pos.x - 2 >= 0 && pos.y - 2 >= 0) {
-					if(board[pos.x - 2][pos.y - 2] == 1) return true;
-				}
-			}
+			if(cellValueToMove == 1) return true;
+			else return false;
 		}
 		return false;
 	}
 	
 	public boolean canCaptureTopRight(BoardPosition pos) {
-		if(pos.x + 1 < getWidth() && pos.y > 0) {
-			int pawnValue = activePawn.getPawnTypeInt();
-			int cellValue = board[pos.x + 1][pos.y - 1];
+		int pawnValue = activePawn.getPawnTypeInt();
+		int cellValueToCheck = getValue(pos.x + 1, pos.y - 1);
+		
+		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
+		
+		if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(pos.x + 2, pos.y - 2);
 			
-			if(cellValue == 0 || cellValue == 1) return false;
-			
-			if(cellValue != pawnValue) {
-				if(pos.x + 3 <= getWidth() && pos.y - 2 >= 0) {
-					if(board[pos.x + 2][pos.y - 2] == 1) return true;
-				}
-			}
+			if(cellValueToMove == 1) return true;
+			else return false;
 		}
 		return false;
 	}
 	
-	
-	
-	
-	
 	public boolean canCaptureBottomLeft(BoardPosition pos) {
-		if(pos.x > 0 && pos.y + 1 < getHeight()) {
-			int pawnValue = activePawn.getPawnTypeInt();
-			int cellValue = board[pos.x - 1][pos.y + 1];
+		int pawnValue = activePawn.getPawnTypeInt();
+		int cellValueToCheck = getValue(pos.x - 1, pos.y + 1);
+		
+		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
+		
+		if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(pos.x - 2, pos.y + 2);
 			
-			if(cellValue == 0 || cellValue == 1) return false;
-			
-			if(cellValue != pawnValue) {
-				if(pos.x - 2 >= 0 && pos.y + 3 <= getHeight()) {
-					if(board[pos.x - 2][pos.y + 2] == 1) return true;
-				}
-			}
+			if(cellValueToMove == 1) return true;
+			else return false;
 		}
 		return false;
 	}
 	
 	public boolean canCaptureBottomRight(BoardPosition pos) {
-		if(pos.x + 1 < getWidth() && pos.y + 1 < getHeight()) {
-			int pawnValue = activePawn.getPawnTypeInt();
-			int cellValue = board[pos.x + 1][pos.y + 1];
+		int pawnValue = activePawn.getPawnTypeInt();
+		int cellValueToCheck = getValue(pos.x + 1, pos.y + 1);
+		
+		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
+		
+		if(pawnValue != cellValueToCheck) {
+			int cellValueToMove = getValue(pos.x + 2, pos.y + 2);
 			
-			if(cellValue == 0 || cellValue == 1) return false;
-			
-			if(cellValue != pawnValue) {
-				if(pos.x + 3 <= getWidth() && pos.y + 3 <= getHeight()) {
-					if(board[pos.x + 2][pos.y + 2] == 1) return true;
-				}
-			}
+			if(cellValueToMove == 1) return true;
+			else return false;
 		}
 		return false;
 	}
@@ -185,7 +177,15 @@ public class Board extends BoardDebug {
 	
 	public int getWidth() { return boardWidth; }
 	public int getHeight() { return boardHeight; }
-	public int getValue(int x, int y) { return board[x][y]; }
+	
+	public int getValue(int x, int y) { 
+		if(x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) return board[x][y];
+		else {
+			BoardPosition p = new BoardPosition(x, y);
+			System.err.println("Board value " + p + " out of bounds, return -1");
+			return -1;
+		}
+	}
 	
 	public int countPawns(int val) {
 		int counter = 0;
