@@ -32,6 +32,12 @@ public class DrawCell extends Image {
     		board.movePawn(getPosition(), pos.x, pos.y);
     		board.unselectPawn();
     	}
+		else if(board.canCapture()) {
+			System.out.println("Pawn captured and moved to position: " + pos);
+			board.movePawn(getPosition(), pos.x, pos.y);
+			board.updatePawnColor();
+		}
+		
 		return false;
 	}
 }

@@ -37,8 +37,7 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		if(!Draughts.debug) activePawn.setColor(Color.CYAN);
-		else setColorDebug(true);
+		updatePawnColor();
 	}
 	
 	public boolean canMove(DrawCell cell) {
@@ -55,6 +54,31 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
+	public boolean canCapture() {
+		BoardPosition pawnPos = activePawn.getBoardPosition();
+		
+		if(canCaptureTopLeft(pawnPos)) return true;
+		
+		
+		
+		return false;
+	}
+	
+	//TODO Separate canCapture.... to different class
+	private boolean canCaptureTopLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y > 0) {
+			int pawnValue = activePawn.getPawnType();
+			int cellValue = board[pos.x - 1][pos.y - 1];
+			
+			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+				if(pos.x - 2 >= 0 && pos.y - 2 >= 0) {
+					if(board[pos.x - 2][pos.y - 2] == 1) return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
@@ -63,9 +87,19 @@ public class Board extends BoardDebug {
 	}
 	
 	public void unselectPawn() {
-		if(!Draughts.debug) activePawn.setColor(Color.WHITE);
-		else setColorDebug(false);
 		activePawn = null;
+		updatePawnColor();
+	}
+	
+	public void updatePawnColor() {
+		if(!Draughts.debug) {
+			if(activePawn == null) activePawn.setColor(Color.WHITE);
+			else activePawn.setColor(Color.CYAN);
+		}
+		else {
+			 setColorDebug(false);
+			 if(activePawn != null) setColorDebug(true);
+		}
 	}
 	
 	public DrawPawn getPawn() { return activePawn; }
