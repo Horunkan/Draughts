@@ -1,4 +1,4 @@
-package com.Horunkan.Draughts;
+package com.Horunkan.Draughts.Utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFont
 
 public class FontLoader {
 	private static FontLoader instance = null;
-	
 	private final String FONT_NAME = "verdana.ttf";
 	
 	private FreeTypeFontGenerator generator;
