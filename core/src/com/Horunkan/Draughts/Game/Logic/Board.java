@@ -129,11 +129,7 @@ public class Board extends BoardDebug {
 	
 	public int getValue(int x, int y) { 
 		if(x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) return board[x][y];
-		else {
-			BoardPosition p = new BoardPosition(x, y);
-			System.err.println("Board value " + p + " out of bounds, return -1");
-			return -1;
-		}
+		else return -1;
 	}
 	
 	public int countPawns(int val) {

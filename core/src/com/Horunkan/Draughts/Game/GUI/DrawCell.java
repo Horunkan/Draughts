@@ -34,7 +34,7 @@ public class DrawCell extends Image {
 			board.movePawn(getPosition(), pos.x, pos.y);
 			
 			if(dir != CaptureDirection.NO_CAPTURE) {
-				System.out.print(" - pawn captured");
+				System.out.print(" - CAPTURED");
 				board.capture(dir);
 			}
 			if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
