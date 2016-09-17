@@ -29,21 +29,18 @@ public class DrawCell extends Image {
 	
 	private boolean touched() {
 		if(board.canMove(this)) {
-    		System.out.println("Moved pawn to position: " + pos);
-    		board.movePawn(getPosition(), pos.x, pos.y);
-    		board.unselectPawn();
-    	}
-		else {
+			System.out.print("Moved pawn to position: " + pos);
 			CaptureDirection dir = board.getCaptureDirection();
+			board.movePawn(getPosition(), pos.x, pos.y);
 			
 			if(dir != CaptureDirection.NO_CAPTURE) {
-				System.out.println("Pawn captured and moved to position: " + pos);
-				board.movePawn(getPosition(), pos.x, pos.y);
+				System.out.print(" - pawn captured");
 				board.capture(dir);
-				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
-				board.updatePawnColor();
 			}
-		}		
+			if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
+			board.updatePawnColor();
+			System.out.print("\n");
+    	}		
 		return false;
 	}
 }
