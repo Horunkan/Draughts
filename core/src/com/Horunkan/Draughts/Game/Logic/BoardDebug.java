@@ -1,9 +1,9 @@
 package com.Horunkan.Draughts.Game.Logic;
 
-import com.Horunkan.Draughts.BoardPosition;
-import com.Horunkan.Draughts.FontLoader;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Utilities.BoardPosition;
+import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;

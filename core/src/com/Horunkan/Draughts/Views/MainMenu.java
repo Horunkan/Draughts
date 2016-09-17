@@ -1,8 +1,8 @@
 package com.Horunkan.Draughts.Views;
 
-import com.Horunkan.Draughts.ButtonStyle;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
+import com.Horunkan.Draughts.Utilities.ButtonStyle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;

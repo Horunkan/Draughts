@@ -1,7 +1,7 @@
 package com.Horunkan.Draughts.Game.GUI;
 
-import com.Horunkan.Draughts.BoardPosition;
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

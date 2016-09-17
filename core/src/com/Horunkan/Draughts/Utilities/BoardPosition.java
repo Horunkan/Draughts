@@ -1,4 +1,4 @@
-package com.Horunkan.Draughts;
+package com.Horunkan.Draughts.Utilities;
 
 public class BoardPosition {
 	public int x , y;

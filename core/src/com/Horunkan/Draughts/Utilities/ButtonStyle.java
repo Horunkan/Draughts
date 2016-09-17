@@ -1,4 +1,4 @@
-package com.Horunkan.Draughts;
+package com.Horunkan.Draughts.Utilities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
