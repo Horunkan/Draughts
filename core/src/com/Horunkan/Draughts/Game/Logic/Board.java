@@ -87,7 +87,7 @@ public class Board extends BoardDebug {
 	}
 	
 	//TODO Separate canCapture.... to different class
-	private boolean canCaptureTopLeft(BoardPosition pos) {
+	public boolean canCaptureTopLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y > 0) {
 			int pawnValue = activePawn.getPawnType();
 			int cellValue = board[pos.x - 1][pos.y - 1];
@@ -101,7 +101,7 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
-	private boolean canCaptureTopRight(BoardPosition pos) {
+	public boolean canCaptureTopRight(BoardPosition pos) {
 		if(pos.x + 1 < getWidth() && pos.y > 0) {
 			int pawnValue = activePawn.getPawnType();
 			int cellValue = board[pos.x + 1][pos.y - 1];
@@ -115,7 +115,7 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
-	private boolean canCaptureBottomLeft(BoardPosition pos) {
+	public boolean canCaptureBottomLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y + 1 < getHeight()) {
 			int pawnValue = activePawn.getPawnType();
 			int cellValue = board[pos.x - 1][pos.y + 1];
@@ -129,7 +129,7 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
-	private boolean canCaptureBottomRight(BoardPosition pos) {
+	public boolean canCaptureBottomRight(BoardPosition pos) {
 		if(pos.x + 1 < getWidth() && pos.y + 1 < getHeight()) {
 			int pawnValue = activePawn.getPawnType();
 			int cellValue = board[pos.x + 1][pos.y + 1];
