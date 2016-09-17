@@ -73,26 +73,17 @@ public class Board extends BoardDebug {
 		return CaptureDirection.NO_CAPTURE;
 	}
 	
-	//TODO Remove captured pawn image from arena
 	public void capture(CaptureDirection dir) {
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(1, 1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(-1, 1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(+1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(-1, -1);
+	}
+	
+	public void removePawn(int xChange, int yChange) {
 		BoardPosition pos = activePawn.getBoardPosition();
-		
-		if(dir == CaptureDirection.TOP_LEFT) {
-			board[pos.x + 1][pos.y + 1] = 1;
-			screen.removePawn(pos.x + 1, pos.y + 1);
-		}
-		else if(dir == CaptureDirection.TOP_RIGHT) {
-			board[pos.x - 1][pos.y + 1] = 1;
-			screen.removePawn(pos.x - 1, pos.y + 1);
-		}
-		else if(dir == CaptureDirection.BOTTOM_LEFT) {
-			board[pos.x + 1][pos.y - 1] = 1;
-			screen.removePawn(pos.x + 1, pos.y - 1);
-		}
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) {
-			board[pos.x - 1][pos.y - 1] = 1;
-			screen.removePawn(pos.x - 1, pos.y - 1);
-		}
+		board[pos.x + xChange][pos.y + yChange] = 1;
+		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
 	
 	//TODO Separate canCapture.... to different class
