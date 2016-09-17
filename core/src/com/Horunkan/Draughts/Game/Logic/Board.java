@@ -95,7 +95,9 @@ public class Board extends BoardDebug {
 			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x - 1][pos.y - 1];
 			
-			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+			if(cellValue == 0 || cellValue == 1) return false;
+			
+			if(cellValue != pawnValue) {
 				if(pos.x - 2 >= 0 && pos.y - 2 >= 0) {
 					if(board[pos.x - 2][pos.y - 2] == 1) return true;
 				}
@@ -109,7 +111,9 @@ public class Board extends BoardDebug {
 			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x + 1][pos.y - 1];
 			
-			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+			if(cellValue == 0 || cellValue == 1) return false;
+			
+			if(cellValue != pawnValue) {
 				if(pos.x + 3 <= getWidth() && pos.y - 2 >= 0) {
 					if(board[pos.x + 2][pos.y - 2] == 1) return true;
 				}
@@ -118,12 +122,18 @@ public class Board extends BoardDebug {
 		return false;
 	}
 	
+	
+	
+	
+	
 	public boolean canCaptureBottomLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y + 1 < getHeight()) {
 			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x - 1][pos.y + 1];
 			
-			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+			if(cellValue == 0 || cellValue == 1) return false;
+			
+			if(cellValue != pawnValue) {
 				if(pos.x - 2 >= 0 && pos.y + 3 <= getHeight()) {
 					if(board[pos.x - 2][pos.y + 2] == 1) return true;
 				}
@@ -137,7 +147,9 @@ public class Board extends BoardDebug {
 			int pawnValue = activePawn.getPawnTypeInt();
 			int cellValue = board[pos.x + 1][pos.y + 1];
 			
-			if((cellValue == 2 && pawnValue == 3) || (cellValue == 3 && pawnValue == 2)) {
+			if(cellValue == 0 || cellValue == 1) return false;
+			
+			if(cellValue != pawnValue) {
 				if(pos.x + 3 <= getWidth() && pos.y + 3 <= getHeight()) {
 					if(board[pos.x + 2][pos.y + 2] == 1) return true;
 				}
