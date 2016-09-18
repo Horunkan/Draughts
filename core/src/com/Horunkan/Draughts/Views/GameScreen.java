@@ -59,14 +59,7 @@ public class GameScreen extends AbstractScreen {
 		boardCellContainer.validate();
 		
 		loadPawnsGroups();
-		
-		playerBright = new PlayerInfo(skin, "Player A", "pawnBright");
-		playerBright.setPosition(720, 500);
-		stage.addActor(playerBright);	
-		
-		playerDark = new PlayerInfo(skin, "Player B", "pawnDark");
-		playerDark.setPosition(60, 100);
-		stage.addActor(playerDark);
+		loadPlayerInfo();
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
@@ -126,5 +119,15 @@ public class GameScreen extends AbstractScreen {
 				}
 			}
 		}
+	}
+	
+	private void loadPlayerInfo() {
+		playerBright = new PlayerInfo(skin, "Player A", "pawnBright");
+		playerBright.setPosition(720, 500);
+		stage.addActor(playerBright);	
+		
+		playerDark = new PlayerInfo(skin, "Player B", "pawnDark");
+		playerDark.setPosition(60, 100);
+		stage.addActor(playerDark);
 	}
 }
