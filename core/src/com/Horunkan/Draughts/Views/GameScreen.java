@@ -63,22 +63,18 @@ public class GameScreen extends AbstractScreen {
 	
 	public void removePawn(int x, int y) {
 		for(DrawPawn pawn : pawnsBright) {
-			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
+			if(pawn.getBoardPosition().isEqual(x, y)) {
 				pawn.remove();
 				pawn.setBoardPosition(900, 900);
 				break;
 			}
 		}
 		for(DrawPawn pawn : pawnsDark) {
-			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
+			if(pawn.getBoardPosition().isEqual(x, y)) {
 				pawn.remove();
 				pawn.setBoardPosition(900, 900);
 				break;
 			}
-		}
-		
-		for(DrawPawn pawn : pawnsBright) {
-			System.out.println(pawn);
 		}
 	}
 	
