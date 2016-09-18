@@ -60,6 +60,8 @@ public class GameScreen extends AbstractScreen {
 		
 		loadPawnsGroups();
 		loadPlayerInfo();
+		playerBright.setValue(board.countPawns(2), 0);
+		playerDark.setValue(board.countPawns(3), 0);
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
@@ -69,6 +71,7 @@ public class GameScreen extends AbstractScreen {
 			if(pawn.getBoardPosition().isEqual(x, y)) {
 				pawn.remove();
 				pawn.setBoardPosition(900, 900);
+				playerBright.setValue(board.countPawns(2), 0);
 				break;
 			}
 		}
@@ -76,6 +79,7 @@ public class GameScreen extends AbstractScreen {
 			if(pawn.getBoardPosition().isEqual(x, y)) {
 				pawn.remove();
 				pawn.setBoardPosition(900, 900);
+				playerDark.setValue(board.countPawns(3), 0);
 				break;
 			}
 		}

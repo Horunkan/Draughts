@@ -42,4 +42,10 @@ public class PlayerInfo extends Table {
 		countKings = new Label("[VALUE]", styleCounter);
 		this.add(countKings).align(Align.right);
 	}
+	
+	public void setValue(int pawns, int kings) {
+		countPawns.setText(Integer.toString(pawns));
+		countKings.setText(Integer.toString(kings));
+	}
+
 }
