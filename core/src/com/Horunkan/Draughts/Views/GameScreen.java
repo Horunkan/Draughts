@@ -8,6 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
@@ -22,6 +23,27 @@ public class GameScreen extends AbstractScreen {
 		super(game);
 		skin = new Skin();
 		loadTextures();
+	}
+	
+	@Override public void render(float delta) {
+		//Clear view
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
+		
+		stage.draw();
+		if(Draughts.debug)board.renderDebug();
+	}
+	
+	@Override public void show() {
+		super.show();
+		newGame();
+	}
+	
+	private void newGame() {
+		System.out.println("\nNew Game\n");
+		for(Actor act : stage.getActors()) act.remove();
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
@@ -36,9 +58,11 @@ public class GameScreen extends AbstractScreen {
 		
 		loadPawnsGroups();
 		
-		board.debug(this, board, boardCells, pawnsBright, pawnsDark);
+		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
 	
+	/*TODO Remove pawn from array or 
+	change his boardPosition because multiply captures on the same cell doesn't destroys correct pawn.*/
 	public void removePawn(int x, int y) {
 		for(DrawPawn pawn : pawnsBright) {
 			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
@@ -52,18 +76,6 @@ public class GameScreen extends AbstractScreen {
 				break;
 			}
 		}
-	}
-	
-	@Override
-	public void render(float delta) {
-		//Clear view
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
-		
-		stage.draw();
-		if(Draughts.debug)board.renderDebug();
 	}
 	
 	private void loadTextures() {
