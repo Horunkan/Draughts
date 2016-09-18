@@ -3,6 +3,7 @@ package com.Horunkan.Draughts.Views;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,6 +19,9 @@ public class GameScreen extends AbstractScreen {
 	private Board board;
 	private DrawCell[][] boardCells;
 	private DrawPawn[] pawnsBright, pawnsDark;
+	private PlayerInfo playerDark, playerBright;
+	
+	
 
 	public GameScreen(Draughts game) {
 		super(game);
@@ -59,6 +63,14 @@ public class GameScreen extends AbstractScreen {
 		loadPawnsGroups();
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
+		
+		playerDark = new PlayerInfo(skin, "Player A");
+		playerDark.setPosition(60, 100);
+		stage.addActor(playerDark);
+		
+		playerBright = new PlayerInfo(skin, "Player B");
+		playerBright.setPosition(720, 500);
+		stage.addActor(playerBright);	
 	}
 	
 	public void removePawn(int x, int y) {
