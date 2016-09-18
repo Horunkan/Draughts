@@ -61,20 +61,24 @@ public class GameScreen extends AbstractScreen {
 		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
 	
-	/*TODO Remove pawn from array or 
-	change his boardPosition because multiply captures on the same cell doesn't destroys correct pawn.*/
 	public void removePawn(int x, int y) {
 		for(DrawPawn pawn : pawnsBright) {
 			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
 				pawn.remove();
+				pawn.setBoardPosition(900, 900);
 				break;
 			}
 		}
 		for(DrawPawn pawn : pawnsDark) {
 			if(pawn.getBoardPosition().x == x && pawn.getBoardPosition().y == y) {
 				pawn.remove();
+				pawn.setBoardPosition(900, 900);
 				break;
 			}
+		}
+		
+		for(DrawPawn pawn : pawnsBright) {
+			System.out.println(pawn);
 		}
 	}
 	
