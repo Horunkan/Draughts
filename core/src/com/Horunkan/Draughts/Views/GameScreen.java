@@ -21,8 +21,6 @@ public class GameScreen extends AbstractScreen {
 	private DrawPawn[] pawnsBright, pawnsDark;
 	private PlayerInfo playerDark, playerBright;
 	
-	
-
 	public GameScreen(Draughts game) {
 		super(game);
 		skin = new Skin();
@@ -62,15 +60,15 @@ public class GameScreen extends AbstractScreen {
 		
 		loadPawnsGroups();
 		
-		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
+		playerBright = new PlayerInfo(skin, "Player A", "pawnBright");
+		playerBright.setPosition(720, 500);
+		stage.addActor(playerBright);	
 		
-		playerDark = new PlayerInfo(skin, "Player A");
+		playerDark = new PlayerInfo(skin, "Player B", "pawnDark");
 		playerDark.setPosition(60, 100);
 		stage.addActor(playerDark);
 		
-		playerBright = new PlayerInfo(skin, "Player B");
-		playerBright.setPosition(720, 500);
-		stage.addActor(playerBright);	
+		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
 	
 	public void removePawn(int x, int y) {

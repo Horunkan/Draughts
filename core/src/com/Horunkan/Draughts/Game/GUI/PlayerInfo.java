@@ -18,7 +18,7 @@ public class PlayerInfo extends Table {
 	private Label playerName, countPawns, countKings;
 	private Image pawnStandard, pawnKing;
 	
-	public PlayerInfo(Skin skin, String playerName) {
+	public PlayerInfo(Skin skin, String playerName, String pawnTextureName) {
 		stylePlayer = new LabelStyle();
 		stylePlayer.font = FontLoader.getInstance().getFont(playerFontSize);
 		stylePlayer.fontColor = Color.WHITE;
@@ -30,13 +30,13 @@ public class PlayerInfo extends Table {
 		this.playerName = new Label(playerName, stylePlayer);
 		this.add(this.playerName).colspan(2).row();
 		
-		pawnStandard = new Image(skin, "pawnDark");
+		pawnStandard = new Image(skin, pawnTextureName);
 		this.add(pawnStandard).align(Align.left).size(pawnSize);
 
 		countPawns = new Label("[VALUE]", styleCounter);
 		this.add(countPawns).align(Align.right).row();
 		
-		pawnKing = new Image(skin, "pawnDark");
+		pawnKing = new Image(skin, pawnTextureName/* + "King"*/);
 		this.add(pawnKing).align(Align.left).size(pawnSize);
 		
 		countKings = new Label("[VALUE]", styleCounter);
