@@ -63,7 +63,7 @@ public class PlayerInfo extends Table {
 	}
 	
 	private void addPawnKingCounter(String pawnTextureName) {
-		pawnKing = new Image(skin, pawnTextureName/* + "King"*/);
+		pawnKing = new Image(skin, pawnTextureName + "King");
 		this.add(pawnKing).expandX().align(Align.center).size(pawnSize);
 		
 		countKings = new Label("[VALUE]", styleCounter);

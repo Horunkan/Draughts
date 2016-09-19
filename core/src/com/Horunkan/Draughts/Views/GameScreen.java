@@ -90,6 +90,8 @@ public class GameScreen extends AbstractScreen {
 		skin.add("boardDark", new Texture(Gdx.files.internal("Textures/boardCell_dark.png")));
 		skin.add("pawnBright", new Texture(Gdx.files.internal("Textures/pawn_bright.png")));
 		skin.add("pawnDark", new Texture(Gdx.files.internal("Textures/pawn_dark.png")));
+		skin.add("pawnBrightKing", new Texture(Gdx.files.internal("Textures/pawn_bright_king.png")));
+		skin.add("pawnDarkKing", new Texture(Gdx.files.internal("Textures/pawn_dark_king.png")));
 	}
 	
 	private void loadBoard() {
