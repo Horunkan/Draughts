@@ -15,7 +15,7 @@ public class ButtonStyle extends TextButtonStyle {
 		TextureLoader textures = TextureLoader.getInstace();
 		
 		this.font = font.getFont(25);
-		this.up = textures.getDrawable("ButtonStandard");
-		this.down = textures.getDrawable("ButtonPressed");
+		this.up = textures.getDrawable("buttonStandard");
+		this.down = textures.getDrawable("buttonPressed");
 	}
 }

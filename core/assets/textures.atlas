@@ -1,0 +1,62 @@
+
+textures.png
+size: 1024,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+boardCell_bright
+  rotate: false
+  xy: 606, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+boardCell_dark
+  rotate: false
+  xy: 673, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+buttonPressed
+  rotate: false
+  xy: 2, 2
+  size: 300, 87
+  orig: 300, 87
+  offset: 0, 0
+  index: -1
+buttonStandard
+  rotate: false
+  xy: 304, 2
+  size: 300, 87
+  orig: 300, 87
+  offset: 0, 0
+  index: -1
+pawn_bright
+  rotate: false
+  xy: 740, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pawn_bright_king
+  rotate: false
+  xy: 807, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pawn_dark
+  rotate: false
+  xy: 874, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+pawn_dark_king
+  rotate: false
+  xy: 941, 24
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1

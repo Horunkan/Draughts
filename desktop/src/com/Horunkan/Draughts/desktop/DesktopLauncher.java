@@ -12,7 +12,8 @@ public class DesktopLauncher {
 		config.height = Draughts.HEIGHT;
 		config.width = Draughts.WIDTH;
 		config.resizable = false;
-
+		
 		new LwjglApplication(new Draughts(), config);
+		//TexturePacker.process(Gdx.files.internal("Textures").toString(), Gdx.files.getLocalStoragePath().toString(), "textures");
 	}
 }
