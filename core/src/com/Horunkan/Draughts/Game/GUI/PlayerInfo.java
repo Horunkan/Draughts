@@ -2,7 +2,6 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,18 +33,8 @@ public class PlayerInfo extends Table {
 		styleCounter.fontColor = Color.WHITE;
 		
 		addPlayerName(playerName);
-
-		pawnStandard = new Image(skin, pawnTextureName);
-		this.add(pawnStandard).expandX().align(Align.center).size(pawnSize);
-
-		countPawns = new Label("[VALUE]", styleCounter);
-		this.add(countPawns).expandX().align(Align.center).row();
-		
-		pawnKing = new Image(skin, pawnTextureName/* + "King"*/);
-		this.add(pawnKing).expandX().align(Align.center).size(pawnSize);
-		
-		countKings = new Label("[VALUE]", styleCounter);
-		this.add(countKings).expandX().align(Align.center);
+		addPawnStandardCounter(pawnTextureName);
+		addPawnKingCounter(pawnTextureName);
 	}
 	
 	public void setValue(int pawns, int kings) {
@@ -63,5 +52,21 @@ public class PlayerInfo extends Table {
 			playerFontSize -= 3;
 			addPlayerName(name);
 		}	
+	}
+	
+	private void addPawnStandardCounter(String pawnTextureName) {
+		pawnStandard = new Image(skin, pawnTextureName);
+		this.add(pawnStandard).expandX().align(Align.center).size(pawnSize);
+		
+		countPawns = new Label("[VALUE]", styleCounter);
+		this.add(countPawns).expandX().align(Align.center).row();
+	}
+	
+	private void addPawnKingCounter(String pawnTextureName) {
+		pawnKing = new Image(skin, pawnTextureName/* + "King"*/);
+		this.add(pawnKing).expandX().align(Align.center).size(pawnSize);
+		
+		countKings = new Label("[VALUE]", styleCounter);
+		this.add(countKings).expandX().align(Align.center);
 	}
 }
