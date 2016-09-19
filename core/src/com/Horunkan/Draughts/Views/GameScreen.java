@@ -5,6 +5,7 @@ import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -24,8 +25,7 @@ public class GameScreen extends AbstractScreen {
 	
 	public GameScreen(Draughts game) {
 		super(game);
-		skin = new Skin();
-		loadTextures();
+		skin = TextureLoader.getInstace().getSkin();
 	}
 	
 	@Override public void render(float delta) {
@@ -94,15 +94,6 @@ public class GameScreen extends AbstractScreen {
 		
 		if(player == 1) playerBright.setColor(Color.GREEN);
 		else playerDark.setColor(Color.GREEN);
-	}
-	
-	private void loadTextures() {
-		skin.add("boardBright", new Texture(Gdx.files.internal("Textures/boardCell_bright.png")));
-		skin.add("boardDark", new Texture(Gdx.files.internal("Textures/boardCell_dark.png")));
-		skin.add("pawnBright", new Texture(Gdx.files.internal("Textures/pawn_bright.png")));
-		skin.add("pawnDark", new Texture(Gdx.files.internal("Textures/pawn_dark.png")));
-		skin.add("pawnBrightKing", new Texture(Gdx.files.internal("Textures/pawn_bright_king.png")));
-		skin.add("pawnDarkKing", new Texture(Gdx.files.internal("Textures/pawn_dark_king.png")));
 	}
 	
 	private void loadBoard() {

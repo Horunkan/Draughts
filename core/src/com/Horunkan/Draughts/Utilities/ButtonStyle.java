@@ -1,8 +1,5 @@
 package com.Horunkan.Draughts.Utilities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 
 public class ButtonStyle extends TextButtonStyle {
@@ -14,14 +11,11 @@ public class ButtonStyle extends TextButtonStyle {
 	}
 	
 	private ButtonStyle() { 
-		Skin skin = new Skin();
-		skin.add("ButtonStandard", new Texture(Gdx.files.internal("Textures/buttonStandard.png")));
-		skin.add("ButtonPressed", new Texture(Gdx.files.internal("Textures/buttonPressed.png")));
-		
 		FontLoader font = FontLoader.getInstance();
+		TextureLoader textures = TextureLoader.getInstace();
 		
 		this.font = font.getFont(25);
-		this.up = skin.newDrawable("ButtonStandard");
-		this.down = skin.newDrawable("ButtonPressed");
+		this.up = textures.getDrawable("ButtonStandard");
+		this.down = textures.getDrawable("ButtonPressed");
 	}
 }
