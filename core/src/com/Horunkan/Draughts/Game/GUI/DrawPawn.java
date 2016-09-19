@@ -3,6 +3,8 @@ package com.Horunkan.Draughts.Game.GUI;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -27,6 +29,12 @@ public class DrawPawn extends Image {
 		});
 	}
 	
+	@Override
+	public void draw(Batch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		if(this.getActions().size > 0) this.act(Gdx.graphics.getDeltaTime());
+	}
+		
 	private boolean touched() {
 		if(board.getActivePlayer() == pawnType - 1) {
 			System.out.println("Pressed pawn on position: " + pos);

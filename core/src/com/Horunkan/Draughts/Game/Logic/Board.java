@@ -9,6 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Board extends BoardDebug {
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
@@ -18,6 +19,7 @@ public class Board extends BoardDebug {
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
 	private int activePlayer = 1;
+	private final float pawnMovementSpeed = 0.15f;
 	
 	public Board(GameScreen screen) {
 		this.screen = screen;
@@ -81,7 +83,6 @@ public class Board extends BoardDebug {
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
-		activePawn.setPosition(pos.x, pos.y);
 		activePawn.setBoardPosition(newPosX, newPosY);
 	}
 	
