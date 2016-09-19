@@ -128,13 +128,15 @@ public class GameScreen extends AbstractScreen {
 	private void loadPlayerInfo() {
 		if(playerBright != null) playerBright.remove();
 		playerBright = new PlayerInfo(skin, "Player A", "pawnBright");
-		playerBright.setPosition(720, 500);
+		//playerBright.setPosition(720, 500);
+		playerBright.setPosition(670, 440);
 		stage.addActor(playerBright);
 		playerBright.validate();
-		
+
 		if(playerDark != null) playerDark.remove();
 		playerDark = new PlayerInfo(skin, "Player B", "pawnDark");
-		playerDark.setPosition(60, 100);
+		//playerDark.setPosition(60, 100);
+		playerDark.setPosition(10, 40);
 		stage.addActor(playerDark);
 		playerDark.validate();
 	}
