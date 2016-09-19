@@ -46,7 +46,7 @@ public class PlayerInfo extends Table {
 		countPawns.setText(Integer.toString(pawns));
 		countKings.setText(Integer.toString(kings));
 	}
-	
+		
 	private void addBackground() {
 		//TODO Add texture
 		Pixmap pixmap = new Pixmap((int)tableWidth, (int)tableHeight, Format.RGBA8888);

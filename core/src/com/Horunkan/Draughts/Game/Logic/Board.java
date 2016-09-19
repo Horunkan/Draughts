@@ -17,6 +17,7 @@ public class Board extends BoardDebug {
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
+	private int activePlayer = 1;
 	
 	public Board(GameScreen screen) {
 		this.screen = screen;
@@ -38,6 +39,15 @@ public class Board extends BoardDebug {
 				board[x][y] = Character.getNumericValue(lines[y].charAt(x));
 			}
 		}
+	}
+	
+	public int getActivePlayer() { return activePlayer; }
+	public void setPlayer(int player) { activePlayer = player; }
+	
+	public void changePlayer() {
+		if(activePlayer == 1) activePlayer = 2;
+		else activePlayer = 1;
+		screen.updateActivePlayer(activePlayer);
 	}
 	
 	public void setActivePawn(DrawPawn pawn) {

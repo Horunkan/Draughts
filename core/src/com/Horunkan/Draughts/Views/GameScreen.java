@@ -7,6 +7,7 @@ import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -62,6 +63,8 @@ public class GameScreen extends AbstractScreen {
 		loadPlayerInfo();
 		playerBright.setValue(board.countPawns(2), 0);
 		playerDark.setValue(board.countPawns(3), 0);
+		board.setPlayer(1);
+		updateActivePlayer(1);
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
 	}
@@ -83,6 +86,14 @@ public class GameScreen extends AbstractScreen {
 				break;
 			}
 		}
+	}
+	
+	public void updateActivePlayer(int player) {
+		playerBright.setColor(Color.WHITE);
+		playerDark.setColor(Color.WHITE);
+		
+		if(player == 1) playerBright.setColor(Color.GREEN);
+		else playerDark.setColor(Color.GREEN);
 	}
 	
 	private void loadTextures() {
@@ -131,7 +142,7 @@ public class GameScreen extends AbstractScreen {
 		//TODO Check if player name are less than 15 characters.
 		if(playerBright != null) playerBright.remove();
 		playerBright = new PlayerInfo(skin, "Player A", "pawnBright");
-		playerBright.setPosition(670, 440);
+		playerBright.setPosition(670, 460);
 		stage.addActor(playerBright);
 		playerBright.validate();
 

@@ -26,12 +26,14 @@ public class DrawPawn extends Image {
 	}
 	
 	private boolean touched() {
-		System.out.println("Pressed pawn on position: " + pos);
-		if(board.getPawn() == this) board.unselectPawn();
-    	else {
-    		if(board.getPawn() != null) board.unselectPawn();
-    		board.setActivePawn(this);
-    	}
+		if(board.getActivePlayer() == pawnType - 1) {
+			System.out.println("Pressed pawn on position: " + pos);
+			if(board.getPawn() == this) board.unselectPawn();
+	    	else {
+	    		if(board.getPawn() != null) board.unselectPawn();
+	    		board.setActivePawn(this);
+	    	}
+		}
 		return false;
 	}
 		

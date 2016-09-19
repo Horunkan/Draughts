@@ -33,9 +33,15 @@ public class DrawCell extends Image {
 			if(dir != CaptureDirection.NO_CAPTURE) {
 				System.out.print(" - CAPTURED");
 				board.capture(dir);
-				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
+				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) {
+					board.unselectPawn();
+					board.changePlayer();
+				}
 			}
-			else board.unselectPawn();
+			else {
+				board.unselectPawn();
+				board.changePlayer();
+			}
 			System.out.print("\n");
     	}		
 		return false;
