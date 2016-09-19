@@ -6,7 +6,6 @@ import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawPawn extends Image {
 	private final int pawnType;
