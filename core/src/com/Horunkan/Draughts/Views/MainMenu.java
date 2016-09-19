@@ -32,7 +32,7 @@ public class MainMenu extends AbstractScreen {
 	}
 	
 	private void createGameLogo() {
-		//Create texture [PLACEHOLDER]
+		//TODO Create texture
 		Pixmap pixmap = new Pixmap(500, 150, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
