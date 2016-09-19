@@ -1,6 +1,7 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -26,9 +27,9 @@ public class PlayerInfo extends Table {
 	private Image pawnStandard, pawnKing;
 	private Skin skin;
 	
-	public PlayerInfo(Skin skin, String playerName, String pawnTextureName) {
+	public PlayerInfo(String playerName, String pawnTextureName) {
 		//this.debug();
-		this.skin = skin;
+		this.skin = TextureLoader.getInstace().getSkin();
 		this.setSize(tableWidth, tableHeight);
 		
 		stylePlayer = new LabelStyle();

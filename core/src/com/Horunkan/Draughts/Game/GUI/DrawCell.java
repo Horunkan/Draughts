@@ -3,21 +3,23 @@ package com.Horunkan.Draughts.Game.GUI;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.CaptureDirection;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
+import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class DrawCell extends Image {
 	private final BoardPosition pos;
 	private final Board board;
 	
-	public DrawCell(Skin skin, Board board, int cellType, int posX, int posY) {
+	public DrawCell(Board board, int cellType, int posX, int posY) {
 		pos = new BoardPosition(posX, posY);
 		this.board = board;
-		if(cellType == 0) this.setDrawable(skin, "boardBright");
-		else this.setDrawable(skin, "boardDark");
+		TextureLoader textures = TextureLoader.getInstace();
+		
+		if(cellType == 0) this.setDrawable(textures.getDrawable("boardBright"));
+		else this.setDrawable(textures.getDrawable("boardDark"));
 		
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) { return touched(); }

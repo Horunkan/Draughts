@@ -2,6 +2,7 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
+import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -12,12 +13,14 @@ public class DrawPawn extends Image {
 	private final Board board;
 	private BoardPosition pos;
 	
-	public DrawPawn(Skin skin, Board board, int pawnType, int posX, int posY) {
+	public DrawPawn(Board board, int pawnType, int posX, int posY) {
 		this.board = board;
 		this.pawnType = pawnType;
 		pos = new BoardPosition(posX, posY);
-		if(pawnType == 2) this.setDrawable(skin, "pawnBright");
-		else if(pawnType == 3) this.setDrawable(skin, "pawnDark");
+		TextureLoader textures = TextureLoader.getInstace();
+		
+		if(pawnType == 2) this.setDrawable(textures.getDrawable("pawnBright"));
+		else if(pawnType == 3) this.setDrawable(textures.getDrawable("pawnDark"));
 		this.setSize(65, 65);
 		
 		this.addListener(new InputListener() {
