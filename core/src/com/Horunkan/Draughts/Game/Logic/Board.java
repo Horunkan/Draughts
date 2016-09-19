@@ -42,25 +42,18 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		updatePawnColor();
+		
+		if(!Draughts.debug) activePawn.setColor(Color.CYAN);
+		else setColorDebug(true);
 	}
 	
 	public void unselectPawn() {
+		if(!Draughts.debug) activePawn.setColor(Color.WHITE);
+		else setColorDebug(false);
+		
 		activePawn = null;
-		updatePawnColor();
 	}
-	
-	public void updatePawnColor() {
-		if(!Draughts.debug) {
-			if(activePawn == null) activePawn.setColor(Color.WHITE);
-			else activePawn.setColor(Color.CYAN);
-		}
-		else {
-			 setColorDebug(false);
-			 if(activePawn != null) setColorDebug(true);
-		}
-	}
-	
+		
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		

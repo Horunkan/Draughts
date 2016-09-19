@@ -36,8 +36,6 @@ public class DrawCell extends Image {
 				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) board.unselectPawn();
 			}
 			else board.unselectPawn();
-			
-			board.updatePawnColor();
 			System.out.print("\n");
     	}		
 		return false;
