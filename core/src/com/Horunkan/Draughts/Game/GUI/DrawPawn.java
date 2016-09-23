@@ -48,7 +48,7 @@ public class DrawPawn extends Image {
 			System.out.println("Pressed pawn on position: " + pos);
 			if(board.getPawn() == this) board.unselectPawn();
 			else {
-				if(board.getPawn() != null) board.unselectPawn();
+				board.unselectPawn();
 	    		board.setActivePawn(this);
 			}
 		}
