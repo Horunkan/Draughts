@@ -11,14 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class DrawPawn extends Image {
-	private final int pawnType;
 	private final Board board;
 	private BoardPosition pos;
 	private Player player;
 	
 	public DrawPawn(Board board, int pawnType, int posX, int posY) {
 		this.board = board;
-		this.pawnType = pawnType;
 		pos = new BoardPosition(posX, posY);
 		TextureLoader textures = TextureLoader.getInstace();
 		
@@ -57,5 +55,10 @@ public class DrawPawn extends Image {
 		
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
-	public int getPawnType() { return pawnType; }
+	public Player getPawnPlayer() { return player; }
+	
+	public int getPawnPlayerInt() {
+		if(player == Player.BRIGHT) return 2;
+		else return 3;
+	}
 }

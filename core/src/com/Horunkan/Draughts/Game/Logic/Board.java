@@ -94,23 +94,25 @@ public class Board extends BoardDebug {
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnType();
+		board[newPosX][newPosY] = activePawn.getPawnPlayerInt();
 		activePawn.setBoardPosition(newPosX, newPosY);
 		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
-		int pawnValue = activePawn.getPawnType();
-		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
+		int cellValue = getValue(cellWithPawn.x, cellWithPawn.y);
 		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		else if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(cellToMove.x, cellToMove.y);
+		if(cellValue == 0 || cellValue == 1) return false;
+		else {
+			Player pawnActive = activePawn.getPawnPlayer();
+			Player pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
 			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
-		
+			if(pawnActive != pawnCapture) {
+				int newPosition = getValue(cellToMove.x, cellToMove.y);
+				if(newPosition == 1) return true;
+				else return false;
+			}
+		}		
 		return false;
 	}
 	
@@ -146,6 +148,11 @@ public class Board extends BoardDebug {
 	public int getValue(int x, int y) { 
 		if(x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) return board[x][y];
 		else return -1;
+	}
+	
+	private Player getPawnPlayer(int x, int y) {
+		if(getValue(x,y) == 2) return Player.BRIGHT;
+		else return Player.DARK;
 	}
 	
 	public int countPawns(int val) {
