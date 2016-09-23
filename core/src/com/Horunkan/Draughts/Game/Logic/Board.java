@@ -84,6 +84,7 @@ public class Board extends BoardDebug {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
 		board[newPosX][newPosY] = activePawn.getPawnType();
 		activePawn.setBoardPosition(newPosX, newPosY);
+		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
