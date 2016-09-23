@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.GameEnd;
 import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.Player;
@@ -20,8 +21,8 @@ public class GameScreen extends AbstractScreen {
 	private Board board;
 	private DrawCell[][] boardCells;
 	ArrayList<DrawPawn> pawns;
-	
 	private PlayerInfo playerDark, playerBright;
+	private GameEnd end;
 	
 	public GameScreen(Draughts game) { super(game); }
 	
@@ -62,6 +63,9 @@ public class GameScreen extends AbstractScreen {
 		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
+		
+		end = new GameEnd();
+		stage.addActor(end);
 	}
 	
 	public void removePawn(int x, int y) {
