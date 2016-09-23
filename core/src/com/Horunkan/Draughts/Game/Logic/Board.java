@@ -13,12 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Board extends BoardDebug {
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	public enum Player {BRIGHT, DARK}
 	
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
-	private int activePlayer = 1;
+	private Player activePlayer;
 	private final float pawnMovementSpeed = 0.15f;
 	
 	public Board(GameScreen screen) {
@@ -43,13 +44,12 @@ public class Board extends BoardDebug {
 		}
 	}
 	
-	public int getActivePlayer() { return activePlayer; }
-	public void setPlayer(int player) { activePlayer = player; }
+	public Player getActivePlayer() { return activePlayer; }
+	public void setPlayer(Player player) { activePlayer = player; }
 	
 	public void changePlayer() {
-		if(activePlayer == 1) activePlayer = 2;
-		else activePlayer = 1;
-		screen.updateActivePlayer(activePlayer);
+		if(activePlayer == Player.BRIGHT) activePlayer = Player.DARK;
+		else activePlayer = Player.BRIGHT;
 	}
 	
 	public void setActivePawn(DrawPawn pawn) {
@@ -74,7 +74,19 @@ public class Board extends BoardDebug {
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(distance.x == 1 && distance.y == 1) return true; //Across movement
-			else if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean canCapture(DrawCell cell) {
+		BoardPosition cellPos = cell.getBoardPosition();
+		
+		if(activePawn == null) return false;
+		else if(board[cellPos.x][cellPos.y] == 0) return false;
+		else {
+			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
+			if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
@@ -82,23 +94,25 @@ public class Board extends BoardDebug {
 	
 	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
 		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnType();
+		board[newPosX][newPosY] = activePawn.getPawnPlayerInt();
 		activePawn.setBoardPosition(newPosX, newPosY);
 		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
-		int pawnValue = activePawn.getPawnType();
-		int cellValueToCheck = getValue(cellWithPawn.x, cellWithPawn.y);
+		int cellValue = getValue(cellWithPawn.x, cellWithPawn.y);
 		
-		if(cellValueToCheck == 0 || cellValueToCheck == 1) return false;
-		else if(pawnValue != cellValueToCheck) {
-			int cellValueToMove = getValue(cellToMove.x, cellToMove.y);
+		if(cellValue == 0 || cellValue == 1) return false;
+		else {
+			Player pawnActive = activePawn.getPawnPlayer();
+			Player pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
 			
-			if(cellValueToMove == 1) return true;
-			else return false;
-		}
-		
+			if(pawnActive != pawnCapture) {
+				int newPosition = getValue(cellToMove.x, cellToMove.y);
+				if(newPosition == 1) return true;
+				else return false;
+			}
+		}		
 		return false;
 	}
 	
@@ -115,10 +129,10 @@ public class Board extends BoardDebug {
 	}
 	
 	public void capture(CaptureDirection dir) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(1, 1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(-1, 1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(1, -1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(-1, -1);
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(-1, -1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(1, -1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(-1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(1, 1);
 	}
 	
 	public void removePawn(int xChange, int yChange) {
@@ -134,6 +148,11 @@ public class Board extends BoardDebug {
 	public int getValue(int x, int y) { 
 		if(x >= 0 && x < getWidth() && y >= 0 && y < getHeight()) return board[x][y];
 		else return -1;
+	}
+	
+	private Player getPawnPlayer(int x, int y) {
+		if(getValue(x,y) == 2) return Player.BRIGHT;
+		else return Player.DARK;
 	}
 	
 	public int countPawns(int val) {
