@@ -84,4 +84,6 @@ public class PlayerInfo extends Table {
 		countKings = new Label("[VALUE]", styleCounter);
 		this.add(countKings).expandX().align(Align.center);
 	}
+	
+	public String getName() { return playerName.getText().toString(); }
 }

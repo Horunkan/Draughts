@@ -4,6 +4,7 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Utilities.ButtonStyle;
 import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
+import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -29,9 +30,11 @@ public class GameEnd extends Table {
 	private LabelStyle styleTitle, styleWinner;
 	private Label title, winner;
 	private TextButton backToMenuButton, newGameButton;
+	private GameScreen screen;
 	
-	public GameEnd() {
+	public GameEnd(GameScreen screen, String winnerName) {
 		//this.debug();
+		this.screen = screen;
 		this.setSize(tableWidth, tableHeight);
 		setPosition(Draughts.WIDTH/2 - tableWidth/2, Draughts.HEIGHT/2 - tableHeight/2);
 		
@@ -40,8 +43,9 @@ public class GameEnd extends Table {
 		
 		addBackground();
 		addTitle();
-		addWinner();
+		addWinner(winnerName);
 		addButtons();
+		addButtonsListeners();
 	}
 	
 	private void addBackground() {
@@ -61,11 +65,11 @@ public class GameEnd extends Table {
 		this.add(title).expand().colspan(2).row();
 	}
 	
-	private void addWinner() {
+	private void addWinner(String winnerName) {
 		styleWinner.font = FontLoader.getInstance().getFont(winnerSize);
 		styleWinner.fontColor = Color.WHITE;
 		
-		winner = new Label("[NAME] won!", styleWinner);
+		winner = new Label(String.format("%s won!", winnerName), styleWinner);
 		this.add(winner).expand().colspan(2).row();
 	}
 	
@@ -79,5 +83,9 @@ public class GameEnd extends Table {
 
 		this.add(backToMenuButton).size(buttonWidth, buttonHeight).expand();
 		this.add(newGameButton).size(buttonWidth, buttonHeight).expand();
+	}
+	
+	private void addButtonsListeners() {
+		
 	}
 }

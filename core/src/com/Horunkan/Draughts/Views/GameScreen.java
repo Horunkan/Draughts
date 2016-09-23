@@ -63,9 +63,6 @@ public class GameScreen extends AbstractScreen {
 		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
-		
-		end = new GameEnd();
-		stage.addActor(end);
 	}
 	
 	public void removePawn(int x, int y) {
@@ -76,6 +73,18 @@ public class GameScreen extends AbstractScreen {
 				playerBright.setValue(board.countPawns(2), 0);
 				playerDark.setValue(board.countPawns(3), 0);
 			}
+		}
+		checkEndGame();
+	}
+	
+	private void checkEndGame() {
+		if(board.countPawns(2) == 0) {
+			end = new GameEnd(this, playerDark.getName());
+			stage.addActor(end);
+		}
+		else if(board.countPawns(3) == 0) {
+			end = new GameEnd(this, playerBright.getName());
+			stage.addActor(end);
 		}
 	}
 	
