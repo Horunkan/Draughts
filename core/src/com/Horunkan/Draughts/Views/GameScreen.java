@@ -1,5 +1,7 @@
 package com.Horunkan.Draughts.Views;
 
+import java.util.ArrayList;
+
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
@@ -16,7 +18,8 @@ public class GameScreen extends AbstractScreen {
 	private Table boardCellContainer;
 	private Board board;
 	private DrawCell[][] boardCells;
-	private DrawPawn[] pawnsBright, pawnsDark;
+	ArrayList<DrawPawn> pawns;
+	
 	private PlayerInfo playerDark, playerBright;
 	
 	public GameScreen(Draughts game) { super(game); }
@@ -45,10 +48,8 @@ public class GameScreen extends AbstractScreen {
 		boardCellContainer.setFillParent(true);
 		board = new Board(this);
 		loadBoard();
-		
-		pawnsBright = new DrawPawn[board.countPawns(2)];
-		pawnsDark = new DrawPawn[board.countPawns(3)];
-		
+				
+		pawns = new ArrayList<DrawPawn>();		
 		stage.addActor(boardCellContainer);
 		boardCellContainer.validate();
 		
@@ -59,24 +60,16 @@ public class GameScreen extends AbstractScreen {
 		board.setPlayer(1);
 		updateActivePlayer(1);
 		
-		if(Draughts.debug) board.debug(this, board, boardCells, pawnsBright, pawnsDark);
+		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
 	}
 	
 	public void removePawn(int x, int y) {
-		for(DrawPawn pawn : pawnsBright) {
-			if(pawn.getBoardPosition().isEqual(x, y)) {
-				pawn.remove();
-				pawn.setBoardPosition(900, 900);
+		for(int i = 0; i < pawns.size(); ++i) {
+			if(pawns.get(i).getBoardPosition().isEqual(x, y)) {
+				pawns.get(i).remove();
+				pawns.remove(i);
 				playerBright.setValue(board.countPawns(2), 0);
-				break;
-			}
-		}
-		for(DrawPawn pawn : pawnsDark) {
-			if(pawn.getBoardPosition().isEqual(x, y)) {
-				pawn.remove();
-				pawn.setBoardPosition(900, 900);
 				playerDark.setValue(board.countPawns(3), 0);
-				break;
 			}
 		}
 	}
@@ -104,19 +97,15 @@ public class GameScreen extends AbstractScreen {
 	}
 	
 	private void loadPawnsGroups() {
-		for(int y = 0, i = 0, j = 0; y < board.getHeight(); ++y) {
+		for(int y = 0; y < board.getHeight(); ++y) {
 			for(int x = 0; x < board.getWidth(); ++x) {
-				if(board.getValue(x, y) == 2) {
-					pawnsBright[i] = new DrawPawn(board, 2, x, y);
-					pawnsBright[i].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
-					stage.addActor(pawnsBright[i]);
-					++i;
-				}
-				else if(board.getValue(x, y) == 3) {
-					pawnsDark[j] = new DrawPawn(board, 3, x, y);
-					pawnsDark[j].setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
-					stage.addActor(pawnsDark[j]);
-					++j;
+				int boardVal = board.getValue(x, y);
+				
+				if(boardVal != 0 && boardVal != 1) {
+					DrawPawn buffer = new DrawPawn(board, boardVal, x, y);
+					buffer.setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
+					pawns.add(buffer);
+					stage.addActor(buffer);
 				}
 			}
 		}

@@ -1,5 +1,7 @@
 package com.Horunkan.Draughts.Game.Logic;
 
+import java.util.ArrayList;
+
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
@@ -11,8 +13,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class BoardDebug {
 	protected DrawCell[][] boardCells;
-	protected DrawPawn[] pawnsBright, pawnsDark;
 	protected GameScreen screen;
+	protected ArrayList<DrawPawn> pawns;
 	
 	private Board board;
 	private SpriteBatch batch;
@@ -20,10 +22,9 @@ public abstract class BoardDebug {
 	private int checkCaptures = 0;
 	private int maxCapturesCheck = 10;
 	
-	public void debug(GameScreen screen, Board board, DrawCell[][] cells, DrawPawn[] pawnsBright, DrawPawn[] pawnsDark) {
+	public void debug(GameScreen screen, Board board, DrawCell[][] cells, ArrayList<DrawPawn> pawns) {
 		boardCells = cells;
-		this.pawnsBright = pawnsBright;
-		this.pawnsDark = pawnsDark;
+		this.pawns = pawns;
 		this.screen = screen;
 		this.board = board;
 		
