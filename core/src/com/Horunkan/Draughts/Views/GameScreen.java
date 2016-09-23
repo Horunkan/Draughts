@@ -7,6 +7,7 @@ import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.Horunkan.Draughts.Game.Logic.Board.Player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -57,8 +58,8 @@ public class GameScreen extends AbstractScreen {
 		loadPlayerInfo();
 		playerBright.setValue(board.countPawns(2), 0);
 		playerDark.setValue(board.countPawns(3), 0);
-		board.setPlayer(1);
-		updateActivePlayer(1);
+		board.setPlayer(Player.BRIGHT);
+		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
 	}
@@ -74,11 +75,11 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-	public void updateActivePlayer(int player) {
+	public void updateActivePlayer(Player player) {
 		playerBright.setColor(Color.WHITE);
 		playerDark.setColor(Color.WHITE);
 		
-		if(player == 1) playerBright.setColor(Color.GREEN);
+		if(player == Player.BRIGHT) playerBright.setColor(Color.GREEN);
 		else playerDark.setColor(Color.GREEN);
 	}
 	

@@ -13,12 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Board extends BoardDebug {
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	public enum Player {BRIGHT, DARK}
 	
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
-	private int activePlayer = 1;
+	private Player activePlayer;
 	private final float pawnMovementSpeed = 0.15f;
 	
 	public Board(GameScreen screen) {
@@ -43,13 +44,12 @@ public class Board extends BoardDebug {
 		}
 	}
 	
-	public int getActivePlayer() { return activePlayer; }
-	public void setPlayer(int player) { activePlayer = player; }
+	public Player getActivePlayer() { return activePlayer; }
+	public void setPlayer(Player player) { activePlayer = player; }
 	
 	public void changePlayer() {
-		if(activePlayer == 1) activePlayer = 2;
-		else activePlayer = 1;
-		screen.updateActivePlayer(activePlayer);
+		if(activePlayer == Player.BRIGHT) activePlayer = Player.DARK;
+		else activePlayer = Player.BRIGHT;
 	}
 	
 	public void setActivePawn(DrawPawn pawn) {
