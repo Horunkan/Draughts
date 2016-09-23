@@ -74,7 +74,19 @@ public class Board extends BoardDebug {
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(distance.x == 1 && distance.y == 1) return true; //Across movement
-			else if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
+		}
+		
+		return false;
+	}
+	
+	public boolean canCapture(DrawCell cell) {
+		BoardPosition cellPos = cell.getBoardPosition();
+		
+		if(activePawn == null) return false;
+		else if(board[cellPos.x][cellPos.y] == 0) return false;
+		else {
+			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
+			if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
@@ -115,10 +127,10 @@ public class Board extends BoardDebug {
 	}
 	
 	public void capture(CaptureDirection dir) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(1, 1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(-1, 1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(1, -1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(-1, -1);
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(-1, -1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(1, -1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(-1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(1, 1);
 	}
 	
 	public void removePawn(int xChange, int yChange) {

@@ -27,26 +27,22 @@ public class DrawCell extends Image {
 	}
 	
 	private boolean touched() {
-		//TODO BUG: If capture is possible, but player will move in different direction it will destroy pawn which shouldn't
 		if(board.canMove(this)) {
-			System.out.print("Moved pawn to position: " + pos);
-			CaptureDirection dir = board.getCaptureDirection();
+			System.out.println("Moved pawn to position: " + pos);
+			board.movePawn(getPosition(), pos.x, pos.y);
+			board.unselectPawn();
+			board.changePlayer();
+		}
+		else if(board.canCapture(this)) {
+			System.out.println("Pawn captured");
+			board.capture(board.getCaptureDirection());
 			board.movePawn(getPosition(), pos.x, pos.y);
 			
-			if(dir != CaptureDirection.NO_CAPTURE) {
-				System.out.print(" - CAPTURED");
-				board.capture(dir);
-				if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) {
-					board.unselectPawn();
-					board.changePlayer();
-				}
-			}
-			else {
+			if(board.getCaptureDirection() == CaptureDirection.NO_CAPTURE) {
 				board.unselectPawn();
 				board.changePlayer();
 			}
-			System.out.print("\n");
-    	}		
+		}
 		return false;
 	}
 	
