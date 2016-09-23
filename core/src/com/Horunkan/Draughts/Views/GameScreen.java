@@ -42,7 +42,7 @@ public class GameScreen extends AbstractScreen {
 		newGame();
 	}
 	
-	private void newGame() {
+	public void newGame() {
 		System.out.println("\nNew Game\n");
 		for(Actor act : stage.getActors()) act.remove();
 		
@@ -79,11 +79,11 @@ public class GameScreen extends AbstractScreen {
 	
 	private void checkEndGame() {
 		if(board.countPawns(2) == 0) {
-			end = new GameEnd(this, playerDark.getName());
+			end = new GameEnd(this, game, playerDark.getName());
 			stage.addActor(end);
 		}
 		else if(board.countPawns(3) == 0) {
-			end = new GameEnd(this, playerBright.getName());
+			end = new GameEnd(this, game, playerBright.getName());
 			stage.addActor(end);
 		}
 	}

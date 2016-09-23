@@ -1,7 +1,7 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Draughts;
-import com.Horunkan.Draughts.Utilities.ButtonStyle;
+import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.Horunkan.Draughts.Views.GameScreen;
@@ -10,12 +10,14 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class GameEnd extends Table {
@@ -31,10 +33,12 @@ public class GameEnd extends Table {
 	private Label title, winner;
 	private TextButton backToMenuButton, newGameButton;
 	private GameScreen screen;
+	private Draughts game;
 	
-	public GameEnd(GameScreen screen, String winnerName) {
+	public GameEnd(GameScreen screen, Draughts game, String winnerName) {
 		//this.debug();
 		this.screen = screen;
+		this.game = game;
 		this.setSize(tableWidth, tableHeight);
 		setPosition(Draughts.WIDTH/2 - tableWidth/2, Draughts.HEIGHT/2 - tableHeight/2);
 		
@@ -86,6 +90,16 @@ public class GameEnd extends Table {
 	}
 	
 	private void addButtonsListeners() {
+		backToMenuButton.addListener(new ChangeListener() {
+			@Override public void changed (ChangeEvent event, Actor actor) {
+	           game.setScreen(ScreenMode.MAIN_MENU);
+	        }
+	    });
 		
+		newGameButton.addListener(new ChangeListener() {
+			@Override public void changed (ChangeEvent event, Actor actor) {
+	           screen.newGame();
+	        }
+	    });
 	}
 }
