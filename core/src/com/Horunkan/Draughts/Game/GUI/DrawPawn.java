@@ -28,6 +28,15 @@ public class DrawPawn extends Image {
 			this.setDrawable(textures.getDrawable("pawnDark"));
 			player = Player.DARK;
 		}
+		else if(pawnType == 4) {
+			this.setDrawable(textures.getDrawable("pawnBrightKing"));
+			player = Player.BRIGHT;
+		}
+		else if(pawnType == 5) {
+			this.setDrawable(textures.getDrawable("pawnDarkKing"));
+			player = Player.DARK;
+		}
+		
 		this.setSize(65, 65);
 		
 		this.addListener(new InputListener() {
