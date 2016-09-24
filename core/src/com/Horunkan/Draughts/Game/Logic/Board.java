@@ -67,7 +67,7 @@ public class Board extends BoardDebug {
 		activePawn = null;
 	}
 	
-	//TODO Check if king can move (captures, other pawns)
+	//TODO Check if king can move (captures)
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
@@ -76,9 +76,32 @@ public class Board extends BoardDebug {
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(activePawn.getPawnType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
-			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y) return true;
+			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y) {
+				BoardPosition direction = new BoardPosition(cellPos.x - activePawn.getBoardPosition().x, cellPos.y - activePawn.getBoardPosition().y);
+				return canMoveKing(activePawn.getBoardPosition(), cellPos, direction);
+			}
 		}
 		
+		return false;
+	}
+	
+	private boolean canMoveKing(BoardPosition checkPos, BoardPosition destination, BoardPosition direction) {
+		if(destination.isEqual(checkPos.x, checkPos.y)) { return true; }
+		else if(getValue(checkPos.x, checkPos.y) != 1 && !activePawn.getBoardPosition().isEqual(checkPos.x, checkPos.y)) return false;
+		
+		if(direction.x < 0 && direction.y < 0) {
+			return canMoveKing(new BoardPosition(checkPos.x - 1, checkPos.y - 1), destination, direction); //Top left
+		}
+		if(direction.x > 0 && direction.y < 0) {
+			return canMoveKing(new BoardPosition(checkPos.x + 1, checkPos.y - 1), destination, direction); //Top right
+		}
+		if(direction.x < 0 && direction.y > 0) {
+			return canMoveKing(new BoardPosition(checkPos.x - 1, checkPos.y + 1), destination, direction); //Bottom left
+		}
+		if(direction.x > 0 && direction.y > 0) {
+			return canMoveKing(new BoardPosition(checkPos.x + 1, checkPos.y + 1), destination, direction); //Bottom right
+		}
+
 		return false;
 	}
 	
@@ -154,7 +177,7 @@ public class Board extends BoardDebug {
 	}
 	
 	private Player getPawnPlayer(int x, int y) {
-		if(getValue(x,y) == 2) return Player.BRIGHT;
+		if(getValue(x,y) == 2 || getValue(x,y) == 4) return Player.BRIGHT;
 		else return Player.DARK;
 	}
 	
