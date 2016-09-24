@@ -66,7 +66,8 @@ public class Board extends BoardDebug {
 		
 		activePawn = null;
 	}
-		
+	
+	//TODO Check if king can move (captures, other pawns)
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		

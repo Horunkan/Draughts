@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.Horunkan.Draughts.Views.GameScreen;
@@ -57,19 +58,46 @@ public abstract class BoardDebug {
 		}
 		else {
 			checkCaptures = 0;
-			highlightMovement();
-			highlightCaptures(board.getPawn().getBoardPosition());
+			BoardPosition pos = board.getPawn().getBoardPosition();
+			boardCells[pos.x][pos.y].setColor(Color.CYAN); //Highlight cell where pawn is selected
+			highlightMovement(pos);
+			highlightCaptures(pos);
 		}
 	}
 	
-	private void highlightMovement() {
-		BoardPosition pos = board.getPawn().getBoardPosition();
-		boardCells[pos.x][pos.y].setColor(Color.CYAN); //Highlight cell where pawn is selected
-		
-		if(pos.x > 0 && pos.y > 0) setCellCornerColor(boardCells[pos.x - 1][pos.y - 1], board.getValue(pos.x - 1, pos.y - 1)); //Top left
-		if(pos.x + 1 < board.getWidth() && pos.y > 0) setCellCornerColor(boardCells[pos.x + 1][pos.y - 1], board.getValue(pos.x + 1, pos.y - 1)); //Top right
-		if(pos.x > 0 && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x - 1][pos.y + 1], board.getValue(pos.x - 1, pos.y + 1)); //Bottom left
-		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1)); //Bottom right
+	private void highlightMovement(BoardPosition pos) {
+		highlightTopLeft(pos);
+		highlightTopRight(pos);
+		highlightBottomLeft(pos);
+		highlightBottomRight(pos);
+	}
+	
+	private void highlightTopLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y > 0) {
+			setCellCornerColor(boardCells[pos.x - 1][pos.y - 1], board.getValue(pos.x - 1, pos.y - 1));
+			if(board.getPawn().getPawnType() == PawnType.KING) highlightTopLeft(new BoardPosition(pos.x - 1, pos.y - 1));
+		}
+	}
+	
+	private void highlightTopRight(BoardPosition pos) {
+		if(pos.x + 1 < board.getWidth() && pos.y > 0) {
+			setCellCornerColor(boardCells[pos.x + 1][pos.y - 1], board.getValue(pos.x + 1, pos.y - 1));
+			if(board.getPawn().getPawnType() == PawnType.KING) highlightTopRight(new BoardPosition(pos.x + 1, pos.y - 1));
+		}
+	}
+	
+	private void highlightBottomLeft(BoardPosition pos) {
+		if(pos.x > 0 && pos.y + 1 < board.getHeight()) {
+			setCellCornerColor(boardCells[pos.x - 1][pos.y + 1], board.getValue(pos.x - 1, pos.y + 1));
+			if(board.getPawn().getPawnType() == PawnType.KING) highlightBottomLeft(new BoardPosition(pos.x - 1, pos.y + 1));
+		}
+	}
+	
+	private void highlightBottomRight(BoardPosition pos) {
+		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) {
+			setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1));
+			if(board.getPawn().getPawnType() == PawnType.KING) highlightBottomRight(new BoardPosition(pos.x + 1, pos.y + 1));
+		}
 	}
 	
 	private void setCellCornerColor(DrawCell cell, int cellValue) {	
