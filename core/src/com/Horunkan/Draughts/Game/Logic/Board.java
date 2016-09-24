@@ -3,6 +3,7 @@ package com.Horunkan.Draughts.Game.Logic;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
@@ -73,7 +74,8 @@ public class Board extends BoardDebug {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(distance.x == 1 && distance.y == 1) return true; //Across movement
+			if(activePawn.getPawnType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
+			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y) return true;
 		}
 		
 		return false;
