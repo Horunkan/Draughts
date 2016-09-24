@@ -75,28 +75,28 @@ public abstract class BoardDebug {
 	private void highlightTopLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y > 0) {
 			setCellCornerColor(boardCells[pos.x - 1][pos.y - 1], board.getValue(pos.x - 1, pos.y - 1));
-			if(board.getPawn().getPawnType() == PawnType.KING) highlightTopLeft(new BoardPosition(pos.x - 1, pos.y - 1));
+			if(board.getPawn().getPawnType() == PawnType.KING && board.getValue(pos.x - 1, pos.y - 1) == 1) highlightTopLeft(new BoardPosition(pos.x - 1, pos.y - 1));
 		}
 	}
 	
 	private void highlightTopRight(BoardPosition pos) {
 		if(pos.x + 1 < board.getWidth() && pos.y > 0) {
 			setCellCornerColor(boardCells[pos.x + 1][pos.y - 1], board.getValue(pos.x + 1, pos.y - 1));
-			if(board.getPawn().getPawnType() == PawnType.KING) highlightTopRight(new BoardPosition(pos.x + 1, pos.y - 1));
+			if(board.getPawn().getPawnType() == PawnType.KING && board.getValue(pos.x + 1, pos.y - 1) == 1) highlightTopRight(new BoardPosition(pos.x + 1, pos.y - 1));
 		}
 	}
 	
 	private void highlightBottomLeft(BoardPosition pos) {
 		if(pos.x > 0 && pos.y + 1 < board.getHeight()) {
 			setCellCornerColor(boardCells[pos.x - 1][pos.y + 1], board.getValue(pos.x - 1, pos.y + 1));
-			if(board.getPawn().getPawnType() == PawnType.KING) highlightBottomLeft(new BoardPosition(pos.x - 1, pos.y + 1));
+			if(board.getPawn().getPawnType() == PawnType.KING && board.getValue(pos.x - 1, pos.y + 1) == 1) highlightBottomLeft(new BoardPosition(pos.x - 1, pos.y + 1));
 		}
 	}
 	
 	private void highlightBottomRight(BoardPosition pos) {
 		if(pos.x + 1 < board.getWidth() && pos.y + 1 < board.getHeight()) {
 			setCellCornerColor(boardCells[pos.x + 1][pos.y + 1], board.getValue(pos.x + 1, pos.y + 1));
-			if(board.getPawn().getPawnType() == PawnType.KING) highlightBottomRight(new BoardPosition(pos.x + 1, pos.y + 1));
+			if(board.getPawn().getPawnType() == PawnType.KING && board.getValue(pos.x + 1, pos.y + 1) == 1) highlightBottomRight(new BoardPosition(pos.x + 1, pos.y + 1));
 		}
 	}
 	
