@@ -28,7 +28,7 @@ public class Board extends BoardDebug {
 	}
 	
 	private void loadFromFile() {
-		FileHandle file = Gdx.files.internal("Boards/8x8.txt");
+		FileHandle file = Gdx.files.internal("Boards/KingsDebug.txt"); //8x8.txt
 		String lines[] = file.readString().split(" #END");
 		for(int i = 0; i < lines.length; ++i) lines[i] = lines[i].replaceAll("\\s", ""); //Remove white chars
 		

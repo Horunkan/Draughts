@@ -11,9 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class DrawPawn extends Image {
+	public enum PawnType {STANDARD, KING}
+	
 	private final Board board;
 	private BoardPosition pos;
 	private Player player;
+	private PawnType type;
 	
 	public DrawPawn(Board board, int pawnType, int posX, int posY) {
 		this.board = board;
@@ -23,18 +26,22 @@ public class DrawPawn extends Image {
 		if(pawnType == 2) {
 			this.setDrawable(textures.getDrawable("pawnBright"));
 			player = Player.BRIGHT;
+			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 3) {
 			this.setDrawable(textures.getDrawable("pawnDark"));
 			player = Player.DARK;
+			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 4) {
 			this.setDrawable(textures.getDrawable("pawnBrightKing"));
 			player = Player.BRIGHT;
+			type = PawnType.KING;
 		}
 		else if(pawnType == 5) {
 			this.setDrawable(textures.getDrawable("pawnDarkKing"));
 			player = Player.DARK;
+			type = PawnType.KING;
 		}
 		
 		this.setSize(65, 65);
@@ -65,6 +72,7 @@ public class DrawPawn extends Image {
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
 	public Player getPawnPlayer() { return player; }
+	public PawnType getPawnType() { return type; }
 	
 	public int getPawnPlayerInt() {
 		if(player == Player.BRIGHT) return 2;
