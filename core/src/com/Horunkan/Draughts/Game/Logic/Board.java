@@ -3,6 +3,7 @@ package com.Horunkan.Draughts.Game.Logic;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
@@ -50,6 +51,7 @@ public class Board extends BoardDebug {
 	public void changePlayer() {
 		if(activePlayer == Player.BRIGHT) activePlayer = Player.DARK;
 		else activePlayer = Player.BRIGHT;
+		screen.updateActivePlayer(activePlayer);
 	}
 	
 	public void setActivePawn(DrawPawn pawn) {
@@ -65,7 +67,7 @@ public class Board extends BoardDebug {
 		
 		activePawn = null;
 	}
-		
+	
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
@@ -73,9 +75,33 @@ public class Board extends BoardDebug {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(distance.x == 1 && distance.y == 1) return true; //Across movement
+			if(activePawn.getPawnType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
+			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y) {
+				BoardPosition direction = new BoardPosition(cellPos.x - activePawn.getBoardPosition().x, cellPos.y - activePawn.getBoardPosition().y);
+				return canMoveKing(activePawn.getBoardPosition(), cellPos, direction);
+			}
 		}
 		
+		return false;
+	}
+	
+	private boolean canMoveKing(BoardPosition checkPos, BoardPosition destination, BoardPosition direction) {
+		if(destination.isEqual(checkPos.x, checkPos.y)) { return true; }
+		else if(getValue(checkPos.x, checkPos.y) != 1 && !activePawn.getBoardPosition().isEqual(checkPos.x, checkPos.y)) return false;
+		
+		if(direction.x < 0 && direction.y < 0) {
+			return canMoveKing(new BoardPosition(checkPos.x - 1, checkPos.y - 1), destination, direction); //Top left
+		}
+		if(direction.x > 0 && direction.y < 0) {
+			return canMoveKing(new BoardPosition(checkPos.x + 1, checkPos.y - 1), destination, direction); //Top right
+		}
+		if(direction.x < 0 && direction.y > 0) {
+			return canMoveKing(new BoardPosition(checkPos.x - 1, checkPos.y + 1), destination, direction); //Bottom left
+		}
+		if(direction.x > 0 && direction.y > 0) {
+			return canMoveKing(new BoardPosition(checkPos.x + 1, checkPos.y + 1), destination, direction); //Bottom right
+		}
+
 		return false;
 	}
 	
@@ -86,7 +112,8 @@ public class Board extends BoardDebug {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
+			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(activePawn.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
+			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
@@ -97,6 +124,14 @@ public class Board extends BoardDebug {
 		board[newPosX][newPosY] = activePawn.getPawnPlayerInt();
 		activePawn.setBoardPosition(newPosX, newPosY);
 		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
+		if(canChangeToKing(newPosY)) activePawn.setAsKing();
+		screen.countPawns();
+	}
+	
+	private boolean canChangeToKing(int posY) {
+		if(activePawn.getPawnPlayer() == Player.BRIGHT && posY == boardHeight - 1) return true;
+		else if(activePawn.getPawnPlayer() == Player.DARK && posY == 0) return true;
+		return false;
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
@@ -109,16 +144,15 @@ public class Board extends BoardDebug {
 			
 			if(pawnActive != pawnCapture) {
 				int newPosition = getValue(cellToMove.x, cellToMove.y);
-				if(newPosition == 1) return true;
+				if(newPosition == 1 || newPosition == activePawn.getPawnPlayerInt()) return true;
 				else return false;
 			}
 		}		
 		return false;
 	}
 	
-	public CaptureDirection getCaptureDirection() {
+	public CaptureDirection getCaptureDirection(BoardPosition pos) {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
-		BoardPosition pos = activePawn.getBoardPosition();
 		
 		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
 		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
@@ -128,15 +162,15 @@ public class Board extends BoardDebug {
 		return CaptureDirection.NO_CAPTURE;
 	}
 	
-	public void capture(CaptureDirection dir) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(-1, -1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(1, -1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(-1, 1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(1, 1);
+	public void capture(CaptureDirection dir, BoardPosition pos) {
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
+		screen.countPawns();
 	}
 	
-	public void removePawn(int xChange, int yChange) {
-		BoardPosition pos = activePawn.getBoardPosition();
+	public void removePawn(BoardPosition pos, int xChange, int yChange) {
 		board[pos.x + xChange][pos.y + yChange] = 1;
 		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
@@ -151,7 +185,7 @@ public class Board extends BoardDebug {
 	}
 	
 	private Player getPawnPlayer(int x, int y) {
-		if(getValue(x,y) == 2) return Player.BRIGHT;
+		if(getValue(x,y) == 2 || getValue(x,y) == 4) return Player.BRIGHT;
 		else return Player.DARK;
 	}
 	

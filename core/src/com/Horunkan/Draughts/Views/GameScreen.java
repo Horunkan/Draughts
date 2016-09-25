@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Game.GUI.GameEnd;
 import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
@@ -57,8 +58,7 @@ public class GameScreen extends AbstractScreen {
 		
 		loadPawnsGroups();
 		loadPlayerInfo();
-		playerBright.setValue(board.countPawns(2), 0);
-		playerDark.setValue(board.countPawns(3), 0);
+		countPawns();
 		board.setPlayer(Player.BRIGHT);
 		updateActivePlayer(board.getActivePlayer());
 		
@@ -70,19 +70,37 @@ public class GameScreen extends AbstractScreen {
 			if(pawns.get(i).getBoardPosition().isEqual(x, y)) {
 				pawns.get(i).remove();
 				pawns.remove(i);
-				playerBright.setValue(board.countPawns(2), 0);
-				playerDark.setValue(board.countPawns(3), 0);
+				break;
 			}
 		}
+		countPawns();
 		checkEndGame();
 	}
 	
+	public void countPawns() {
+		int pawnsBright = 0, pawnsBrightKings = 0, pawnsDark = 0, pawnsDarkKings = 0;
+		
+		for(DrawPawn pw : pawns) {
+			if(pw.getPawnPlayer() == Player.BRIGHT) {
+				if(pw.getPawnType() == PawnType.STANDARD) ++pawnsBright;
+				else ++pawnsBrightKings;
+			}
+			else {
+				if(pw.getPawnType() == PawnType.STANDARD) ++pawnsDark;
+				else ++pawnsDarkKings;
+			}
+		}
+		
+		playerBright.setValue(pawnsBright, pawnsBrightKings);
+		playerDark.setValue(pawnsDark, pawnsDarkKings);
+	}
+	
 	private void checkEndGame() {
-		if(board.countPawns(2) == 0) {
+		if(board.countPawns(2) == 0 && board.countPawns(4) == 0) {
 			end = new GameEnd(this, game, playerDark.getName());
 			stage.addActor(end);
 		}
-		else if(board.countPawns(3) == 0) {
+		else if(board.countPawns(3) == 0 && board.countPawns(5) == 0) {
 			end = new GameEnd(this, game, playerBright.getName());
 			stage.addActor(end);
 		}
