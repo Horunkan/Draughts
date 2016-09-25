@@ -51,6 +51,7 @@ public class Board extends BoardDebug {
 	public void changePlayer() {
 		if(activePlayer == Player.BRIGHT) activePlayer = Player.DARK;
 		else activePlayer = Player.BRIGHT;
+		screen.updateActivePlayer(activePlayer);
 	}
 	
 	public void setActivePawn(DrawPawn pawn) {
@@ -124,6 +125,7 @@ public class Board extends BoardDebug {
 		activePawn.setBoardPosition(newPosX, newPosY);
 		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
 		if(canChangeToKing(newPosY)) activePawn.setAsKing();
+		screen.countPawns();
 	}
 	
 	private boolean canChangeToKing(int posY) {
@@ -165,6 +167,7 @@ public class Board extends BoardDebug {
 		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
 		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
 		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
+		screen.countPawns();
 	}
 	
 	public void removePawn(BoardPosition pos, int xChange, int yChange) {
