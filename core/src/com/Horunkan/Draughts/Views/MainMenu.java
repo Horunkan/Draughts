@@ -61,7 +61,7 @@ public class MainMenu extends AbstractScreen {
 	private void createButtonsListeners() {
 		newGameButton.addListener(new ChangeListener() {
 			@Override public void changed (ChangeEvent event, Actor actor) {
-	           game.setScreen(ScreenMode.GAME);
+	           game.setScreen(ScreenMode.NEW_GAME);
 	        }
 	    });
 		
