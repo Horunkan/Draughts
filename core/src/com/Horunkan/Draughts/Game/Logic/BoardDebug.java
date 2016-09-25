@@ -22,6 +22,7 @@ public abstract class BoardDebug {
 	private BitmapFont font;
 	private int checkCaptures = 0;
 	private int maxCapturesCheck = 10;
+	private boolean possibleCapture = false;
 	
 	public void debug(GameScreen screen, Board board, DrawCell[][] cells, ArrayList<DrawPawn> pawns) {
 		boardCells = cells;
@@ -106,52 +107,65 @@ public abstract class BoardDebug {
 	}
 	
 	private void highlightCaptures(BoardPosition pos) {
-		if(canCaptureTopLeft(pos)) {
+		highlightCapturesTopLeft(pos);
+		highlightCapturesTopRight(pos);
+		highlightCapturesBottomLeft(pos);
+		highlightCapturesBottomRight(pos);
+	}
+	
+	private void highlightCapturesTopLeft(BoardPosition pos) {
+		if(board.canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) {
 			boardCells[pos.x - 1][pos.y - 1].setColor(Color.BLUE);
 			boardCells[pos.x - 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
+			possibleCapture = true;
 			
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y - 2));
 		}
-		
-		if(canCaptureTopRight(pos)) {
+		else if(board.getValue(pos.x - 1, pos.y - 1) == 1 && board.getPawn().getPawnType() == PawnType.KING) {
+			highlightCapturesTopLeft(new BoardPosition(pos.x - 1, pos.y - 1));
+		}
+	}
+
+	private void highlightCapturesTopRight(BoardPosition pos) {
+		if(board.canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) {
 			boardCells[pos.x + 1][pos.y - 1].setColor(Color.BLUE);
 			boardCells[pos.x + 2][pos.y - 2].setColor(Color.GREEN);
 			++checkCaptures;
+			possibleCapture = true;
 			
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y - 2));
 		}
-		
-		if(canCaptureBottomLeft(pos)) {
+		else if(!possibleCapture && board.getValue(pos.x + 1, pos.y - 1) == 1 && board.getPawn().getPawnType() == PawnType.KING) {
+			highlightCapturesTopRight(new BoardPosition(pos.x + 1, pos.y - 1));
+		}
+	}
+	
+	private void highlightCapturesBottomLeft(BoardPosition pos) {
+		if(board.canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) {
 			boardCells[pos.x - 1][pos.y + 1].setColor(Color.BLUE);
 			boardCells[pos.x - 2][pos.y + 2].setColor(Color.GREEN);
 			++checkCaptures;
+			possibleCapture = true;
 			
 			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x - 2, pos.y + 2));
 		}
-		
-		if(canCaptureBottomRight(pos)) {
-			boardCells[pos.x + 1][pos.y + 1].setColor(Color.BLUE);
-			boardCells[pos.x + 2][pos.y + 2].setColor(Color.GREEN);
-			++checkCaptures;
-			
-			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y + 2));
+		else if(!possibleCapture && board.getValue(pos.x - 1, pos.y + 1) == 1 && board.getPawn().getPawnType() == PawnType.KING) {
+			highlightCapturesBottomLeft(new BoardPosition(pos.x - 1, pos.y + 1));
 		}
 	}
 	
-	private boolean canCaptureTopLeft(BoardPosition pos) {
-		return board.canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2));
-	}
-	
-	private boolean canCaptureTopRight(BoardPosition pos) {
-		return board.canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2));
-	}
-	
-	private boolean canCaptureBottomLeft(BoardPosition pos) {
-		return board.canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2));
-	}
-	
-	private boolean canCaptureBottomRight(BoardPosition pos) {
-		return board.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2));
+	private void highlightCapturesBottomRight(BoardPosition pos) {
+		if(board.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) {
+			boardCells[pos.x + 1][pos.y + 1].setColor(Color.BLUE);
+			boardCells[pos.x + 2][pos.y + 2].setColor(Color.GREEN);
+			++checkCaptures;
+			possibleCapture = true;
+			
+			if(checkCaptures < maxCapturesCheck) highlightCaptures(new BoardPosition(pos.x + 2, pos.y + 2));
+		}
+		else if(!possibleCapture && board.getValue(pos.x + 1, pos.y + 1) == 1 && board.getPawn().getPawnType() == PawnType.KING) {
+			highlightCapturesBottomLeft(new BoardPosition(pos.x + 1, pos.y + 1));
+		}
 	}
 }
