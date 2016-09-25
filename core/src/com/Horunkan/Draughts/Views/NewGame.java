@@ -4,18 +4,23 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.NewGame.GUI.SelectBoard;
 import com.Horunkan.Draughts.NewGame.GUI.SelectMode;
 import com.Horunkan.Draughts.NewGame.GUI.SelectNames;
+import com.Horunkan.Draughts.Utilities.ButtonStyle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class NewGame extends AbstractScreen {
 	private Table mainContainer;
 	private SelectMode selectMode;
 	private SelectBoard selectBoard;
 	private SelectNames selectNames;
+	
+	private TextButton startGameButton, backToMenuButton;
 
 	public NewGame(Draughts game) {
 		super(game);
+		createButtons();
 		
 		mainContainer = new Table();
 		mainContainer.setFillParent(true);
@@ -30,6 +35,10 @@ public class NewGame extends AbstractScreen {
 		
 		selectNames = new SelectNames();
 		selectNames.addToTable(mainContainer);
+		mainContainer.row();
+		
+		mainContainer.add(backToMenuButton).size(200, 58);
+		mainContainer.add(startGameButton).size(200, 58);
 			
 		stage.addActor(mainContainer);
 	}
@@ -44,5 +53,9 @@ public class NewGame extends AbstractScreen {
 		stage.draw();
 	}
 	
-	public Table getContainer() { return mainContainer; }
+	public void createButtons() {
+		ButtonStyle style = ButtonStyle.getInstance();
+		startGameButton = new TextButton("Start game", style);
+		backToMenuButton = new TextButton("Back", style);
+	}
 }
