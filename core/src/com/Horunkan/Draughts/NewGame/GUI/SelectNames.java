@@ -33,6 +33,13 @@ public class SelectNames {
 	public void addToTable(Table tab) {
 		tab.add(contaier).top().pad(5);
 	}
+	
+	public String[] getNames() {
+		String buffer[] = new String[2];
+		buffer[0] = playerBrightValue.getText();
+		buffer[1] = playerDarkValue.getText();
+		return buffer;
+	}
 		
 	private void createFieldsNames() {
 		nameStyle = new LabelStyle();

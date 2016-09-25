@@ -14,7 +14,9 @@ public class Draughts extends Game {
 	
 	public enum ScreenMode {MAIN_MENU, NEW_GAME, GAME}
 	
-	private AbstractScreen menu, game, newGame;
+	private AbstractScreen menu;
+	private GameScreen game;
+	private NewGame newGame;
 	
 	@Override
 	public void create() {
@@ -27,7 +29,10 @@ public class Draughts extends Game {
 	
 	public void setScreen(ScreenMode mode) {
 		if(mode == ScreenMode.MAIN_MENU) this.setScreen(menu);
-		else if(mode == ScreenMode.GAME) this.setScreen(game);
+		else if(mode == ScreenMode.GAME) {
+			this.setScreen(game);
+			game.newGame(newGame.getPlayerNames());
+		}
 		else if(mode == ScreenMode.NEW_GAME) this.setScreen(newGame);
 	}
 }
