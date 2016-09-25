@@ -69,6 +69,7 @@ public class NewGame extends AbstractScreen {
 	}
 	
 	public String[] getPlayerNames() { return selectNames.getNames(); }
+	public String getBoardName() { return selectBoard.getSelectedBoard(); }
 	
 	private void createButtons() {
 		ButtonStyle style = ButtonStyle.getInstance();

@@ -31,7 +31,7 @@ public class Draughts extends Game {
 		if(mode == ScreenMode.MAIN_MENU) this.setScreen(menu);
 		else if(mode == ScreenMode.GAME) {
 			this.setScreen(game);
-			game.newGame(newGame.getPlayerNames());
+			game.newGame(newGame.getPlayerNames(), newGame.getBoardName());
 		}
 		else if(mode == ScreenMode.NEW_GAME) this.setScreen(newGame);
 	}

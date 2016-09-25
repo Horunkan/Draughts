@@ -23,13 +23,13 @@ public class Board extends BoardDebug {
 	private Player activePlayer;
 	private final float pawnMovementSpeed = 0.15f;
 	
-	public Board(GameScreen screen) {
+	public Board(GameScreen screen, String boardName) {
 		this.screen = screen;
-		loadFromFile();
+		loadFromFile(boardName);
 	}
 	
-	private void loadFromFile() {
-		FileHandle file = Gdx.files.internal("Boards/8x8.txt");
+	private void loadFromFile(String boardName) {
+		FileHandle file = Gdx.files.internal("Boards/" + boardName);
 		String lines[] = file.readString().split(" #END");
 		for(int i = 0; i < lines.length; ++i) lines[i] = lines[i].replaceAll("\\s", ""); //Remove white chars
 		

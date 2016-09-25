@@ -33,6 +33,8 @@ public class SelectBoard {
 	public void addToTable(Table tab) {
 		tab.add(boardsScroller).width(250).height(250).pad(5);
 	}
+	
+	public String getSelectedBoard() { return boardList.getSelected() + ".txt"; }
 		
 	private void createListStyle() {
 		Pixmap selectionPixmap = new Pixmap(100, 100, Format.RGBA8888);

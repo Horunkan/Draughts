@@ -38,13 +38,13 @@ public class GameScreen extends AbstractScreen {
 		if(Draughts.debug)board.renderDebug();
 	}
 		
-	public void newGame(String[] playerNames) {
+	public void newGame(String[] playerNames, String boardName) {
 		System.out.println("\nNew Game\n");
 		for(Actor act : stage.getActors()) act.remove();
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
-		board = new Board(this);
+		board = new Board(this, boardName);
 		loadBoard();
 				
 		pawns = new ArrayList<DrawPawn>();		
