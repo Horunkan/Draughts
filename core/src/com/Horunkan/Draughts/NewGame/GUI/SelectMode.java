@@ -8,26 +8,20 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SelectMode {
-	private final int titleFontSize = 25;
 	private final int checkBoxFontSize = 20;
 	private final int checkBoxSize = 30;
 	
-	private LabelStyle titleStyle;
 	private CheckBoxStyle checkBoxStyle;
-	private Label title;
 	private CheckBox playerVsPlayer, playerVsCPU;
 	private ButtonGroup<CheckBox> checkBoxGroup;
 	private Pixmap checkBoxOn, checkBoxOff;
 	
 	public SelectMode() {
-		createTitle();
 		createPixmaps();
 		createCheckBoxStyle();
 		createCheckBoxes();
@@ -38,19 +32,10 @@ public class SelectMode {
 	}
 	
 	public void addToTable(Table tab) {
-		tab.add(title).colspan(2).row();
 		tab.add(playerVsPlayer).pad(5f);
 		tab.add(playerVsCPU).pad(5f);
 	}
-	
-	private void createTitle() {
-		titleStyle = new LabelStyle();
-		titleStyle.font = FontLoader.getInstance().getFont(titleFontSize);
-		titleStyle.fontColor = Color.WHITE;
 		
-		title = new Label("Select game mode", titleStyle);
-	}
-	
 	private void createPixmaps() {
 		checkBoxOn = new Pixmap(checkBoxSize, checkBoxSize, Format.RGBA8888);
 		checkBoxOn.setColor(Color.DARK_GRAY);

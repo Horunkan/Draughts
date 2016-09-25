@@ -5,6 +5,7 @@ import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.Horunkan.Draughts.NewGame.GUI.SelectBoard;
 import com.Horunkan.Draughts.NewGame.GUI.SelectMode;
 import com.Horunkan.Draughts.NewGame.GUI.SelectNames;
+import com.Horunkan.Draughts.NewGame.GUI.Title;
 import com.Horunkan.Draughts.Utilities.ButtonStyle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -20,6 +21,8 @@ public class NewGame extends AbstractScreen {
 	private SelectNames selectNames;
 	
 	private TextButton startGameButton, backToMenuButton;
+	
+	private Title selectModeTitle, selectBoardTitle, selectNamesTitle;
 
 	public NewGame(Draughts game) {
 		super(game);
@@ -30,9 +33,17 @@ public class NewGame extends AbstractScreen {
 		mainContainer.setFillParent(true);
 		mainContainer.debug();
 		
+		selectModeTitle = new Title("Select mode");
+		mainContainer.add(selectModeTitle.get()).colspan(2).row();
+		
 		selectMode = new SelectMode();
 		selectMode.addToTable(mainContainer);
 		mainContainer.row();
+		
+		selectBoardTitle = new Title("Select board");
+		selectNamesTitle = new Title("Select names");
+		mainContainer.add(selectBoardTitle.get()).pad(5);
+		mainContainer.add(selectNamesTitle.get()).pad(5).row();
 		
 		selectBoard = new SelectBoard();
 		selectBoard.addToTable(mainContainer);
@@ -41,8 +52,8 @@ public class NewGame extends AbstractScreen {
 		selectNames.addToTable(mainContainer);
 		mainContainer.row();
 		
-		mainContainer.add(backToMenuButton).size(200, 58);
-		mainContainer.add(startGameButton).size(200, 58);
+		mainContainer.add(backToMenuButton).size(200, 58).pad(5);
+		mainContainer.add(startGameButton).size(200, 58).pad(5);
 			
 		stage.addActor(mainContainer);
 	}

@@ -14,18 +14,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 
 public class SelectNames {
-	private final int titleFontSize = 25;
 	private final int fieldFontSize = 20;
 	
-	private LabelStyle titleStyle, nameStyle;
-	private Label title, playerBright, playerDark;
+	private LabelStyle nameStyle;
+	private Label playerBright, playerDark;
 	private TextField playerBrightValue, playerDarkValue;
 	private TextFieldStyle fieldStyle;
 	
 	private Table contaier;
 	
 	public SelectNames() {
-		createTitle();
 		createFieldsNames();
 		createFieldStyle();
 		createFields();
@@ -35,15 +33,7 @@ public class SelectNames {
 	public void addToTable(Table tab) {
 		tab.add(contaier).top().pad(5);
 	}
-	
-	private void createTitle() {
-		titleStyle = new LabelStyle();
-		titleStyle.font = FontLoader.getInstance().getFont(titleFontSize);
-		titleStyle.fontColor = Color.WHITE;
 		
-		title = new Label("Select names", titleStyle);
-	}
-	
 	private void createFieldsNames() {
 		nameStyle = new LabelStyle();
 		nameStyle.font = FontLoader.getInstance().getFont(fieldFontSize);
@@ -84,7 +74,6 @@ public class SelectNames {
 	
 	private void createContainer() {
 		contaier = new Table();
-		contaier.add(title).colspan(2).row();
 		contaier.add(playerBright).left().space(15).width(140);
 		contaier.add(playerBrightValue).right().space(15).row();
 		contaier.add(playerDark).left().space(15).width(140);

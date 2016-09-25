@@ -8,9 +8,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.List.ListStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -18,18 +16,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane.ScrollPaneStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SelectBoard {
-	private final int titleFontSize = 25;
 	private final int listFontSize = 15;
 
-	private LabelStyle titleStyle;
-	private Label title;
 	private ListStyle listStyle;
 	private List<String> boardList;
 	private ScrollPaneStyle scrollStyle;
 	private ScrollPane boardsScroller;
 	
 	public SelectBoard() {
-		createTitle();
 		createListStyle();
 		loadList();
 		createScrollPaneStyle();
@@ -37,18 +31,9 @@ public class SelectBoard {
 	}
 	
 	public void addToTable(Table tab) {
-		tab.add(title).row();
-		tab.add(boardsScroller).width(250).height(250);
+		tab.add(boardsScroller).width(250).height(250).pad(5);
 	}
-	
-	private void createTitle() {
-		titleStyle = new LabelStyle();
-		titleStyle.font = FontLoader.getInstance().getFont(titleFontSize);
-		titleStyle.fontColor = Color.WHITE;
 		
-		title = new Label("Select board", titleStyle);
-	}
-	
 	private void createListStyle() {
 		Pixmap selectionPixmap = new Pixmap(100, 100, Format.RGBA8888);
 		selectionPixmap.setColor(Color.DARK_GRAY);
