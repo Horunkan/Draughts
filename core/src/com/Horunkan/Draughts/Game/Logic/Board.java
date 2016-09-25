@@ -29,7 +29,7 @@ public class Board extends BoardDebug {
 	}
 	
 	private void loadFromFile() {
-		FileHandle file = Gdx.files.internal("Boards/KingsDebug.txt"); //8x8.txt
+		FileHandle file = Gdx.files.internal("Boards/8x8.txt");
 		String lines[] = file.readString().split(" #END");
 		for(int i = 0; i < lines.length; ++i) lines[i] = lines[i].replaceAll("\\s", ""); //Remove white chars
 		
@@ -123,6 +123,13 @@ public class Board extends BoardDebug {
 		board[newPosX][newPosY] = activePawn.getPawnPlayerInt();
 		activePawn.setBoardPosition(newPosX, newPosY);
 		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
+		if(canChangeToKing(newPosY)) activePawn.setAsKing();
+	}
+	
+	private boolean canChangeToKing(int posY) {
+		if(activePawn.getPawnPlayer() == Player.BRIGHT && posY == boardHeight - 1) return true;
+		else if(activePawn.getPawnPlayer() == Player.DARK && posY == 0) return true;
+		return false;
 	}
 	
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {

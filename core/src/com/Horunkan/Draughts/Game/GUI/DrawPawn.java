@@ -17,11 +17,12 @@ public class DrawPawn extends Image {
 	private BoardPosition pos;
 	private Player player;
 	private PawnType type;
+	private TextureLoader textures;
 	
 	public DrawPawn(Board board, int pawnType, int posX, int posY) {
 		this.board = board;
 		pos = new BoardPosition(posX, posY);
-		TextureLoader textures = TextureLoader.getInstace();
+		textures = TextureLoader.getInstace();
 		
 		if(pawnType == 2) {
 			this.setDrawable(textures.getDrawable("pawnBright"));
@@ -67,6 +68,12 @@ public class DrawPawn extends Image {
 			}
 		}
 		return false;
+	}
+	
+	public void setAsKing() {
+		type = PawnType.KING;
+		if(player == Player.BRIGHT) this.setDrawable(textures.getDrawable("pawnBrightKing"));
+		else this.setDrawable(textures.getDrawable("pawnDarkKing"));
 	}
 		
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
