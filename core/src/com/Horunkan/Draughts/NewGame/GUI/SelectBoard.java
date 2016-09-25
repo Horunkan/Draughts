@@ -51,7 +51,10 @@ public class SelectBoard {
 		FileHandle directory = Gdx.files.internal("Boards");
 		String[] buffer = new String[directory.list().length];
 
-		for(int i = 0; i < directory.list().length; ++i) buffer[i] = directory.list()[i].name();
+		for(int i = 0; i < directory.list().length; ++i) {
+			String str[] = directory.list()[i].name().split(".txt");
+			buffer[i] = str[0];
+		}
 		boardList.setItems(buffer);
 	}
 	

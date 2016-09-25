@@ -67,8 +67,8 @@ public class NewGame extends AbstractScreen {
 		stage.act(delta);
 		stage.draw();
 	}
-	public String[] getPlayerNames() { return selectNames.getNames(); }
 	
+	public String[] getPlayerNames() { return selectNames.getNames(); }
 	
 	private void createButtons() {
 		ButtonStyle style = ButtonStyle.getInstance();
