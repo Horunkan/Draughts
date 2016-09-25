@@ -4,7 +4,6 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.Horunkan.Draughts.Utilities.FontLoader;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
-import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -32,12 +31,9 @@ public class GameEnd extends Table {
 	private LabelStyle styleTitle, styleWinner;
 	private Label title, winner;
 	private TextButton backToMenuButton, newGameButton;
-	private GameScreen screen;
 	private Draughts game;
 	
-	public GameEnd(GameScreen screen, Draughts game, String winnerName) {
-		//this.debug();
-		this.screen = screen;
+	public GameEnd(Draughts game, String winnerName) {
 		this.game = game;
 		this.setSize(tableWidth, tableHeight);
 		setPosition(Draughts.WIDTH/2 - tableWidth/2, Draughts.HEIGHT/2 - tableHeight/2);
@@ -98,7 +94,7 @@ public class GameEnd extends Table {
 		
 		newGameButton.addListener(new ChangeListener() {
 			@Override public void changed (ChangeEvent event, Actor actor) {
-	           screen.newGame();
+				game.setScreen(ScreenMode.GAME);
 	        }
 	    });
 	}

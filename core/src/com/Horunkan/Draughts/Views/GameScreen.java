@@ -37,19 +37,14 @@ public class GameScreen extends AbstractScreen {
 		stage.draw();
 		if(Draughts.debug)board.renderDebug();
 	}
-	
-	@Override public void show() {
-		super.show();
-		newGame();
-	}
-	
-	public void newGame() {
+		
+	public void newGame(String[] playerNames, String boardName) {
 		System.out.println("\nNew Game\n");
 		for(Actor act : stage.getActors()) act.remove();
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
-		board = new Board(this);
+		board = new Board(this, boardName);
 		loadBoard();
 				
 		pawns = new ArrayList<DrawPawn>();		
@@ -57,7 +52,7 @@ public class GameScreen extends AbstractScreen {
 		boardCellContainer.validate();
 		
 		loadPawnsGroups();
-		loadPlayerInfo();
+		loadPlayerInfo(playerNames);
 		countPawns();
 		board.setPlayer(Player.BRIGHT);
 		updateActivePlayer(board.getActivePlayer());
@@ -97,11 +92,11 @@ public class GameScreen extends AbstractScreen {
 	
 	private void checkEndGame() {
 		if(board.countPawns(2) == 0 && board.countPawns(4) == 0) {
-			end = new GameEnd(this, game, playerDark.getName());
+			end = new GameEnd(game, playerDark.getName());
 			stage.addActor(end);
 		}
 		else if(board.countPawns(3) == 0 && board.countPawns(5) == 0) {
-			end = new GameEnd(this, game, playerBright.getName());
+			end = new GameEnd(game, playerBright.getName());
 			stage.addActor(end);
 		}
 	}
@@ -143,16 +138,15 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 
-	private void loadPlayerInfo() {
-		//TODO Check if player name are less than 15 characters.
+	private void loadPlayerInfo(String[] playerNames) {
 		if(playerBright != null) playerBright.remove();
-		playerBright = new PlayerInfo("Player A", "pawnBright");
+		playerBright = new PlayerInfo(playerNames[0], "pawnBright");
 		playerBright.setPosition(670, 460);
 		stage.addActor(playerBright);
 		playerBright.validate();
 
 		if(playerDark != null) playerDark.remove();
-		playerDark = new PlayerInfo("Player B", "pawnDark");
+		playerDark = new PlayerInfo(playerNames[1], "pawnDark");
 		playerDark.setPosition(10, 40);
 		stage.addActor(playerDark);
 		playerDark.validate();
