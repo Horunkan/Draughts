@@ -67,7 +67,6 @@ public class Board extends BoardDebug {
 		activePawn = null;
 	}
 	
-	//TODO Check if king can move (captures)
 	public boolean canMove(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
@@ -112,7 +111,8 @@ public class Board extends BoardDebug {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(distance.x == 2 && distance.y == 2 && getCaptureDirection() != CaptureDirection.NO_CAPTURE) return true;
+			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(activePawn.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
+			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
@@ -135,16 +135,15 @@ public class Board extends BoardDebug {
 			
 			if(pawnActive != pawnCapture) {
 				int newPosition = getValue(cellToMove.x, cellToMove.y);
-				if(newPosition == 1) return true;
+				if(newPosition == 1 || newPosition == activePawn.getPawnPlayerInt()) return true;
 				else return false;
 			}
 		}		
 		return false;
 	}
 	
-	public CaptureDirection getCaptureDirection() {
+	public CaptureDirection getCaptureDirection(BoardPosition pos) {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
-		BoardPosition pos = activePawn.getBoardPosition();
 		
 		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
 		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
@@ -154,15 +153,14 @@ public class Board extends BoardDebug {
 		return CaptureDirection.NO_CAPTURE;
 	}
 	
-	public void capture(CaptureDirection dir) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(-1, -1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(1, -1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(-1, 1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(1, 1);
+	public void capture(CaptureDirection dir, BoardPosition pos) {
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
 	}
 	
-	public void removePawn(int xChange, int yChange) {
-		BoardPosition pos = activePawn.getBoardPosition();
+	public void removePawn(BoardPosition pos, int xChange, int yChange) {
 		board[pos.x + xChange][pos.y + yChange] = 1;
 		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
