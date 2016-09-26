@@ -1,7 +1,9 @@
 package com.Horunkan.Draughts.Utilities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
@@ -22,7 +24,10 @@ public class TextureLoader {
 	private TextureLoader() {
 		atlas = new TextureAtlas(Gdx.files.internal("textures.atlas"));		
 		skin = new Skin();
-				
+		skin.addRegions(atlas);
+		skin.getRegion("pawn_bright").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.getRegion("pawn_dark").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		
 		skin.add("buttonStandard", atlas.createSprite("buttonStandard"));
 		skin.add("buttonPressed", atlas.createSprite("buttonPressed"));
 		skin.add("boardBright", atlas.createSprite("boardCell_bright"));

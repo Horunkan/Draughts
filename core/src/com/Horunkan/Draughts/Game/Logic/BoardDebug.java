@@ -46,7 +46,7 @@ public abstract class BoardDebug {
 	private void drawBoardState() {
 		for(int y = 0; y < board.getHeight(); ++y) {
 			for(int x = 0; x < board.getWidth(); ++x) {
-				font.draw(batch, Integer.toString(board.getValue(x, y)), boardCells[x][y].getPosition().x + 2, boardCells[x][y].getPosition().y + 63);
+				font.draw(batch, Integer.toString(board.getValue(x, y)), boardCells[x][y].getPosition().x + 2, boardCells[x][y].getPosition().y + screen.getBoardCellSize() - 2);
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Views;
 
 import java.util.ArrayList;
-
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
@@ -24,6 +23,7 @@ public class GameScreen extends AbstractScreen {
 	ArrayList<DrawPawn> pawns;
 	private PlayerInfo playerDark, playerBright;
 	private GameEnd end;
+	private int boardCellSize = 65;
 	
 	public GameScreen(Draughts game) { super(game); }
 	
@@ -46,7 +46,10 @@ public class GameScreen extends AbstractScreen {
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
 		board = new Board(this, boardName);
+		countBoardCellSize();
 		loadBoard();
+		System.out.println(boardCellSize);
+		
 		
 		pawns = new ArrayList<DrawPawn>();		
 		stage.addActor(boardCellContainer);
@@ -59,9 +62,6 @@ public class GameScreen extends AbstractScreen {
 		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
-		//boardCellContainer.setScale(0.5f);
-		System.out.println(boardCellContainer.getMinHeight());
-		System.out.println(boardCellContainer.getMinWidth());
 	}
 	
 	public void removePawn(int x, int y) {
@@ -113,6 +113,14 @@ public class GameScreen extends AbstractScreen {
 		else playerDark.setColor(Color.GREEN);
 	}
 	
+	private void countBoardCellSize() {
+		boardCellSize = 65;
+		while(board.getWidth() * boardCellSize >= Draughts.WIDTH - 10) { boardCellSize -= 1; }
+		while(board.getHeight() * boardCellSize >= Draughts.HEIGHT - 60) { boardCellSize -= 1; }
+	}
+	
+	public int getBoardCellSize() { return boardCellSize; }
+	
 	private void loadBoard() {
 		int width = board.getWidth();
 		int height = board.getHeight();
@@ -121,7 +129,7 @@ public class GameScreen extends AbstractScreen {
 		for(int y = 0; y < height; ++y) {
 			for(int x = 0; x < width; ++x) {
 				boardCells[x][y] = new DrawCell(board, board.getValue(x, y), x, y);
-				boardCellContainer.add(boardCells[x][y]).size(65);
+				boardCellContainer.add(boardCells[x][y]).size(boardCellSize);
 			}
 			boardCellContainer.row();
 		}
@@ -135,6 +143,7 @@ public class GameScreen extends AbstractScreen {
 				if(boardVal != 0 && boardVal != 1) {
 					DrawPawn buffer = new DrawPawn(board, boardVal, x, y);
 					buffer.setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
+					buffer.setSize(boardCellSize, boardCellSize);
 					pawns.add(buffer);
 					stage.addActor(buffer);
 				}
