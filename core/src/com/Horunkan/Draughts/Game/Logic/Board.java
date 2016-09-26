@@ -1,6 +1,5 @@
 package com.Horunkan.Draughts.Game.Logic;
 
-import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
@@ -24,12 +23,9 @@ public class Board extends BoardDebug {
 	private final float pawnMovementSpeed = 0.15f;
 	private DrawCell pawnCell;
 	
-	public Board(GameScreen screen, String boardName) {
-		this.screen = screen;
-		loadFromFile(boardName);
-	}
+	public Board(GameScreen screen) { this.screen = screen; }
 	
-	private void loadFromFile(String boardName) {
+	public void loadFromFile(String boardName) {
 		FileHandle file = Gdx.files.internal("Boards/" + boardName);
 		String lines[] = file.readString().split(" #END");
 		for(int i = 0; i < lines.length; ++i) lines[i] = lines[i].replaceAll("\\s", ""); //Remove white chars

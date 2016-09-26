@@ -26,7 +26,10 @@ public class GameScreen extends AbstractScreen {
 	private GameEnd end;
 	private int boardCellSize = 65;
 	
-	public GameScreen(Draughts game) { super(game); }
+	public GameScreen(Draughts game) { 
+		super(game); 
+		board = new Board(this);
+	}
 	
 	@Override public void render(float delta) {
 		//Clear view
@@ -46,7 +49,8 @@ public class GameScreen extends AbstractScreen {
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
-		board = new Board(this, boardName);
+		
+		board.loadFromFile(boardName);
 		countBoardCellSize();
 		loadBoard();
 		System.out.println(boardCellSize);
