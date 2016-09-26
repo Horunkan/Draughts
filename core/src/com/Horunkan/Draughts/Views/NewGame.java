@@ -2,11 +2,8 @@ package com.Horunkan.Draughts.Views;
 
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
-import com.Horunkan.Draughts.NewGame.GUI.SelectBoard;
-import com.Horunkan.Draughts.NewGame.GUI.SelectMode;
-import com.Horunkan.Draughts.NewGame.GUI.SelectNames;
-import com.Horunkan.Draughts.NewGame.GUI.Title;
-import com.Horunkan.Draughts.Utilities.ButtonStyle;
+import com.Horunkan.Draughts.NewGame.GUI.*;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;

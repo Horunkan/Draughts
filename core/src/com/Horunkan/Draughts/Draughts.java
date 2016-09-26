@@ -1,16 +1,12 @@
 package com.Horunkan.Draughts;
 
-import com.Horunkan.Draughts.Views.AbstractScreen;
-import com.Horunkan.Draughts.Views.GameScreen;
-import com.Horunkan.Draughts.Views.MainMenu;
-import com.Horunkan.Draughts.Views.NewGame;
+import com.Horunkan.Draughts.Views.*;
 import com.badlogic.gdx.Game;
 
 public class Draughts extends Game {
 	public static String GAME_TITLE = "Draughts";
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;
-	public static boolean debug = true;
 	
 	public enum ScreenMode {MAIN_MENU, NEW_GAME, GAME}
 	
@@ -23,8 +19,7 @@ public class Draughts extends Game {
 		menu = new MainMenu(this);
 		game = new GameScreen(this);
 		newGame = new NewGame(this);
-		//this.setScreen(menu);
-		this.setScreen(newGame);
+		this.setScreen(menu);
 	}
 	
 	public void setScreen(ScreenMode mode) {

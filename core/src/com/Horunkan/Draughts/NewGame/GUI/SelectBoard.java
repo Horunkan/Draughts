@@ -1,6 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
-import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;

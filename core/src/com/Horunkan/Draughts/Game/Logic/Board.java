@@ -1,9 +1,8 @@
 package com.Horunkan.Draughts.Game.Logic;
 
-import com.Horunkan.Draughts.Game.GUI.DrawCell;
-import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.*;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
-import com.Horunkan.Draughts.Utilities.BoardPosition;
+import com.Horunkan.Draughts.Utilities.*;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

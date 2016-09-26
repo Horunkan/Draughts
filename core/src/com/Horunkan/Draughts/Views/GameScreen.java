@@ -2,14 +2,11 @@ package com.Horunkan.Draughts.Views;
 
 import java.util.ArrayList;
 import com.Horunkan.Draughts.Draughts;
-import com.Horunkan.Draughts.Game.GUI.DrawCell;
-import com.Horunkan.Draughts.Game.GUI.DrawPawn;
+import com.Horunkan.Draughts.Game.GUI.*;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
-import com.Horunkan.Draughts.Game.GUI.GameEnd;
-import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.Player;
-import com.Horunkan.Draughts.Utilities.BoardPosition;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;

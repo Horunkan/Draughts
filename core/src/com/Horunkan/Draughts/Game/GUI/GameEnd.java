@@ -2,8 +2,7 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
-import com.Horunkan.Draughts.Utilities.FontLoader;
-import com.Horunkan.Draughts.Utilities.TextureLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
