@@ -46,6 +46,8 @@ public class SelectBoard {
 		listStyle.fontColorUnselected = Color.WHITE;
 		listStyle.fontColorSelected = Color.WHITE;
 		listStyle.selection = new TextureRegionDrawable(new TextureRegion(new Texture(selectionPixmap)));
+		
+		selectionPixmap.dispose();
 	}
 	
 	private void loadList() {

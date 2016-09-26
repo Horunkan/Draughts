@@ -70,6 +70,10 @@ public class SelectNames {
 		fieldStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(background)));
 		fieldStyle.selection = new TextureRegionDrawable(new TextureRegion(new Texture(selection)));
 		fieldStyle.background.setLeftWidth(5);
+		
+		cursor.dispose();
+		background.dispose();
+		selection.dispose();
 	}
 	
 	private void createFields() {

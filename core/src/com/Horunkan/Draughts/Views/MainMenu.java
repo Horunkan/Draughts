@@ -39,6 +39,8 @@ public class MainMenu extends AbstractScreen {
 		
 		gameLogo = new Sprite(new Texture(pixmap));
 		gameLogo.setPosition(Draughts.WIDTH/2 - gameLogo.getWidth()/2, Draughts.HEIGHT/2 - gameLogo.getHeight()/2 + 150);
+		
+		pixmap.dispose();
 	}
 	
 	private void createButtonsContainer() {
