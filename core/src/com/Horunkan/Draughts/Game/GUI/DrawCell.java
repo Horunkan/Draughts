@@ -2,6 +2,7 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.CaptureDirection;
+import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.math.Vector2;
@@ -31,7 +32,7 @@ public class DrawCell extends Image {
 			System.out.println("Moved pawn to position: " + pos);
 			board.movePawn(getPosition(), pos.x, pos.y);
 			board.unselectPawn();
-			board.changePlayer();
+			Player.change();
 		}
 		else if(board.canCapture(this)) {
 			System.out.println("Pawn captured");
@@ -48,7 +49,7 @@ public class DrawCell extends Image {
 			
 			if(board.getCaptureDirection(board.getPawn().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
 				board.unselectPawn();
-				board.changePlayer();
+				Player.change();
 			}
 		}
 		return false;

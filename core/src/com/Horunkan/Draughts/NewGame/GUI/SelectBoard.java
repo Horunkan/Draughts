@@ -37,6 +37,7 @@ public class SelectBoard {
 	public String getSelectedBoard() { return boardList.getSelected() + ".txt"; }
 		
 	private void createListStyle() {
+		//TODO Add texture
 		Pixmap selectionPixmap = new Pixmap(100, 100, Format.RGBA8888);
 		selectionPixmap.setColor(Color.DARK_GRAY);
 		selectionPixmap.fill();

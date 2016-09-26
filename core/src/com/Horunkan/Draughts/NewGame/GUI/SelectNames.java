@@ -20,7 +20,6 @@ public class SelectNames {
 	private Label playerBright, playerDark;
 	private TextField playerBrightValue, playerDarkValue;
 	private TextFieldStyle fieldStyle;
-	
 	private Table contaier;
 	
 	public SelectNames() {
@@ -51,6 +50,7 @@ public class SelectNames {
 	}
 	
 	private void createFieldStyle() {
+		//TODO Add textures
 		Pixmap cursor = new Pixmap(1, 15, Format.RGBA8888);
 		cursor.setColor(Color.WHITE);
 		cursor.fill();

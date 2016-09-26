@@ -5,7 +5,8 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.*;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Game.Logic.Board;
-import com.Horunkan.Draughts.Game.Logic.Board.Player;
+import com.Horunkan.Draughts.Game.Logic.Player;
+import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -25,6 +26,7 @@ public class GameScreen extends AbstractScreen {
 	public GameScreen(Draughts game) { 
 		super(game); 
 		board = new Board(this);
+		Player.setGameScreen(this);
 	}
 	
 	@Override
@@ -54,8 +56,9 @@ public class GameScreen extends AbstractScreen {
 		loadPawnsGroups();
 		loadPlayerInfo(playerNames);
 		countPawns();
-		board.setPlayer(Player.BRIGHT);
-		updateActivePlayer(board.getActivePlayer());
+		Player.set(Players.BRIGHT);
+		//board.setPlayer(Player.BRIGHT);
+		updateActivePlayer();
 	}
 	
 	public DrawCell getCell(BoardPosition pos) {
@@ -78,7 +81,7 @@ public class GameScreen extends AbstractScreen {
 		int pawnsBright = 0, pawnsBrightKings = 0, pawnsDark = 0, pawnsDarkKings = 0;
 		
 		for(DrawPawn pw : pawns) {
-			if(pw.getPawnPlayer() == Player.BRIGHT) {
+			if(pw.getPawnPlayer() == Players.BRIGHT) {
 				if(pw.getPawnType() == PawnType.STANDARD) ++pawnsBright;
 				else ++pawnsBrightKings;
 			}
@@ -103,11 +106,11 @@ public class GameScreen extends AbstractScreen {
 		}
 	}
 	
-	public void updateActivePlayer(Player player) {
+	public void updateActivePlayer() {
 		playerBright.setColor(Color.WHITE);
 		playerDark.setColor(Color.WHITE);
 		
-		if(player == Player.BRIGHT) playerBright.setColor(Color.GREEN);
+		if(Player.getActive() == Players.BRIGHT) playerBright.setColor(Color.GREEN);
 		else playerDark.setColor(Color.GREEN);
 	}
 	

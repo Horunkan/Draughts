@@ -36,6 +36,7 @@ public class SelectMode {
 		tab.add(playerVsCPU).pad(5f);
 	}
 		
+	//TODO Add textures
 	private void createPixmaps() {
 		checkBoxOn = new Pixmap(checkBoxSize, checkBoxSize, Format.RGBA8888);
 		checkBoxOn.setColor(Color.DARK_GRAY);

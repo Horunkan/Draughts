@@ -1,7 +1,8 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.Board;
-import com.Horunkan.Draughts.Game.Logic.Board.Player;
+import com.Horunkan.Draughts.Game.Logic.Player;
+import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
 import com.badlogic.gdx.Gdx;
@@ -15,7 +16,7 @@ public class DrawPawn extends Image {
 	
 	private final Board board;
 	private BoardPosition pos;
-	private Player player;
+	private Players player;
 	private PawnType type;
 	private TextureLoader textures;
 	
@@ -26,22 +27,22 @@ public class DrawPawn extends Image {
 		
 		if(pawnType == 2) {
 			this.setDrawable(textures.getDrawable("pawnBright"));
-			player = Player.BRIGHT;
+			player = Players.BRIGHT;
 			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 3) {
 			this.setDrawable(textures.getDrawable("pawnDark"));
-			player = Player.DARK;
+			player = Players.DARK;
 			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 4) {
 			this.setDrawable(textures.getDrawable("pawnBrightKing"));
-			player = Player.BRIGHT;
+			player = Players.BRIGHT;
 			type = PawnType.KING;
 		}
 		else if(pawnType == 5) {
 			this.setDrawable(textures.getDrawable("pawnDarkKing"));
-			player = Player.DARK;
+			player = Players.DARK;
 			type = PawnType.KING;
 		}
 		
@@ -59,7 +60,7 @@ public class DrawPawn extends Image {
 	}
 		
 	private boolean touched() {
-		if(board.getActivePlayer() == player) {
+		if(Player.getActive() == player) {
 			System.out.println("Pressed pawn on position: " + pos);
 			if(board.getPawn() == this) board.unselectPawn();
 			else {
@@ -72,17 +73,17 @@ public class DrawPawn extends Image {
 	
 	public void setAsKing() {
 		type = PawnType.KING;
-		if(player == Player.BRIGHT) this.setDrawable(textures.getDrawable("pawnBrightKing"));
+		if(player == Players.BRIGHT) this.setDrawable(textures.getDrawable("pawnBrightKing"));
 		else this.setDrawable(textures.getDrawable("pawnDarkKing"));
 	}
 		
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
-	public Player getPawnPlayer() { return player; }
+	public Players getPawnPlayer() { return player; }
 	public PawnType getPawnType() { return type; }
 	
 	public int getPawnPlayerInt() {
-		if(player == Player.BRIGHT) return 2;
+		if(player == Players.BRIGHT) return 2;
 		else return 3;
 	}
 }

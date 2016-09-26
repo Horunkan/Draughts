@@ -2,6 +2,7 @@ package com.Horunkan.Draughts.Game.Logic;
 
 import com.Horunkan.Draughts.Game.GUI.*;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
+import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.*;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
@@ -12,13 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Board {
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
-	public enum Player {BRIGHT, DARK}
 	
 	private int board[][];
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
-	private Player activePlayer;
 	private final float pawnMovementSpeed = 0.15f;
 	private DrawCell pawnCell;
 	
@@ -40,16 +39,7 @@ public class Board {
 			}
 		}
 	}
-	
-	public Player getActivePlayer() { return activePlayer; }
-	public void setPlayer(Player player) { activePlayer = player; }
-	
-	public void changePlayer() {
-		if(activePlayer == Player.BRIGHT) activePlayer = Player.DARK;
-		else activePlayer = Player.BRIGHT;
-		screen.updateActivePlayer(activePlayer);
-	}
-	
+
 	public void selectPawn(DrawPawn pawn) {
 		activePawn = pawn;
 		pawnCell = screen.getCell(activePawn.getBoardPosition());
@@ -123,8 +113,8 @@ public class Board {
 	}
 	
 	private boolean canChangeToKing(int posY) {
-		if(activePawn.getPawnPlayer() == Player.BRIGHT && posY == boardHeight - 1) return true;
-		else if(activePawn.getPawnPlayer() == Player.DARK && posY == 0) return true;
+		if(activePawn.getPawnPlayer() == Players.BRIGHT && posY == boardHeight - 1) return true;
+		else if(activePawn.getPawnPlayer() == Players.DARK && posY == 0) return true;
 		return false;
 	}
 	
@@ -133,8 +123,8 @@ public class Board {
 		
 		if(cellValue == 0 || cellValue == 1) return false;
 		else {
-			Player pawnActive = activePawn.getPawnPlayer();
-			Player pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
+			Players pawnActive = activePawn.getPawnPlayer();
+			Players pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
 			
 			if(pawnActive != pawnCapture) {
 				int newPosition = getValue(cellToMove.x, cellToMove.y);
@@ -178,9 +168,9 @@ public class Board {
 		else return -1;
 	}
 	
-	private Player getPawnPlayer(int x, int y) {
-		if(getValue(x,y) == 2 || getValue(x,y) == 4) return Player.BRIGHT;
-		else return Player.DARK;
+	private Players getPawnPlayer(int x, int y) {
+		if(getValue(x,y) == 2 || getValue(x,y) == 4) return Players.BRIGHT;
+		else return Players.DARK;
 	}
 	
 	public int countPawns(int val) {
