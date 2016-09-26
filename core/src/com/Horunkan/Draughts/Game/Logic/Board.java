@@ -22,6 +22,7 @@ public class Board extends BoardDebug {
 	private GameScreen screen;
 	private Player activePlayer;
 	private final float pawnMovementSpeed = 0.15f;
+	private DrawCell pawnCell;
 	
 	public Board(GameScreen screen, String boardName) {
 		this.screen = screen;
@@ -56,16 +57,14 @@ public class Board extends BoardDebug {
 	
 	public void setActivePawn(DrawPawn pawn) {
 		activePawn = pawn;
-		
-		if(!Draughts.debug) activePawn.setColor(Color.CYAN);
-		else setColorDebug(true);
+		pawnCell = screen.getCell(activePawn.getBoardPosition());
+		pawnCell.setColor(Color.GREEN);
 	}
 	
 	public void unselectPawn() {
-		if(!Draughts.debug) activePawn.setColor(Color.WHITE);
-		else setColorDebug(false);
-		
+		if(pawnCell != null) pawnCell.setColor(Color.WHITE);		
 		activePawn = null;
+		pawnCell = null;
 	}
 	
 	public boolean canMove(DrawCell cell) {

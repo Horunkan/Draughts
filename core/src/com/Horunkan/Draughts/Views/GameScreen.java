@@ -9,6 +9,7 @@ import com.Horunkan.Draughts.Game.GUI.GameEnd;
 import com.Horunkan.Draughts.Game.GUI.PlayerInfo;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.Player;
+import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -62,6 +63,10 @@ public class GameScreen extends AbstractScreen {
 		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
+	}
+	
+	public DrawCell getCell(BoardPosition pos) {
+		return boardCells[pos.x][pos.y];
 	}
 	
 	public void removePawn(int x, int y) {
