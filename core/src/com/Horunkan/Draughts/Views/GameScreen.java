@@ -36,7 +36,6 @@ public class GameScreen extends AbstractScreen {
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
 		
 		stage.draw();
-		if(Draughts.debug)board.renderDebug();
 	}
 		
 	public void newGame(String[] playerNames, String boardName) {
@@ -50,8 +49,6 @@ public class GameScreen extends AbstractScreen {
 		board.loadFromFile(boardName);
 		countBoardCellSize();
 		loadBoard();
-		System.out.println(boardCellSize);
-		
 		
 		pawns = new ArrayList<DrawPawn>();		
 		stage.addActor(boardCellContainer);
@@ -62,8 +59,6 @@ public class GameScreen extends AbstractScreen {
 		countPawns();
 		board.setPlayer(Player.BRIGHT);
 		updateActivePlayer(board.getActivePlayer());
-		
-		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
 	}
 	
 	public DrawCell getCell(BoardPosition pos) {
