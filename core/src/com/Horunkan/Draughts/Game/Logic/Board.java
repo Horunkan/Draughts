@@ -50,7 +50,7 @@ public class Board {
 		screen.updateActivePlayer(activePlayer);
 	}
 	
-	public void setActivePawn(DrawPawn pawn) {
+	public void selectPawn(DrawPawn pawn) {
 		activePawn = pawn;
 		pawnCell = screen.getCell(activePawn.getBoardPosition());
 		pawnCell.setColor(Color.GREEN);

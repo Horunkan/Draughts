@@ -64,7 +64,7 @@ public class DrawPawn extends Image {
 			if(board.getPawn() == this) board.unselectPawn();
 			else {
 				board.unselectPawn();
-	    		board.setActivePawn(this);
+	    		board.selectPawn(this);
 			}
 		}
 		return false;
