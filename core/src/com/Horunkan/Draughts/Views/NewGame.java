@@ -8,7 +8,7 @@ import com.Horunkan.Draughts.NewGame.GUI.SelectNames;
 import com.Horunkan.Draughts.NewGame.GUI.Title;
 import com.Horunkan.Draughts.Utilities.ButtonStyle;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -62,9 +62,8 @@ public class NewGame extends AbstractScreen {
 
 	@Override
 	public void render(float delta) {
-		//Clear view
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		clearScreen();
+		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) game.setScreen(Draughts.ScreenMode.MAIN_MENU);
 		
 		stage.act(delta);
 		stage.draw();
