@@ -15,13 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class NewGame extends AbstractScreen {
+	private final float mainContainerWidth = 590;
+	private final float mainContainerHeight = 455;
+	
 	private Table mainContainer;
 	private SelectMode selectMode;
 	private SelectBoard selectBoard;
 	private SelectNames selectNames;
-	
 	private TextButton startGameButton, backToMenuButton;
-	
 	private Title selectModeTitle, selectBoardTitle, selectNamesTitle;
 
 	public NewGame(Draughts game) {
@@ -30,7 +31,8 @@ public class NewGame extends AbstractScreen {
 		createButtonsListeners();
 		
 		mainContainer = new Table();
-		mainContainer.setFillParent(true);
+		mainContainer.setSize(mainContainerWidth, mainContainerHeight);
+		mainContainer.setPosition(Draughts.WIDTH/2 - mainContainerWidth/2, Draughts.HEIGHT/2 - mainContainerHeight/2);
 		mainContainer.debug();
 		
 		selectModeTitle = new Title("Select mode");
@@ -56,6 +58,8 @@ public class NewGame extends AbstractScreen {
 		mainContainer.add(startGameButton).size(200, 58).pad(5);
 			
 		stage.addActor(mainContainer);
+		System.out.println(mainContainer.getMinHeight());
+		System.out.println(mainContainer.getMinWidth());
 	}
 
 	@Override
