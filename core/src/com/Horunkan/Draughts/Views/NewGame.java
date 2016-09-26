@@ -58,8 +58,6 @@ public class NewGame extends AbstractScreen {
 		mainContainer.add(startGameButton).size(200, 58).pad(5);
 			
 		stage.addActor(mainContainer);
-		System.out.println(mainContainer.getMinHeight());
-		System.out.println(mainContainer.getMinWidth());
 	}
 
 	@Override

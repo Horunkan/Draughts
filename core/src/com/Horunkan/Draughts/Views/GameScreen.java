@@ -41,12 +41,13 @@ public class GameScreen extends AbstractScreen {
 	public void newGame(String[] playerNames, String boardName) {
 		System.out.println("\nNew Game\n");
 		for(Actor act : stage.getActors()) act.remove();
+		if(pawns != null) for(DrawPawn pw : pawns) pw.remove();
 		
 		boardCellContainer = new Table();
 		boardCellContainer.setFillParent(true);
 		board = new Board(this, boardName);
 		loadBoard();
-				
+		
 		pawns = new ArrayList<DrawPawn>();		
 		stage.addActor(boardCellContainer);
 		boardCellContainer.validate();
@@ -58,6 +59,9 @@ public class GameScreen extends AbstractScreen {
 		updateActivePlayer(board.getActivePlayer());
 		
 		if(Draughts.debug) board.debug(this, board, boardCells, pawns);
+		//boardCellContainer.setScale(0.5f);
+		System.out.println(boardCellContainer.getMinHeight());
+		System.out.println(boardCellContainer.getMinWidth());
 	}
 	
 	public void removePawn(int x, int y) {
