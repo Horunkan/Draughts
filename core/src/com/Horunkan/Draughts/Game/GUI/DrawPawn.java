@@ -1,5 +1,6 @@
 package com.Horunkan.Draughts.Game.GUI;
 
+import com.Horunkan.Draughts.Game.Logic.ActivePawn;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Game.Logic.Player.Players;
@@ -60,7 +61,7 @@ public class DrawPawn extends Image {
 	private boolean touched() {
 		if(Player.getActive() == player) {
 			System.out.println("Pressed pawn on position: " + pos);
-			if(board.getPawn() == this) board.unselectPawn();
+			if(ActivePawn.get() == this) board.unselectPawn();
 			else {
 				board.unselectPawn();
 	    		board.selectPawn(this);

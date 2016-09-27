@@ -5,6 +5,7 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Game.GUI.*;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
 import com.Horunkan.Draughts.Game.Logic.Board;
+import com.Horunkan.Draughts.Game.Logic.ActivePawn;
 import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.*;
@@ -27,6 +28,8 @@ public class GameScreen extends AbstractScreen {
 		super(game); 
 		board = new Board(this);
 		Player.setGameScreen(this);
+		ActivePawn.setGameScreen(this);
+		ActivePawn.setBoard(board);
 	}
 	
 	@Override

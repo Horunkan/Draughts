@@ -1,5 +1,6 @@
 package com.Horunkan.Draughts.Game.GUI;
 
+import com.Horunkan.Draughts.Game.Logic.ActivePawn;
 import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Board.CaptureDirection;
 import com.Horunkan.Draughts.Game.Logic.Player;
@@ -29,30 +30,32 @@ public class DrawCell extends Image {
 	}
 	
 	private boolean touched() {
-		if(board.canMove(this)) {
-			System.out.println("Moved pawn to position: " + pos);
-			board.movePawn(getPosition(), pos.x, pos.y);
-			board.unselectPawn();
-			Player.change();
-		}
-		else if(board.canCapture(this)) {
-			System.out.println("Pawn captured");
-			CaptureDirection dir = CaptureDirection.NO_CAPTURE;
-			BoardPosition direction = new BoardPosition(pos.x - board.getPawn().getBoardPosition().x, pos.y - board.getPawn().getBoardPosition().y);
-			
-			if(direction.x < 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_RIGHT;
-			if(direction.x > 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_LEFT;
-			if(direction.x < 0 && direction.y > 0) dir = CaptureDirection.TOP_RIGHT;
-			if(direction.x > 0 && direction.y > 0) dir = CaptureDirection.TOP_LEFT;
-						
-			board.capture(dir, pos);
-			board.movePawn(getPosition(), pos.x, pos.y);
-			
-			if(board.getCaptureDirection(board.getPawn().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
+		if(ActivePawn.isSelected()) {
+			if(ActivePawn.canMove(this)) {
+				System.out.println("Moved pawn to position: " + pos);
+				board.movePawn(getPosition(), pos.x, pos.y);
 				board.unselectPawn();
 				Player.change();
 			}
-		}		
+			else if(board.canCapture(this)) {
+				System.out.println("Pawn captured");
+				CaptureDirection dir = CaptureDirection.NO_CAPTURE;
+				BoardPosition direction = new BoardPosition(pos.x - ActivePawn.get().getBoardPosition().x, pos.y - ActivePawn.get().getBoardPosition().y);
+				
+				if(direction.x < 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_RIGHT;
+				if(direction.x > 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_LEFT;
+				if(direction.x < 0 && direction.y > 0) dir = CaptureDirection.TOP_RIGHT;
+				if(direction.x > 0 && direction.y > 0) dir = CaptureDirection.TOP_LEFT;
+							
+				board.capture(dir, pos);
+				board.movePawn(getPosition(), pos.x, pos.y);
+				
+				if(board.getCaptureDirection(ActivePawn.get().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
+					board.unselectPawn();
+					Player.change();
+				}
+			}
+		}	
 		return false;
 	}
 	
