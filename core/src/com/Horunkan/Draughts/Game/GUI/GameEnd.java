@@ -41,7 +41,7 @@ public class GameEnd extends Table {
 		
 		addBackground();
 		addTitle();
-		addWinner(winnerName);
+		setWinner(winnerName);
 		addButtons();
 		addButtonsListeners();
 	}
@@ -63,7 +63,7 @@ public class GameEnd extends Table {
 		this.add(title).expand().colspan(2).row();
 	}
 	
-	private void addWinner(String winnerName) {
+	private void setWinner(String winnerName) {
 		styleWinner.font = Font.get(winnerSize);
 		styleWinner.fontColor = Color.WHITE;
 		

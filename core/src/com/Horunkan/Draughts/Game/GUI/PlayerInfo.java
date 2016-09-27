@@ -27,7 +27,6 @@ public class PlayerInfo extends Table {
 	private Skin skin;
 	
 	public PlayerInfo(String playerName, String pawnTextureName) {
-		//this.debug();
 		this.skin = TextureLoader.getSkin();
 		this.setSize(tableWidth, tableHeight);
 		

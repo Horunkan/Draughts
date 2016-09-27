@@ -26,6 +26,6 @@ public class BoardPosition {
 	}
 	
 	public String toString() { return "[" + x + "," + y + "]"; }
+	public boolean isEqual(BoardPosition pos) { return isEqual(pos.x, pos.y); }
 	public boolean isEqual(int x, int y) { return this.x == x && this.y == y; }
-	public boolean isEqual(BoardPosition pos) { return this.x == pos.x && this.y == pos.y; }
 }

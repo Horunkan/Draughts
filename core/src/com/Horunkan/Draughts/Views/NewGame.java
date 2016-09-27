@@ -29,32 +29,21 @@ public class NewGame extends AbstractScreen {
 	//TODO Add background
 	public NewGame(Draughts game) {
 		super(game);
+		createContainer();
 		createButtons();
 		createButtonsListeners();
 		
-		mainContainer = new Table();
-		mainContainer.setSize(mainContainerWidth, mainContainerHeight);
-		mainContainer.setPosition(Draughts.WIDTH/2 - mainContainerWidth/2, Draughts.HEIGHT/2 - mainContainerHeight/2);
-		mainContainer.debug();
-		
 		selectModeTitle = new Title("Select mode");
 		mainContainer.add(selectModeTitle.get()).colspan(2).row();
+		addSelectMode();
 		
-		selectMode = new SelectMode();
-		selectMode.addToTable(mainContainer);
-		mainContainer.row();
 		
 		selectBoardTitle = new Title("Select board");
 		selectNamesTitle = new Title("Select names");
 		mainContainer.add(selectBoardTitle.get()).pad(5);
 		mainContainer.add(selectNamesTitle.get()).pad(5).row();
-		
-		selectBoard = new SelectBoard();
-		selectBoard.addToTable(mainContainer);
-		
-		selectNames = new SelectNames();
-		selectNames.addToTable(mainContainer);
-		mainContainer.row();
+		addSelectBoard();
+		addSelectNames();
 		
 		mainContainer.add(backToMenuButton).size(buttonWidth, buttonHeight).pad(5);
 		mainContainer.add(startGameButton).size(buttonWidth, buttonHeight).pad(5);
@@ -73,6 +62,13 @@ public class NewGame extends AbstractScreen {
 	
 	public String[] getPlayerNames() { return selectNames.getNames(); }
 	public String getBoardName() { return selectBoard.getSelectedBoard(); }
+	
+	private void createContainer() {
+		mainContainer = new Table();
+		mainContainer.setSize(mainContainerWidth, mainContainerHeight);
+		mainContainer.setPosition(Draughts.WIDTH/2 - mainContainerWidth/2, Draughts.HEIGHT/2 - mainContainerHeight/2);
+		mainContainer.debug();
+	}
 	
 	private void createButtons() {
 		TextButtonStyle style = new TextButtonStyle();
@@ -96,5 +92,22 @@ public class NewGame extends AbstractScreen {
 	            game.setScreen(ScreenMode.MAIN_MENU);
 	        }
 	    });
+	}
+	
+	private void addSelectMode() {
+		selectMode = new SelectMode();
+		selectMode.addToTable(mainContainer);
+		mainContainer.row();
+	}
+	
+	private void addSelectBoard() {
+		selectBoard = new SelectBoard();
+		selectBoard.addToTable(mainContainer);
+	}
+	
+	private void addSelectNames() {
+		selectNames = new SelectNames();
+		selectNames.addToTable(mainContainer);
+		mainContainer.row();
 	}
 }
