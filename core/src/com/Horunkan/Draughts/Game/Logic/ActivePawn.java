@@ -73,6 +73,19 @@ public class ActivePawn {
 		else return false;
 	}
 	
+	public static boolean canCapture(BoardPosition pawnToCapture, BoardPosition cellToMove) {
+		if(board.getValue(pawnToCapture) == 0 || board.getValue(pawnToCapture) == 1) return false;
+		
+		Players activePlayer = selected.getPlayer();
+		Players pawnToCapturePlayer = board.getPawnPlayer(pawnToCapture);
+		
+		if(activePlayer == pawnToCapturePlayer) return false;
+		else {
+			if(board.getValue(cellToMove) == 1) return true;
+			else return false;
+		}
+	}
+	
 	public static DrawPawn get() { return selected; }
 	
 	public static boolean isSelected() {

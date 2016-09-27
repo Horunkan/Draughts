@@ -37,7 +37,7 @@ public class DrawCell extends Image {
 				board.unselectPawn();
 				Player.change();
 			}
-			else if(board.canCapture(this)) {
+			else if(board.canCapturePawn(this)) {
 				System.out.println("Pawn captured");
 				CaptureDirection dir = CaptureDirection.NO_CAPTURE;
 				BoardPosition direction = new BoardPosition(boardPos.x - ActivePawn.get().getBoardPosition().x, boardPos.y - ActivePawn.get().getBoardPosition().y);

@@ -45,7 +45,7 @@ public class Board {
 		activePawn = null;
 	}
 		
-	public boolean canCapture(DrawCell cell) {
+	public boolean canCapturePawn(DrawCell cell) {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
 		if(activePawn == null) return false;
@@ -57,31 +57,14 @@ public class Board {
 		
 		return false;
 	}
-		
-	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
-		int cellValue = getValue(cellWithPawn.x, cellWithPawn.y);
-		
-		if(cellValue == 0 || cellValue == 1) return false;
-		else {
-			Players pawnActive = activePawn.getPlayer();
-			Players pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
-			
-			if(pawnActive != pawnCapture) {
-				int newPosition = getValue(cellToMove.x, cellToMove.y);
-				if(newPosition == 1 || newPosition == activePawn.getPawnPlayerInt()) return true;
-				else return false;
-			}
-		}		
-		return false;
-	}
 	
 	public CaptureDirection getCaptureDirection(BoardPosition pos) {
 		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
 		
-		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
-		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
-		if(canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
-		if(canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
+		if(ActivePawn.canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
+		if(ActivePawn.canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
+		if(ActivePawn.canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
+		if(ActivePawn.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
 				
 		return CaptureDirection.NO_CAPTURE;
 	}
@@ -119,7 +102,9 @@ public class Board {
 		else return -1;
 	}
 	
-	private Players getPawnPlayer(int x, int y) {
+	public Players getPawnPlayer(BoardPosition pos) { return getPawnPlayer(pos.x, pos.y); }
+	
+	public Players getPawnPlayer(int x, int y) {
 		if(getValue(x,y) == 2 || getValue(x,y) == 4) return Players.BRIGHT;
 		else return Players.DARK;
 	}
