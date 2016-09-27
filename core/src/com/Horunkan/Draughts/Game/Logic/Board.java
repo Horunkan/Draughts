@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Game.Logic;
 
-import com.Horunkan.Draughts.Game.GUI.*;
-import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
+import com.Horunkan.Draughts.Game.Logic.ActivePawn.CaptureDirection;
 import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.*;
 import com.Horunkan.Draughts.Views.GameScreen;
@@ -9,11 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class Board {
-	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
-	
 	private int board[][];
 	private int boardWidth, boardHeight;
-	private DrawPawn activePawn = null;
 	private GameScreen screen;
 	
 	public Board(GameScreen screen) { this.screen = screen; }
@@ -34,41 +30,7 @@ public class Board {
 			}
 		}
 	}
-
-	public void selectPawn(DrawPawn pawn) {
-		ActivePawn.select(pawn);
-		activePawn = ActivePawn.get();
-	}
-	
-	public void unselectPawn() {
-		ActivePawn.unselect();	
-		activePawn = null;
-	}
-		
-	public boolean canCapturePawn(DrawCell cell) {
-		BoardPosition cellPos = cell.getBoardPosition();
-		
-		if(activePawn == null) return false;
-		else {
-			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(activePawn.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
-			else if(activePawn.getType() == PawnType.KING && distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
-		}
-		
-		return false;
-	}
-	
-	public CaptureDirection getCaptureDirection(BoardPosition pos) {
-		if(activePawn == null) return CaptureDirection.NO_CAPTURE;
-		
-		if(ActivePawn.canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
-		if(ActivePawn.canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
-		if(ActivePawn.canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
-		if(ActivePawn.canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
-				
-		return CaptureDirection.NO_CAPTURE;
-	}
-	
+			
 	public void capture(CaptureDirection dir, BoardPosition pos) {
 		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
 		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);

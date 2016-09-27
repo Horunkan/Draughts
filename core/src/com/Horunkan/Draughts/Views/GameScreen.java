@@ -144,7 +144,7 @@ public class GameScreen extends AbstractScreen {
 				int boardVal = board.getValue(x, y);
 				
 				if(boardVal != 0 && boardVal != 1) {
-					DrawPawn buffer = new DrawPawn(board, boardVal, x, y);
+					DrawPawn buffer = new DrawPawn(boardVal, x, y);
 					buffer.setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
 					buffer.setSize(boardCellSize, boardCellSize);
 					pawns.add(buffer);

@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.ActivePawn;
-import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
@@ -15,13 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class DrawPawn extends Image {
 	public enum PawnType {STANDARD, KING}
 	
-	private final Board board;
 	private BoardPosition pos;
 	private Players player;
 	private PawnType type;
 	
-	public DrawPawn(Board board, int pawnType, int posX, int posY) {
-		this.board = board;
+	public DrawPawn(int pawnType, int posX, int posY) {
 		pos = new BoardPosition(posX, posY);
 		
 		if(pawnType == 2) {
@@ -61,10 +58,10 @@ public class DrawPawn extends Image {
 	private boolean touched() {
 		if(Player.getActive() == player) {
 			System.out.println("Pressed pawn on position: " + pos);
-			if(ActivePawn.get() == this) board.unselectPawn();
+			if(ActivePawn.get() == this) ActivePawn.unselect();
 			else {
-				board.unselectPawn();
-	    		board.selectPawn(this);
+				ActivePawn.unselect();
+				ActivePawn.select(this);
 			}
 		}
 		return false;
@@ -82,7 +79,7 @@ public class DrawPawn extends Image {
 	public Players getPlayer() { return player; }
 	public PawnType getType() { return type; }
 	
-	public int getPawnPlayerInt() {
+	public int getPlayerInt() {
 		if(player == Players.BRIGHT) return 2;
 		else return 3;
 	}

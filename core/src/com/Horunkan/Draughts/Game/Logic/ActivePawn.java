@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class ActivePawn {
+	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
+	
 	private static final float pawnMovementSpeed = 0.15f;
 	
 	private static GameScreen screen;
@@ -60,7 +62,7 @@ public class ActivePawn {
 	
 	public static void move(Vector2 ScreenPos, BoardPosition boardPos) {
 		board.setValue(selected.getBoardPosition(), 1);
-		board.setValue(boardPos, selected.getPawnPlayerInt());
+		board.setValue(boardPos, selected.getPlayerInt());
 		selected.setBoardPosition(boardPos);
 		selected.addAction(Actions.moveTo(ScreenPos.x, ScreenPos.y, pawnMovementSpeed));
 		if(canChangeToKing(boardPos.y)) selected.setAsKing();
@@ -73,6 +75,28 @@ public class ActivePawn {
 		else return false;
 	}
 	
+	public static boolean canCapturePawn(BoardPosition cellPos) {
+		BoardPosition distance = BoardPosition.getDistance(cellPos, selected.getBoardPosition());
+		
+		if(selected.getType() == PawnType.STANDARD) {
+			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(selected.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
+		}
+		else {
+			if(distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
+		}
+		
+		return false;
+	}
+	
+	public static CaptureDirection getCaptureDirection(BoardPosition pos) {
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
+		
+		return CaptureDirection.NO_CAPTURE;
+	}
+	
 	public static boolean canCapture(BoardPosition pawnToCapture, BoardPosition cellToMove) {
 		if(board.getValue(pawnToCapture) == 0 || board.getValue(pawnToCapture) == 1) return false;
 		
@@ -81,7 +105,7 @@ public class ActivePawn {
 		
 		if(activePlayer == pawnToCapturePlayer) return false;
 		else {
-			if(board.getValue(cellToMove) == 1) return true;
+			if(board.getValue(cellToMove) == 1 || board.getValue(cellToMove) == selected.getPlayerInt()) return true;
 			else return false;
 		}
 	}
