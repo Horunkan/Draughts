@@ -1,18 +1,15 @@
 package com.Horunkan.Draughts.Game.Logic;
 
-import com.Horunkan.Draughts.Game.Logic.ActivePawn.CaptureDirection;
 import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.*;
-import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class Board {
 	private int board[][];
 	private int boardWidth, boardHeight;
-	private GameScreen screen;
 	
-	public Board(GameScreen screen) { this.screen = screen; }
+	public Board() { }
 	
 	public void loadFromFile(String boardName) {
 		FileHandle file = Gdx.files.internal("Boards/" + boardName);
@@ -29,19 +26,6 @@ public class Board {
 				board[x][y] = Character.getNumericValue(lines[y].charAt(x));
 			}
 		}
-	}
-			
-	public void capture(CaptureDirection dir, BoardPosition pos) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
-		screen.countPawns();
-	}
-	
-	public void removePawn(BoardPosition pos, int xChange, int yChange) {
-		board[pos.x + xChange][pos.y + yChange] = 1;
-		screen.removePawn(pos.x + xChange, pos.y + yChange);
 	}
 	
 	public int getWidth() { return boardWidth; }

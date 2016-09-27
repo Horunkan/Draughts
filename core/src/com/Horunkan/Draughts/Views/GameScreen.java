@@ -26,7 +26,7 @@ public class GameScreen extends AbstractScreen {
 	
 	public GameScreen(Draughts game) { 
 		super(game); 
-		board = new Board(this);
+		board = new Board();
 		Player.setGameScreen(this);
 		ActivePawn.setGameScreen(this);
 		ActivePawn.setBoard(board);
@@ -131,7 +131,7 @@ public class GameScreen extends AbstractScreen {
 		
 		for(int y = 0; y < height; ++y) {
 			for(int x = 0; x < width; ++x) {
-				boardCells[x][y] = new DrawCell(board, board.getValue(x, y), x, y);
+				boardCells[x][y] = new DrawCell(board.getValue(x, y), x, y);
 				boardCellContainer.add(boardCells[x][y]).size(boardCellSize);
 			}
 			boardCellContainer.row();

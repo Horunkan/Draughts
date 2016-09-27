@@ -110,6 +110,19 @@ public class ActivePawn {
 		}
 	}
 	
+	public static void capture(CaptureDirection dir, BoardPosition pos) {
+		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
+		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
+		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
+		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
+		screen.countPawns();
+	}
+	
+	public static void removePawn(BoardPosition pos, int xChange, int yChange) {
+		board.setValue(pos.x + xChange, pos.y + yChange, 1);
+		screen.removePawn(pos.x + xChange, pos.y + yChange);
+	}
+	
 	public static DrawPawn get() { return selected; }
 	
 	public static boolean isSelected() {

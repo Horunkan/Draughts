@@ -2,7 +2,6 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.ActivePawn;
 import com.Horunkan.Draughts.Game.Logic.ActivePawn.CaptureDirection;
-import com.Horunkan.Draughts.Game.Logic.Board;
 import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
@@ -13,11 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class DrawCell extends Image {
 	private final BoardPosition boardPos;
-	private final Board board;
 	
-	public DrawCell(Board board, int cellType, int posX, int posY) {
+	public DrawCell(int cellType, int posX, int posY) {
 		boardPos = new BoardPosition(posX, posY);
-		this.board = board;
 		
 		if(cellType == 0) this.setDrawable(TextureLoader.getDrawable("boardBright"));
 		else {
@@ -47,7 +44,7 @@ public class DrawCell extends Image {
 				if(direction.x < 0 && direction.y > 0) dir = CaptureDirection.TOP_RIGHT;
 				if(direction.x > 0 && direction.y > 0) dir = CaptureDirection.TOP_LEFT;
 							
-				board.capture(dir, boardPos);
+				ActivePawn.capture(dir, boardPos);
 				ActivePawn.move(getPosition(), boardPos);
 				
 				if(ActivePawn.getCaptureDirection(ActivePawn.get().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
