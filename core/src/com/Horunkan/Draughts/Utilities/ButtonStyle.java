@@ -12,10 +12,9 @@ public class ButtonStyle extends TextButtonStyle {
 	
 	private ButtonStyle() { 
 		FontLoader font = FontLoader.getInstance();
-		TextureLoader textures = TextureLoader.getInstace();
 		
 		this.font = font.getFont(25);
-		this.up = textures.getDrawable("buttonStandard");
-		this.down = textures.getDrawable("buttonPressed");
+		this.up = TextureLoader.getDrawable("buttonStandard");
+		this.down = TextureLoader.getDrawable("buttonPressed");
 	}
 }

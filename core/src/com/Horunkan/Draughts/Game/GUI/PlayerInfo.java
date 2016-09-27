@@ -28,7 +28,7 @@ public class PlayerInfo extends Table {
 	
 	public PlayerInfo(String playerName, String pawnTextureName) {
 		//this.debug();
-		this.skin = TextureLoader.getInstace().getSkin();
+		this.skin = TextureLoader.getSkin();
 		this.setSize(tableWidth, tableHeight);
 		
 		stylePlayer = new LabelStyle();

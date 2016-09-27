@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -74,8 +73,7 @@ public class GameEnd extends Table {
 	
 	private void addButtons() {
 		FontLoader font = FontLoader.getInstance();
-		Skin skin = TextureLoader.getInstace().getSkin();
-		TextButtonStyle style = new TextButtonStyle(skin.getDrawable("buttonStandard"), skin.getDrawable("buttonPressed"), skin.getDrawable("buttonStandard"), font.getFont(buttonSize));
+		TextButtonStyle style = new TextButtonStyle(TextureLoader.getDrawable("buttonStandard"), TextureLoader.getDrawable("buttonPressed"), TextureLoader.getDrawable("buttonStandard"), font.getFont(buttonSize));
 
 		backToMenuButton = new TextButton("Back to menu", style);
 		newGameButton = new TextButton("Play again", style);

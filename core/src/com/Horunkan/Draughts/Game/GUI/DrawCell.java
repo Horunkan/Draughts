@@ -17,11 +17,10 @@ public class DrawCell extends Image {
 	public DrawCell(Board board, int cellType, int posX, int posY) {
 		pos = new BoardPosition(posX, posY);
 		this.board = board;
-		TextureLoader textures = TextureLoader.getInstace();
 		
-		if(cellType == 0) this.setDrawable(textures.getDrawable("boardBright"));
+		if(cellType == 0) this.setDrawable(TextureLoader.getDrawable("boardBright"));
 		else {
-			this.setDrawable(textures.getDrawable("boardDark"));
+			this.setDrawable(TextureLoader.getDrawable("boardDark"));
 			
 			this.addListener(new InputListener() {
 		        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) { return touched(); }
