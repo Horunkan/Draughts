@@ -81,12 +81,12 @@ public class GameScreen extends AbstractScreen {
 		int pawnsBright = 0, pawnsBrightKings = 0, pawnsDark = 0, pawnsDarkKings = 0;
 		
 		for(DrawPawn pw : pawns) {
-			if(pw.getPawnPlayer() == Players.BRIGHT) {
-				if(pw.getPawnType() == PawnType.STANDARD) ++pawnsBright;
+			if(pw.getPlayer() == Players.BRIGHT) {
+				if(pw.getType() == PawnType.STANDARD) ++pawnsBright;
 				else ++pawnsBrightKings;
 			}
 			else {
-				if(pw.getPawnType() == PawnType.STANDARD) ++pawnsDark;
+				if(pw.getType() == PawnType.STANDARD) ++pawnsDark;
 				else ++pawnsDarkKings;
 			}
 		}

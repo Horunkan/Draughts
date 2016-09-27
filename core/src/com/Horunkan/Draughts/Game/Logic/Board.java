@@ -59,8 +59,8 @@ public class Board {
 		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
-			if(activePawn.getPawnType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
-			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y) {
+			if(activePawn.getType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
+			else if(activePawn.getType() == PawnType.KING && distance.x == distance.y) {
 				BoardPosition direction = new BoardPosition(cellPos.x - activePawn.getBoardPosition().x, cellPos.y - activePawn.getBoardPosition().y);
 				return canMoveKing(activePawn.getBoardPosition(), cellPos, direction);
 			}
@@ -97,7 +97,7 @@ public class Board {
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(activePawn.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
-			else if(activePawn.getPawnType() == PawnType.KING && distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
+			else if(activePawn.getType() == PawnType.KING && distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
 		}
 		
 		return false;
@@ -113,8 +113,8 @@ public class Board {
 	}
 	
 	private boolean canChangeToKing(int posY) {
-		if(activePawn.getPawnPlayer() == Players.BRIGHT && posY == boardHeight - 1) return true;
-		else if(activePawn.getPawnPlayer() == Players.DARK && posY == 0) return true;
+		if(activePawn.getPlayer() == Players.BRIGHT && posY == boardHeight - 1) return true;
+		else if(activePawn.getPlayer() == Players.DARK && posY == 0) return true;
 		return false;
 	}
 	
@@ -123,7 +123,7 @@ public class Board {
 		
 		if(cellValue == 0 || cellValue == 1) return false;
 		else {
-			Players pawnActive = activePawn.getPawnPlayer();
+			Players pawnActive = activePawn.getPlayer();
 			Players pawnCapture = getPawnPlayer(cellWithPawn.x, cellWithPawn.y);
 			
 			if(pawnActive != pawnCapture) {
