@@ -49,7 +49,7 @@ public class SelectMode {
 	
 	private void createCheckBoxStyle() {
 		checkBoxStyle = new CheckBoxStyle();
-		checkBoxStyle.font = FontLoader.getInstance().getFont(checkBoxFontSize);
+		checkBoxStyle.font = Font.get(checkBoxFontSize);
 		checkBoxStyle.fontColor = new Color(Color.WHITE);
 		checkBoxStyle.disabledFontColor = new Color(Color.DARK_GRAY);
 		checkBoxStyle.checkboxOn = new TextureRegionDrawable(new TextureRegion(new Texture(checkBoxOn)));

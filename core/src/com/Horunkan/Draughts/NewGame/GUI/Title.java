@@ -13,7 +13,7 @@ public class Title {
 	
 	public Title(String title) {
 		style = new LabelStyle();
-		style.font = FontLoader.getInstance().getFont(titleFontSize);
+		style.font = Font.get(titleFontSize);
 		style.fontColor = Color.WHITE;
 		
 		label = new Label(title, style);

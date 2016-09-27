@@ -42,7 +42,7 @@ public class SelectNames {
 		
 	private void createFieldsNames() {
 		nameStyle = new LabelStyle();
-		nameStyle.font = FontLoader.getInstance().getFont(fieldFontSize);
+		nameStyle.font = Font.get(fieldFontSize);
 		nameStyle.fontColor = Color.WHITE;
 		
 		playerBright = new Label("Bright pawns: ", nameStyle);
@@ -64,7 +64,7 @@ public class SelectNames {
 		selection.fill();
 		
 		fieldStyle = new TextFieldStyle();
-		fieldStyle.font = FontLoader.getInstance().getFont(fieldFontSize);
+		fieldStyle.font = Font.get(fieldFontSize);
 		fieldStyle.fontColor = Color.WHITE;
 		fieldStyle.cursor = new TextureRegionDrawable(new TextureRegion(new Texture(cursor)));
 		fieldStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(background)));

@@ -33,7 +33,7 @@ public class PlayerInfo extends Table {
 		
 		stylePlayer = new LabelStyle();
 		styleCounter = new LabelStyle();
-		styleCounter.font = FontLoader.getInstance().getFont(counterFontSize);
+		styleCounter.font = Font.get(counterFontSize);
 		styleCounter.fontColor = Color.WHITE;
 		
 		addBackground();
@@ -57,7 +57,7 @@ public class PlayerInfo extends Table {
 	}
 	
 	private void addPlayerName(String name) {
-		stylePlayer.font = FontLoader.getInstance().getFont(playerFontSize);
+		stylePlayer.font = Font.get(playerFontSize);
 		stylePlayer.fontColor = Color.WHITE;
 		playerName = new Label(name, stylePlayer);
 		

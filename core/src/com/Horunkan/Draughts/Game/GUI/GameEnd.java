@@ -56,7 +56,7 @@ public class GameEnd extends Table {
 	}
 	
 	private void addTitle() {
-		styleTitle.font = FontLoader.getInstance().getFont(titleSize);
+		styleTitle.font = Font.get(titleSize);
 		styleTitle.fontColor = Color.WHITE;
 		
 		title = new Label("Game finished", styleTitle);
@@ -64,7 +64,7 @@ public class GameEnd extends Table {
 	}
 	
 	private void addWinner(String winnerName) {
-		styleWinner.font = FontLoader.getInstance().getFont(winnerSize);
+		styleWinner.font = Font.get(winnerSize);
 		styleWinner.fontColor = Color.WHITE;
 		
 		winner = new Label(String.format("%s won!", winnerName), styleWinner);
@@ -72,8 +72,7 @@ public class GameEnd extends Table {
 	}
 	
 	private void addButtons() {
-		FontLoader font = FontLoader.getInstance();
-		TextButtonStyle style = new TextButtonStyle(TextureLoader.getDrawable("buttonStandard"), TextureLoader.getDrawable("buttonPressed"), TextureLoader.getDrawable("buttonStandard"), font.getFont(buttonSize));
+		TextButtonStyle style = new TextButtonStyle(TextureLoader.getDrawable("buttonStandard"), TextureLoader.getDrawable("buttonPressed"), TextureLoader.getDrawable("buttonStandard"), Font.get(buttonSize));
 
 		backToMenuButton = new TextButton("Back to menu", style);
 		newGameButton = new TextButton("Play again", style);
