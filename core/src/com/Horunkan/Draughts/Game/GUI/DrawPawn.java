@@ -79,8 +79,8 @@ public class DrawPawn extends Image {
 		
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
-	public Players getPawnPlayer() { return player; }
-	public PawnType getPawnType() { return type; }
+	public Players getPlayer() { return player; }
+	public PawnType getType() { return type; }
 	
 	public int getPawnPlayerInt() {
 		if(player == Players.BRIGHT) return 2;

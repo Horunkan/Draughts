@@ -5,8 +5,8 @@ import com.Horunkan.Draughts.Views.GameScreen;
 public class Player {
 	public enum Players {BRIGHT, DARK}
 	
-	private static Players active;
 	private static GameScreen screen;
+	private static Players active;
 	
 	public static void setGameScreen(GameScreen scr) { screen = scr; }
 	public static Players getActive() { return active; }
