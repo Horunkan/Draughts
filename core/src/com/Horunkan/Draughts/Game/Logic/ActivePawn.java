@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class ActivePawn {
-	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
-	
 	private static final float pawnMovementSpeed = 0.15f;
 	
 	private static GameScreen screen;
@@ -76,27 +74,27 @@ public class ActivePawn {
 	}
 	
 	public static boolean canCapturePawn(BoardPosition cellPos) {
-		BoardPosition distance = BoardPosition.getDistance(cellPos, selected.getBoardPosition());
+		BoardPosition direction = BoardPosition.getDirection(cellPos, selected.getBoardPosition());	
+		int ChangePosX, changePosY;
 		
-		if(selected.getType() == PawnType.STANDARD) {
-			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(selected.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;
-		}
-		else {
-			if(distance.x == distance.y && getCaptureDirection(cellPos) != CaptureDirection.NO_CAPTURE) return true;
-		}
+		if(direction.x > 0) ChangePosX = -1;
+		else ChangePosX = 1;
 		
+		if(direction.y > 0) changePosY = -1;
+		else changePosY = 1;
+		
+		BoardPosition pawnToCapture = new BoardPosition(cellPos.x + ChangePosX, cellPos.y + changePosY);
+		BoardPosition cellToMove = new BoardPosition(cellPos.x + ChangePosX*2, cellPos.y + changePosY*2);
+		
+		if(canCapture(pawnToCapture, cellToMove)) {
+			BoardPosition dist = BoardPosition.getDistance(cellPos, selected.getBoardPosition());
+			
+			if(selected.getType() == PawnType.STANDARD && dist.x == 2 && dist.y == 2) return true;
+			else if(selected.getType() == PawnType.KING && dist.x == dist.y) return true;
+		}		
 		return false;
 	}
-	
-	public static CaptureDirection getCaptureDirection(BoardPosition pos) {
-		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return CaptureDirection.TOP_LEFT;
-		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return CaptureDirection.TOP_RIGHT;
-		if(canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return CaptureDirection.BOTTOM_LEFT;
-		if(canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return CaptureDirection.BOTTOM_RIGHT;
 		
-		return CaptureDirection.NO_CAPTURE;
-	}
-	
 	public static boolean canCapture(BoardPosition pawnToCapture, BoardPosition cellToMove) {
 		if(board.getValue(pawnToCapture) == 0 || board.getValue(pawnToCapture) == 1) return false;
 		
@@ -109,18 +107,34 @@ public class ActivePawn {
 			else return false;
 		}
 	}
-	
-	public static void capture(CaptureDirection dir, BoardPosition pos) {
-		if(dir == CaptureDirection.TOP_LEFT) removePawn(pos, -1, -1);
-		else if(dir == CaptureDirection.TOP_RIGHT) removePawn(pos, 1, -1);
-		else if(dir == CaptureDirection.BOTTOM_LEFT) removePawn(pos, -1, 1);
-		else if(dir == CaptureDirection.BOTTOM_RIGHT) removePawn(pos, 1, 1);
-		screen.countPawns();
+
+	public static void captureAndMove(Vector2 ScreenPos, BoardPosition boardPos) {
+		BoardPosition direction = BoardPosition.getDirection(boardPos, selected.getBoardPosition());
+		int toRemoveX, toRemoveY;
+		
+		if(direction.x > 0) toRemoveX = boardPos.x - 1; 
+		else toRemoveX = boardPos.x + 1; 
+		
+		if(direction.y > 0) toRemoveY = boardPos.y - 1;
+		else toRemoveY = boardPos.y + 1;
+		
+		removePawn(new BoardPosition(toRemoveX, toRemoveY));
+		move(ScreenPos, boardPos);
 	}
 	
-	public static void removePawn(BoardPosition pos, int xChange, int yChange) {
-		board.setValue(pos.x + xChange, pos.y + yChange, 1);
-		screen.removePawn(pos.x + xChange, pos.y + yChange);
+	public static boolean anyCapturesLeft() {
+		BoardPosition pos = selected.getBoardPosition();
+		
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return true; //Top left
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y - 1), new BoardPosition(pos.x + 2, pos.y - 2))) return true; //Top right
+		if(canCapture(new BoardPosition(pos.x - 1, pos.y + 1), new BoardPosition(pos.x - 2, pos.y + 2))) return true; //Bottom left
+		if(canCapture(new BoardPosition(pos.x + 1, pos.y + 1), new BoardPosition(pos.x + 2, pos.y + 2))) return true; //Bottom right
+		return false;
+	}
+	
+	public static void removePawn(BoardPosition pos) {
+		board.setValue(pos.x, pos.y, 1);
+		screen.removePawn(pos.x, pos.y);
 	}
 	
 	public static DrawPawn get() { return selected; }

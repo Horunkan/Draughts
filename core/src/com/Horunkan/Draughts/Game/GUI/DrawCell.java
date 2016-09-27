@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Game.Logic.ActivePawn;
-import com.Horunkan.Draughts.Game.Logic.ActivePawn.CaptureDirection;
 import com.Horunkan.Draughts.Game.Logic.Player;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Utilities.TextureLoader;
@@ -35,19 +34,10 @@ public class DrawCell extends Image {
 				Player.change();
 			}
 			else if(ActivePawn.canCapturePawn(boardPos)) {
-				System.out.println("Pawn captured");
-				CaptureDirection dir = CaptureDirection.NO_CAPTURE;
-				BoardPosition direction = new BoardPosition(boardPos.x - ActivePawn.get().getBoardPosition().x, boardPos.y - ActivePawn.get().getBoardPosition().y);
+				System.out.println("Moved pawn to position: " + boardPos + " - PAWN CAPTURED");
+				ActivePawn.captureAndMove(getPosition(), boardPos);
 				
-				if(direction.x < 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_RIGHT;
-				if(direction.x > 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_LEFT;
-				if(direction.x < 0 && direction.y > 0) dir = CaptureDirection.TOP_RIGHT;
-				if(direction.x > 0 && direction.y > 0) dir = CaptureDirection.TOP_LEFT;
-							
-				ActivePawn.capture(dir, boardPos);
-				ActivePawn.move(getPosition(), boardPos);
-				
-				if(ActivePawn.getCaptureDirection(ActivePawn.get().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
+				if(!ActivePawn.anyCapturesLeft()) {
 					ActivePawn.unselect();
 					Player.change();
 				}

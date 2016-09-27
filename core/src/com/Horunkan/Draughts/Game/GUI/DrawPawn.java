@@ -42,8 +42,6 @@ public class DrawPawn extends Image {
 			type = PawnType.KING;
 		}
 		
-		this.setSize(65, 65);
-		
 		this.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) { return touched(); }
 		});
