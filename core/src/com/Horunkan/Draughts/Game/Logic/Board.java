@@ -7,8 +7,6 @@ import com.Horunkan.Draughts.Utilities.*;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class Board {
 	public enum CaptureDirection {NO_CAPTURE, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT}
@@ -17,7 +15,6 @@ public class Board {
 	private int boardWidth, boardHeight;
 	private DrawPawn activePawn = null;
 	private GameScreen screen;
-	private final float pawnMovementSpeed = 0.15f;
 	
 	public Board(GameScreen screen) { this.screen = screen; }
 	
@@ -60,22 +57,7 @@ public class Board {
 		
 		return false;
 	}
-	
-	public void movePawn(Vector2 pos, int newPosX, int newPosY) {
-		board[activePawn.getBoardPosition().x][activePawn.getBoardPosition().y] = 1;
-		board[newPosX][newPosY] = activePawn.getPawnPlayerInt();
-		activePawn.setBoardPosition(newPosX, newPosY);
-		activePawn.addAction(Actions.moveTo(pos.x, pos.y, pawnMovementSpeed));
-		if(canChangeToKing(newPosY)) activePawn.setAsKing();
-		screen.countPawns();
-	}
-	
-	private boolean canChangeToKing(int posY) {
-		if(activePawn.getPlayer() == Players.BRIGHT && posY == boardHeight - 1) return true;
-		else if(activePawn.getPlayer() == Players.DARK && posY == 0) return true;
-		return false;
-	}
-	
+		
 	public boolean canCapture(BoardPosition cellWithPawn, BoardPosition cellToMove) {
 		int cellValue = getValue(cellWithPawn.x, cellWithPawn.y);
 		
@@ -119,6 +101,14 @@ public class Board {
 	
 	public int getWidth() { return boardWidth; }
 	public int getHeight() { return boardHeight; }
+	
+	public void setValue(BoardPosition pos, int val) {
+		if(getValue(pos.x, pos.y) != -1) board[pos.x][pos.y] = val;
+	}
+	
+	public void setValue(int x, int y, int val) {
+		if(getValue(x, y) != -1) board[x][y] = val;
+	}
 	
 	public int getValue(BoardPosition pos) {
 		return getValue(pos.x, pos.y);

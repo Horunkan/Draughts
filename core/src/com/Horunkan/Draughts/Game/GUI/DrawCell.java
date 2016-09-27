@@ -12,11 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class DrawCell extends Image {
-	private final BoardPosition pos;
+	private final BoardPosition boardPos;
 	private final Board board;
 	
 	public DrawCell(Board board, int cellType, int posX, int posY) {
-		pos = new BoardPosition(posX, posY);
+		boardPos = new BoardPosition(posX, posY);
 		this.board = board;
 		
 		if(cellType == 0) this.setDrawable(TextureLoader.getDrawable("boardBright"));
@@ -32,23 +32,23 @@ public class DrawCell extends Image {
 	private boolean touched() {
 		if(ActivePawn.isSelected()) {
 			if(ActivePawn.canMove(this)) {
-				System.out.println("Moved pawn to position: " + pos);
-				board.movePawn(getPosition(), pos.x, pos.y);
+				System.out.println("Moved pawn to position: " + boardPos);
+				ActivePawn.move(getPosition(), boardPos);
 				board.unselectPawn();
 				Player.change();
 			}
 			else if(board.canCapture(this)) {
 				System.out.println("Pawn captured");
 				CaptureDirection dir = CaptureDirection.NO_CAPTURE;
-				BoardPosition direction = new BoardPosition(pos.x - ActivePawn.get().getBoardPosition().x, pos.y - ActivePawn.get().getBoardPosition().y);
+				BoardPosition direction = new BoardPosition(boardPos.x - ActivePawn.get().getBoardPosition().x, boardPos.y - ActivePawn.get().getBoardPosition().y);
 				
 				if(direction.x < 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_RIGHT;
 				if(direction.x > 0 && direction.y < 0) dir = CaptureDirection.BOTTOM_LEFT;
 				if(direction.x < 0 && direction.y > 0) dir = CaptureDirection.TOP_RIGHT;
 				if(direction.x > 0 && direction.y > 0) dir = CaptureDirection.TOP_LEFT;
 							
-				board.capture(dir, pos);
-				board.movePawn(getPosition(), pos.x, pos.y);
+				board.capture(dir, boardPos);
+				ActivePawn.move(getPosition(), boardPos);
 				
 				if(board.getCaptureDirection(ActivePawn.get().getBoardPosition()) == CaptureDirection.NO_CAPTURE) {
 					board.unselectPawn();
@@ -60,5 +60,5 @@ public class DrawCell extends Image {
 	}
 	
 	public Vector2 getPosition() { return this.localToParentCoordinates(new Vector2(0,0)); }	
-	public BoardPosition getBoardPosition() { return pos; }
+	public BoardPosition getBoardPosition() { return boardPos; }
 }

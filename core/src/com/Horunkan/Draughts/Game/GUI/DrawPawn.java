@@ -75,7 +75,8 @@ public class DrawPawn extends Image {
 		if(player == Players.BRIGHT) this.setDrawable(TextureLoader.getDrawable("pawnBrightKing"));
 		else this.setDrawable(TextureLoader.getDrawable("pawnDarkKing"));
 	}
-		
+	
+	public void setBoardPosition(BoardPosition pos) { setBoardPosition(pos.x, pos.y); }
 	public void setBoardPosition(int x, int y) { pos.setPosition(x, y); }
 	public BoardPosition getBoardPosition() { return pos; }
 	public Players getPlayer() { return player; }

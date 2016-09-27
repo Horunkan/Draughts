@@ -3,11 +3,16 @@ package com.Horunkan.Draughts.Game.Logic;
 import com.Horunkan.Draughts.Game.GUI.DrawCell;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn;
 import com.Horunkan.Draughts.Game.GUI.DrawPawn.PawnType;
+import com.Horunkan.Draughts.Game.Logic.Player.Players;
 import com.Horunkan.Draughts.Utilities.BoardPosition;
 import com.Horunkan.Draughts.Views.GameScreen;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 public class ActivePawn {
+	private static final float pawnMovementSpeed = 0.15f;
+	
 	private static GameScreen screen;
 	private static Board board;
 	private static DrawPawn selected;
@@ -52,7 +57,22 @@ public class ActivePawn {
 		
 		return canMoveKing(newCheckPos, destination);
 	}
-		
+	
+	public static void move(Vector2 ScreenPos, BoardPosition boardPos) {
+		board.setValue(selected.getBoardPosition(), 1);
+		board.setValue(boardPos, selected.getPawnPlayerInt());
+		selected.setBoardPosition(boardPos);
+		selected.addAction(Actions.moveTo(ScreenPos.x, ScreenPos.y, pawnMovementSpeed));
+		if(canChangeToKing(boardPos.y)) selected.setAsKing();
+		screen.countPawns();
+	}
+	
+	private static boolean canChangeToKing(int posY) {
+		if(selected.getPlayer() == Players.BRIGHT && posY == board.getHeight() - 1) return true;
+		else if(selected.getPlayer() == Players.DARK && posY == 0) return true;
+		else return false;
+	}
+	
 	public static DrawPawn get() { return selected; }
 	
 	public static boolean isSelected() {
