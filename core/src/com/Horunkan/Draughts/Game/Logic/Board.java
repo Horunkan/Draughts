@@ -56,7 +56,6 @@ public class Board {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
 		if(activePawn == null) return false;
-		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(activePawn.getType() == PawnType.STANDARD && distance.x == 1 && distance.y == 1) return true;
@@ -93,7 +92,6 @@ public class Board {
 		BoardPosition cellPos = cell.getBoardPosition();
 		
 		if(activePawn == null) return false;
-		else if(board[cellPos.x][cellPos.y] == 0) return false;
 		else {
 			BoardPosition distance = BoardPosition.getDistance(cellPos, activePawn.getBoardPosition());
 			if(distance.x == 2 && distance.y == 2 && getCaptureDirection(activePawn.getBoardPosition()) != CaptureDirection.NO_CAPTURE) return true;

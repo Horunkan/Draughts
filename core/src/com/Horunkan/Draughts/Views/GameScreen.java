@@ -57,7 +57,6 @@ public class GameScreen extends AbstractScreen {
 		loadPlayerInfo(playerNames);
 		countPawns();
 		Player.set(Players.BRIGHT);
-		//board.setPlayer(Player.BRIGHT);
 		updateActivePlayer();
 	}
 	
