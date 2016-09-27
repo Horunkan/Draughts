@@ -9,11 +9,15 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class NewGame extends AbstractScreen {
 	private final float mainContainerWidth = 590;
 	private final float mainContainerHeight = 455;
+	private final int buttonFontSize = 25;
+	private final float buttonWidth = 200;
+	private final float buttonHeight = 58;
 	
 	private Table mainContainer;
 	private SelectMode selectMode;
@@ -52,8 +56,8 @@ public class NewGame extends AbstractScreen {
 		selectNames.addToTable(mainContainer);
 		mainContainer.row();
 		
-		mainContainer.add(backToMenuButton).size(200, 58).pad(5);
-		mainContainer.add(startGameButton).size(200, 58).pad(5);
+		mainContainer.add(backToMenuButton).size(buttonWidth, buttonHeight).pad(5);
+		mainContainer.add(startGameButton).size(buttonWidth, buttonHeight).pad(5);
 			
 		stage.addActor(mainContainer);
 	}
@@ -71,7 +75,11 @@ public class NewGame extends AbstractScreen {
 	public String getBoardName() { return selectBoard.getSelectedBoard(); }
 	
 	private void createButtons() {
-		ButtonStyle style = ButtonStyle.getInstance();
+		TextButtonStyle style = new TextButtonStyle();
+		style.font = Font.get(buttonFontSize);
+		style.up = TextureLoader.getDrawable("buttonStandard");
+		style.down = TextureLoader.getDrawable("buttonPressed");
+		
 		startGameButton = new TextButton("Start game", style);
 		backToMenuButton = new TextButton("Back", style);
 	}
