@@ -24,13 +24,13 @@ public class GameScreen extends AbstractScreen {
 	private GameEnd end;
 	private int boardCellSize = 65;
 	private Player player;
+	private ActivePawn activePawn;
 	
 	public GameScreen(Draughts game) { 
 		super(game); 
 		board = new Board();
 		player = new Player(this);
-		ActivePawn.setGameScreen(this);
-		ActivePawn.setBoard(board);
+		activePawn = new ActivePawn(this, board);
 	}
 	
 	@Override
@@ -132,7 +132,7 @@ public class GameScreen extends AbstractScreen {
 		
 		for(int y = 0; y < height; ++y) {
 			for(int x = 0; x < width; ++x) {
-				boardCells[x][y] = new DrawCell(player, board.getValue(x, y), x, y);
+				boardCells[x][y] = new DrawCell(player, activePawn, board.getValue(x, y), x, y);
 				boardCellContainer.add(boardCells[x][y]).size(boardCellSize);
 			}
 			boardCellContainer.row();
@@ -145,7 +145,7 @@ public class GameScreen extends AbstractScreen {
 				int boardVal = board.getValue(x, y);
 				
 				if(boardVal != 0 && boardVal != 1) {
-					DrawPawn buffer = new DrawPawn(player, boardVal, x, y);
+					DrawPawn buffer = new DrawPawn(player, activePawn, boardVal, x, y);
 					buffer.setPosition(boardCells[x][y].getPosition().x, boardCells[x][y].getPosition().y);
 					buffer.setSize(boardCellSize, boardCellSize);
 					pawns.add(buffer);

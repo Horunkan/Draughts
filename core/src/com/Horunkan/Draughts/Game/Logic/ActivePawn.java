@@ -13,27 +13,29 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 public class ActivePawn {
 	private static final float pawnMovementSpeed = 0.15f;
 	
-	private static GameScreen screen;
-	private static Board board;
-	private static DrawPawn selected;
-	private static DrawCell selectedCell;
+	private final GameScreen screen;
+	private final Board board;
+	private DrawPawn selected;
+	private DrawCell selectedCell;
 	
-	public static void setGameScreen(GameScreen scr) { screen = scr; }
-	public static void setBoard(Board scr) { board = scr; }
+	public ActivePawn(GameScreen scr, Board brd) {
+		screen = scr;
+		board = brd;
+	}
 	
-	public static void select(DrawPawn pawn) {
+	public void select(DrawPawn pawn) {
 		selected = pawn;
 		selectedCell = screen.getCell(selected.getBoardPosition());
 		selectedCell.setColor(Color.GREEN);
 	}
 	
-	public static void unselect() {
+	public void unselect() {
 		if(selectedCell != null) selectedCell.setColor(Color.WHITE);
 		selected = null;
 		selectedCell = null;
 	}
 	
-	public static boolean canMove(DrawCell cell) {
+	public boolean canMove(DrawCell cell) {
 		BoardPosition distance = BoardPosition.getDistance(cell.getBoardPosition(), selected.getBoardPosition());
 		
 		if(selected.getType() == PawnType.STANDARD) return (distance.x == 1) && (distance.y == 1);
@@ -43,7 +45,7 @@ public class ActivePawn {
 		return false;
 	}
 	
-	private static boolean canMoveKing(BoardPosition checkPos, DrawCell destination) {
+	private boolean canMoveKing(BoardPosition checkPos, DrawCell destination) {
 		if(destination.getBoardPosition().isEqual(checkPos)) return true;
 		else if(board.getValue(checkPos) != 1 && !selected.getBoardPosition().isEqual(checkPos)) return false;
 		
@@ -58,7 +60,7 @@ public class ActivePawn {
 		return canMoveKing(newCheckPos, destination);
 	}
 	
-	public static void move(Vector2 ScreenPos, BoardPosition boardPos) {
+	public void move(Vector2 ScreenPos, BoardPosition boardPos) {
 		board.setValue(selected.getBoardPosition(), 1);
 		board.setValue(boardPos, selected.getPlayerInt());
 		selected.setBoardPosition(boardPos);
@@ -67,13 +69,13 @@ public class ActivePawn {
 		screen.countPawns();
 	}
 	
-	private static boolean canChangeToKing(int posY) {
+	private boolean canChangeToKing(int posY) {
 		if(selected.getPlayer() == Players.BRIGHT && posY == board.getHeight() - 1) return true;
 		else if(selected.getPlayer() == Players.DARK && posY == 0) return true;
 		else return false;
 	}
 	
-	public static boolean canCapturePawn(BoardPosition cellPos) {
+	public boolean canCapturePawn(BoardPosition cellPos) {
 		BoardPosition direction = BoardPosition.getDirection(cellPos, selected.getBoardPosition());	
 		int ChangePosX, changePosY;
 		
@@ -95,7 +97,7 @@ public class ActivePawn {
 		return false;
 	}
 		
-	public static boolean canCapture(BoardPosition pawnToCapture, BoardPosition cellToMove) {
+	public boolean canCapture(BoardPosition pawnToCapture, BoardPosition cellToMove) {
 		if(board.getValue(pawnToCapture) == 0 || board.getValue(pawnToCapture) == 1) return false;
 		
 		Players activePlayer = selected.getPlayer();
@@ -108,7 +110,7 @@ public class ActivePawn {
 		}
 	}
 
-	public static void captureAndMove(Vector2 ScreenPos, BoardPosition boardPos) {
+	public void captureAndMove(Vector2 ScreenPos, BoardPosition boardPos) {
 		BoardPosition direction = BoardPosition.getDirection(boardPos, selected.getBoardPosition());
 		int toRemoveX, toRemoveY;
 		
@@ -122,7 +124,7 @@ public class ActivePawn {
 		move(ScreenPos, boardPos);
 	}
 	
-	public static boolean anyCapturesLeft() {
+	public boolean anyCapturesLeft() {
 		BoardPosition pos = selected.getBoardPosition();
 		
 		if(canCapture(new BoardPosition(pos.x - 1, pos.y - 1), new BoardPosition(pos.x - 2, pos.y - 2))) return true; //Top left
@@ -132,14 +134,14 @@ public class ActivePawn {
 		return false;
 	}
 	
-	public static void removePawn(BoardPosition pos) {
+	public void removePawn(BoardPosition pos) {
 		board.setValue(pos.x, pos.y, 1);
 		screen.removePawn(pos.x, pos.y);
 	}
 	
-	public static DrawPawn get() { return selected; }
+	public DrawPawn get() { return selected; }
 	
-	public static boolean isSelected() {
+	public boolean isSelected() {
 		if(selected == null) return false;
 		else return true;
 	}

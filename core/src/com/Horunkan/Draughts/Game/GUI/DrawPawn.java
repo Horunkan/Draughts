@@ -18,9 +18,11 @@ public class DrawPawn extends Image {
 	private Players player;
 	private PawnType type;
 	private final Player activePlayer;
+	private final ActivePawn activePawn;
 	
-	public DrawPawn(Player player, int pawnType, int posX, int posY) {
+	public DrawPawn(Player player, ActivePawn activePawn, int pawnType, int posX, int posY) {
 		activePlayer = player;
+		this.activePawn = activePawn;
 		pos = new BoardPosition(posX, posY);
 		
 		if(pawnType == 2) {
@@ -58,10 +60,10 @@ public class DrawPawn extends Image {
 	private boolean touched() {
 		if(activePlayer.getActive() == player) {
 			System.out.println("Pressed pawn on position: " + pos);
-			if(ActivePawn.get() == this) ActivePawn.unselect();
+			if(activePawn.get() == this) activePawn.unselect();
 			else {
-				ActivePawn.unselect();
-				ActivePawn.select(this);
+				activePawn.unselect();
+				activePawn.select(this);
 			}
 		}
 		return false;

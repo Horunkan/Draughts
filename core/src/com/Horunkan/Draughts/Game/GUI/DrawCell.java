@@ -12,10 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 public class DrawCell extends Image {
 	private final BoardPosition boardPos;
 	private final Player player;
+	private final ActivePawn activePawn;
 	
-	public DrawCell(Player player, int cellType, int posX, int posY) {
+	public DrawCell(Player player, ActivePawn activePawn, int cellType, int posX, int posY) {
 		boardPos = new BoardPosition(posX, posY);
 		this.player = player;
+		this.activePawn = activePawn;
 		
 		if(cellType == 0) this.setDrawable(TextureLoader.getDrawable("boardBright"));
 		else {
@@ -28,19 +30,19 @@ public class DrawCell extends Image {
 	}
 	
 	private boolean touched() {
-		if(ActivePawn.isSelected()) {
-			if(ActivePawn.canMove(this)) {
+		if(activePawn.isSelected()) {
+			if(activePawn.canMove(this)) {
 				System.out.println("Moved pawn to position: " + boardPos);
-				ActivePawn.move(getPosition(), boardPos);
-				ActivePawn.unselect();
+				activePawn.move(getPosition(), boardPos);
+				activePawn.unselect();
 				player.change();
 			}
-			else if(ActivePawn.canCapturePawn(boardPos)) {
+			else if(activePawn.canCapturePawn(boardPos)) {
 				System.out.println("Moved pawn to position: " + boardPos + " - PAWN CAPTURED");
-				ActivePawn.captureAndMove(getPosition(), boardPos);
+				activePawn.captureAndMove(getPosition(), boardPos);
 				
-				if(!ActivePawn.anyCapturesLeft()) {
-					ActivePawn.unselect();
+				if(!activePawn.anyCapturesLeft()) {
+					activePawn.unselect();
 					player.change();
 				}
 			}
