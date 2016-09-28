@@ -11,9 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 public class DrawCell extends Image {
 	private final BoardPosition boardPos;
+	private final Player player;
 	
-	public DrawCell(int cellType, int posX, int posY) {
+	public DrawCell(Player player, int cellType, int posX, int posY) {
 		boardPos = new BoardPosition(posX, posY);
+		this.player = player;
 		
 		if(cellType == 0) this.setDrawable(TextureLoader.getDrawable("boardBright"));
 		else {
@@ -31,7 +33,7 @@ public class DrawCell extends Image {
 				System.out.println("Moved pawn to position: " + boardPos);
 				ActivePawn.move(getPosition(), boardPos);
 				ActivePawn.unselect();
-				Player.change();
+				player.change();
 			}
 			else if(ActivePawn.canCapturePawn(boardPos)) {
 				System.out.println("Moved pawn to position: " + boardPos + " - PAWN CAPTURED");
@@ -39,7 +41,7 @@ public class DrawCell extends Image {
 				
 				if(!ActivePawn.anyCapturesLeft()) {
 					ActivePawn.unselect();
-					Player.change();
+					player.change();
 				}
 			}
 		}	

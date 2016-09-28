@@ -5,14 +5,15 @@ import com.Horunkan.Draughts.Views.GameScreen;
 public class Player {
 	public enum Players {BRIGHT, DARK}
 	
-	private static GameScreen screen;
-	private static Players active;
+	private GameScreen screen;
+	private Players active;
 	
-	public static void setGameScreen(GameScreen scr) { screen = scr; }
-	public static Players getActive() { return active; }
-	public static void set(Players player) { active = player; }
+	public Player(GameScreen scr) { screen = scr; }
 	
-	public static void change() {
+	public Players getActive() { return active; }
+	public void set(Players player) { active = player; }
+	
+	public void change() {
 		if(active == Players.BRIGHT) active = Players.DARK;
 		else active = Players.BRIGHT;
 		if(screen != null) screen.updateActivePlayer();

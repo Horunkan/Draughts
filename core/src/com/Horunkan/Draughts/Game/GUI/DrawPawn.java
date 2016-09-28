@@ -17,28 +17,30 @@ public class DrawPawn extends Image {
 	private BoardPosition pos;
 	private Players player;
 	private PawnType type;
+	private final Player activePlayer;
 	
-	public DrawPawn(int pawnType, int posX, int posY) {
+	public DrawPawn(Player player, int pawnType, int posX, int posY) {
+		activePlayer = player;
 		pos = new BoardPosition(posX, posY);
 		
 		if(pawnType == 2) {
 			this.setDrawable(TextureLoader.getDrawable("pawnBright"));
-			player = Players.BRIGHT;
+			this.player = Players.BRIGHT;
 			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 3) {
 			this.setDrawable(TextureLoader.getDrawable("pawnDark"));
-			player = Players.DARK;
+			this.player = Players.DARK;
 			type = PawnType.STANDARD;
 		}
 		else if(pawnType == 4) {
 			this.setDrawable(TextureLoader.getDrawable("pawnBrightKing"));
-			player = Players.BRIGHT;
+			this.player = Players.BRIGHT;
 			type = PawnType.KING;
 		}
 		else if(pawnType == 5) {
 			this.setDrawable(TextureLoader.getDrawable("pawnDarkKing"));
-			player = Players.DARK;
+			this.player = Players.DARK;
 			type = PawnType.KING;
 		}
 		
@@ -54,7 +56,7 @@ public class DrawPawn extends Image {
 	}
 		
 	private boolean touched() {
-		if(Player.getActive() == player) {
+		if(activePlayer.getActive() == player) {
 			System.out.println("Pressed pawn on position: " + pos);
 			if(ActivePawn.get() == this) ActivePawn.unselect();
 			else {
