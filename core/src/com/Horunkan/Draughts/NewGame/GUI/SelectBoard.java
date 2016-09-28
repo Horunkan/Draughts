@@ -1,6 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
-import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -37,12 +37,13 @@ public class SelectBoard {
 	public String getSelectedBoard() { return boardList.getSelected() + ".txt"; }
 		
 	private void createListStyle() {
+		//TODO Add texture
 		Pixmap selectionPixmap = new Pixmap(100, 100, Format.RGBA8888);
 		selectionPixmap.setColor(Color.DARK_GRAY);
 		selectionPixmap.fill();
 		
 		listStyle = new ListStyle();
-		listStyle.font = FontLoader.getInstance().getFont(listFontSize);
+		listStyle.font = Font.get(listFontSize);
 		listStyle.fontColorUnselected = Color.WHITE;
 		listStyle.fontColorSelected = Color.WHITE;
 		listStyle.selection = new TextureRegionDrawable(new TextureRegion(new Texture(selectionPixmap)));

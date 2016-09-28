@@ -1,6 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
-import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -13,7 +13,7 @@ public class Title {
 	
 	public Title(String title) {
 		style = new LabelStyle();
-		style.font = FontLoader.getInstance().getFont(titleFontSize);
+		style.font = Font.get(titleFontSize);
 		style.fontColor = Color.WHITE;
 		
 		label = new Label(title, style);

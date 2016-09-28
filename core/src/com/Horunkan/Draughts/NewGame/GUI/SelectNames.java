@@ -1,6 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
-import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,7 +20,6 @@ public class SelectNames {
 	private Label playerBright, playerDark;
 	private TextField playerBrightValue, playerDarkValue;
 	private TextFieldStyle fieldStyle;
-	
 	private Table contaier;
 	
 	public SelectNames() {
@@ -43,7 +42,7 @@ public class SelectNames {
 		
 	private void createFieldsNames() {
 		nameStyle = new LabelStyle();
-		nameStyle.font = FontLoader.getInstance().getFont(fieldFontSize);
+		nameStyle.font = Font.get(fieldFontSize);
 		nameStyle.fontColor = Color.WHITE;
 		
 		playerBright = new Label("Bright pawns: ", nameStyle);
@@ -51,6 +50,7 @@ public class SelectNames {
 	}
 	
 	private void createFieldStyle() {
+		//TODO Add textures
 		Pixmap cursor = new Pixmap(1, 15, Format.RGBA8888);
 		cursor.setColor(Color.WHITE);
 		cursor.fill();
@@ -64,7 +64,7 @@ public class SelectNames {
 		selection.fill();
 		
 		fieldStyle = new TextFieldStyle();
-		fieldStyle.font = FontLoader.getInstance().getFont(fieldFontSize);
+		fieldStyle.font = Font.get(fieldFontSize);
 		fieldStyle.fontColor = Color.WHITE;
 		fieldStyle.cursor = new TextureRegionDrawable(new TextureRegion(new Texture(cursor)));
 		fieldStyle.background = new TextureRegionDrawable(new TextureRegion(new Texture(background)));

@@ -2,10 +2,9 @@ package com.Horunkan.Draughts.Views;
 
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
-import com.Horunkan.Draughts.Utilities.ButtonStyle;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,9 +12,16 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 public class MainMenu extends AbstractScreen {
+	private final int logoWidth = 500;
+	private final int logoHeight = 150;
+	private final int buttonFontSize = 25;
+	private final float buttonWidth = 300;
+	private final float buttonHeight = 87;
+	
 	private Sprite gameLogo;
 	private Table buttonContainer;
 	private TextButton newGameButton, exitGameButton;
@@ -33,12 +39,12 @@ public class MainMenu extends AbstractScreen {
 	
 	private void createGameLogo() {
 		//TODO Create texture
-		Pixmap pixmap = new Pixmap(500, 150, Format.RGBA8888);
+		Pixmap pixmap = new Pixmap(logoWidth, logoHeight, Format.RGBA8888);
 		pixmap.setColor(Color.WHITE);
 		pixmap.fill();
 		
 		gameLogo = new Sprite(new Texture(pixmap));
-		gameLogo.setPosition(Draughts.WIDTH/2 - gameLogo.getWidth()/2, Draughts.HEIGHT/2 - gameLogo.getHeight()/2 + 150);
+		gameLogo.setPosition(Draughts.WIDTH/2 - logoWidth/2, Draughts.HEIGHT/2 - logoHeight/2 + 150);
 		
 		pixmap.dispose();
 	}
@@ -46,15 +52,17 @@ public class MainMenu extends AbstractScreen {
 	private void createButtonsContainer() {
 		buttonContainer = new Table();
 		buttonContainer.setPosition(Draughts.WIDTH/2, Draughts.HEIGHT/2 - 80);
-		//container.setDebug(true);
 		
-		buttonContainer.add(newGameButton).size(300, 87);
+		buttonContainer.add(newGameButton).size(buttonWidth, buttonHeight);
 		buttonContainer.row().padTop(5);
-		buttonContainer.add(exitGameButton).size(300, 87);
+		buttonContainer.add(exitGameButton).size(buttonWidth, buttonHeight);
 	}
 	
 	private void createButtons() {
-		ButtonStyle style = ButtonStyle.getInstance();
+		TextButtonStyle style = new TextButtonStyle();
+		style.font = Font.get(buttonFontSize);
+		style.up = TextureLoader.getDrawable("buttonStandard");
+		style.down = TextureLoader.getDrawable("buttonPressed");
 		
 		newGameButton = new TextButton("New game", style);
 		exitGameButton = new TextButton("Exit game", style);
@@ -76,9 +84,7 @@ public class MainMenu extends AbstractScreen {
 	
 	@Override
 	public void render(float delta) {
-		//Clear view
-		Gdx.gl.glClearColor(0, 0, 0, 0);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		clearScreen();
 		
 		spriteBatch.begin();
 		gameLogo.draw(spriteBatch);

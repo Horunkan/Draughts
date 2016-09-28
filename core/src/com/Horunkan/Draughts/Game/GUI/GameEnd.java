@@ -2,8 +2,7 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
-import com.Horunkan.Draughts.Utilities.FontLoader;
-import com.Horunkan.Draughts.Utilities.TextureLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,7 +10,6 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
@@ -43,7 +41,7 @@ public class GameEnd extends Table {
 		
 		addBackground();
 		addTitle();
-		addWinner(winnerName);
+		setWinner(winnerName);
 		addButtons();
 		addButtonsListeners();
 	}
@@ -58,15 +56,15 @@ public class GameEnd extends Table {
 	}
 	
 	private void addTitle() {
-		styleTitle.font = FontLoader.getInstance().getFont(titleSize);
+		styleTitle.font = Font.get(titleSize);
 		styleTitle.fontColor = Color.WHITE;
 		
 		title = new Label("Game finished", styleTitle);
 		this.add(title).expand().colspan(2).row();
 	}
 	
-	private void addWinner(String winnerName) {
-		styleWinner.font = FontLoader.getInstance().getFont(winnerSize);
+	private void setWinner(String winnerName) {
+		styleWinner.font = Font.get(winnerSize);
 		styleWinner.fontColor = Color.WHITE;
 		
 		winner = new Label(String.format("%s won!", winnerName), styleWinner);
@@ -74,9 +72,7 @@ public class GameEnd extends Table {
 	}
 	
 	private void addButtons() {
-		FontLoader font = FontLoader.getInstance();
-		Skin skin = TextureLoader.getInstace().getSkin();
-		TextButtonStyle style = new TextButtonStyle(skin.getDrawable("buttonStandard"), skin.getDrawable("buttonPressed"), skin.getDrawable("buttonStandard"), font.getFont(buttonSize));
+		TextButtonStyle style = new TextButtonStyle(TextureLoader.getDrawable("buttonStandard"), TextureLoader.getDrawable("buttonPressed"), TextureLoader.getDrawable("buttonStandard"), Font.get(buttonSize));
 
 		backToMenuButton = new TextButton("Back to menu", style);
 		newGameButton = new TextButton("Play again", style);

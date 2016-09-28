@@ -1,6 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
-import com.Horunkan.Draughts.Utilities.FontLoader;
+import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +36,7 @@ public class SelectMode {
 		tab.add(playerVsCPU).pad(5f);
 	}
 		
+	//TODO Add textures
 	private void createPixmaps() {
 		checkBoxOn = new Pixmap(checkBoxSize, checkBoxSize, Format.RGBA8888);
 		checkBoxOn.setColor(Color.DARK_GRAY);
@@ -48,7 +49,7 @@ public class SelectMode {
 	
 	private void createCheckBoxStyle() {
 		checkBoxStyle = new CheckBoxStyle();
-		checkBoxStyle.font = FontLoader.getInstance().getFont(checkBoxFontSize);
+		checkBoxStyle.font = Font.get(checkBoxFontSize);
 		checkBoxStyle.fontColor = new Color(Color.WHITE);
 		checkBoxStyle.disabledFontColor = new Color(Color.DARK_GRAY);
 		checkBoxStyle.checkboxOn = new TextureRegionDrawable(new TextureRegion(new Texture(checkBoxOn)));
