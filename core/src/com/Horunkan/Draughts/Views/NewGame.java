@@ -26,7 +26,6 @@ public class NewGame extends AbstractScreen {
 	private TextButton startGameButton, backToMenuButton;
 	private Title selectModeTitle, selectBoardTitle, selectNamesTitle;
 
-	//TODO Add background
 	public NewGame(Draughts game) {
 		super(game);
 		createContainer();

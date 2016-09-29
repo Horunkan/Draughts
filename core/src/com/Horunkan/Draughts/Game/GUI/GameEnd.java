@@ -4,10 +4,6 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -15,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class GameEnd extends Table {
 	private final float tableWidth = 300;
@@ -39,22 +34,13 @@ public class GameEnd extends Table {
 		styleTitle = new LabelStyle();
 		styleWinner = new LabelStyle();
 		
-		addBackground();
+		this.setBackground(TextureLoader.getDrawable((int)tableWidth, (int)tableHeight, Color.DARK_GRAY));
 		addTitle();
 		setWinner(winnerName);
 		addButtons();
 		addButtonsListeners();
 	}
-	
-	private void addBackground() {
-		//TODO Add texture
-		Pixmap pixmap = new Pixmap((int)tableWidth, (int)tableHeight, Format.RGBA8888);
-		pixmap.setColor(Color.DARK_GRAY);
-		pixmap.fill();
-		this.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pixmap))));
-		pixmap.dispose();
-	}
-	
+
 	private void addTitle() {
 		styleTitle.font = Font.get(titleSize);
 		styleTitle.fontColor = Color.WHITE;

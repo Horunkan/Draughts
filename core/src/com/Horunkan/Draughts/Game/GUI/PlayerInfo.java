@@ -2,14 +2,9 @@ package com.Horunkan.Draughts.Game.GUI;
 
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -35,7 +30,7 @@ public class PlayerInfo extends Table {
 		styleCounter.font = Font.get(counterFontSize);
 		styleCounter.fontColor = Color.WHITE;
 		
-		addBackground();
+		this.setBackground(TextureLoader.getDrawable((int)tableWidth, (int)tableHeight, Color.DARK_GRAY));
 		addPlayerName(playerName);
 		addPawnStandardCounter(pawnTextureName);
 		addPawnKingCounter(pawnTextureName);
@@ -45,16 +40,7 @@ public class PlayerInfo extends Table {
 		countPawns.setText(Integer.toString(pawns));
 		countKings.setText(Integer.toString(kings));
 	}
-		
-	private void addBackground() {
-		//TODO Add texture
-		Pixmap pixmap = new Pixmap((int)tableWidth, (int)tableHeight, Format.RGBA8888);
-		pixmap.setColor(Color.DARK_GRAY);
-		pixmap.fill();
-		this.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pixmap))));
-		pixmap.dispose();
-	}
-	
+
 	private void addPlayerName(String name) {
 		stylePlayer.font = Font.get(playerFontSize);
 		stylePlayer.fontColor = Color.WHITE;
