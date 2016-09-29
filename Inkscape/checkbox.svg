@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="500"
+   height="500"
+   viewBox="0 0 499.99997 500.00001"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="checkbox.svg"
+   inkscape:export-filename="C:\Users\Maciej\Documents\GitHub\Draughts\core\assets\Textures\checkboxOff.png"
+   inkscape:export-xdpi="10.8"
+   inkscape:export-ydpi="10.8">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="197.32099"
+     inkscape:cy="304.05748"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer2"
+     showgrid="false"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="715"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-307.19857,-121.1015)">
+    <a
+       id="a3368"
+       transform="matrix(0.98345013,0,0,0.98591362,205.98946,-44.771395)">
+      <path
+         id="path3347-3"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.87342906px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 547.28135,291.74514 0,259.72674 c -0.0135,25.28806 -31.34941,59.82264 -60.81634,61.18784 l -262.06942,0 c -26.08047,-4.77498 -52.31568,-27.58222 -57.43818,-57.78904 l 0,-261.34855 c 0.56339,-27.40908 33.39804,-62.57892 59.36201,-62.55184 l 258.20648,0.26926 c 15.61795,-1.25243 57.18815,18.44562 62.75545,60.50559 z m 63.6084,-42.45421 0,344.49985 c -0.018,33.54192 -41.83566,79.34836 -81.15916,81.15916 l -349.73059,0 c -34.80427,-6.33351 -69.81505,-36.58489 -76.65101,-76.65101 l 0,-346.65101 c 0.75184,-36.35523 44.64251,-80.73998 79.21836,-82.96836 l 344.57551,0.35714 c 20.84209,-1.66122 76.31736,24.46615 83.74689,80.25423 z"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="ccccccsccccccccccc" />
+    </a>
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="On"
+       style="display:none">
+      <path
+         transform="matrix(0.98345013,0,0,0.98591362,205.98946,-44.771397)"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 467.85714,264.14792 313.92857,490.57649 240.35714,420.93363 c -8.59454,-6.60335 -15.14122,-5.9254 -20.71428,-1.78571 l -33.57143,33.92857 c -4.43189,7.38095 -3.08791,14.76191 3.92857,22.14286 L 305.71429,589.50506 C 314.3655,596.34023 333.07351,594.0298 340,584.8622 L 530.71429,304.14792 c 1.87557,-2.2697 1.89108,-15.10214 -6.07143,-20.71429 L 487.5,258.07649 c -5.90539,-2.72079 -14.38088,0.68147 -19.64286,6.07143 z"
+         id="path4176"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cccccccccccc" />
+    </g>
+  </g>
+</svg>
