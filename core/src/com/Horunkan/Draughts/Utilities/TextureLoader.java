@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class TextureLoader {
 	private static Skin skin;
 	private static TextureAtlas atlas;
-		
+			
 	public static Skin getSkin() {
 		if(skin == null) new TextureLoader();
 		return skin;
@@ -76,17 +76,5 @@ public class TextureLoader {
 		skin.getRegion("pawnDark").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		skin.getRegion("pawnBrightKing").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		skin.getRegion("pawnDarkKing").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		
-		skin.add("buttonStandard", atlas.createSprite("buttonStandard"));
-		skin.add("buttonPressed", atlas.createSprite("buttonPressed"));
-		skin.add("boardBright", atlas.createSprite("boardBright"));
-		skin.add("boardDark", atlas.createSprite("boardDark"));
-		skin.add("pawnBright", atlas.createSprite("pawnBright"));
-		skin.add("pawnDark", atlas.createSprite("pawnDark"));
-		skin.add("pawnBrightKing", atlas.createSprite("pawnBrightKing"));
-		skin.add("pawnDarkKing", atlas.createSprite("pawnDarkKing"));
-		skin.add("checkboxOn", atlas.createSprite("checkboxOn"));
-		skin.add("checkboxOff", atlas.createSprite("checkboxOff"));
-		skin.add("NewGameBackground", atlas.createSprite("NewGameBackground"));
 	}
 }
