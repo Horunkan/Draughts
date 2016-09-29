@@ -4,21 +4,21 @@ size: 1024,512
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-NewGame_background
+NewGameBackground
   rotate: false
   xy: 2, 2
   size: 592, 457
   orig: 592, 457
   offset: 0, 0
   index: -1
-boardCell_bright
+boardBright
   rotate: false
   xy: 898, 394
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
-boardCell_dark
+boardDark
   rotate: false
   xy: 596, 216
   size: 65, 65
@@ -53,28 +53,28 @@ checkboxOn
   orig: 60, 60
   offset: 0, 0
   index: -1
-pawn_bright
+pawnBright
   rotate: false
   xy: 898, 327
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
-pawn_bright_king
+pawnBrightKing
   rotate: false
   xy: 596, 149
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
-pawn_dark
+pawnDark
   rotate: false
   xy: 663, 216
   size: 65, 65
   orig: 65, 65
   offset: 0, 0
   index: -1
-pawn_dark_king
+pawnDarkKing
   rotate: false
   xy: 596, 82
   size: 65, 65

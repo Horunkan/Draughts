@@ -58,35 +58,35 @@ public class TextureLoader {
 		atlas = new TextureAtlas();	
 		atlas.addRegion("buttonStandard", region);
 		atlas.addRegion("buttonPressed", region);
-		atlas.addRegion("boardCell_bright", region);
-		atlas.addRegion("boardCell_dark", region);
-		atlas.addRegion("pawn_bright", region);
-		atlas.addRegion("pawn_dark", region);
-		atlas.addRegion("pawn_bright_king", region);
-		atlas.addRegion("pawn_dark_king", region);
+		atlas.addRegion("boardBright", region);
+		atlas.addRegion("boardDark", region);
+		atlas.addRegion("pawnBright", region);
+		atlas.addRegion("pawnDark", region);
+		atlas.addRegion("pawnBrightKing", region);
+		atlas.addRegion("pawnDarkKing", region);
 		atlas.addRegion("checkboxOn", region);
 		atlas.addRegion("checkboxOff", region);
-		atlas.addRegion("NewGame_background", region);
+		atlas.addRegion("NewGameBackground", region);
 	}
 	
 	private void createSkin() {
 		skin = new Skin();
 		skin.addRegions(atlas);
-		skin.getRegion("pawn_bright").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		skin.getRegion("pawn_dark").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		skin.getRegion("pawn_bright_king").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-		skin.getRegion("pawn_dark_king").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.getRegion("pawnBright").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.getRegion("pawnDark").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.getRegion("pawnBrightKing").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+		skin.getRegion("pawnDarkKing").getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		
 		skin.add("buttonStandard", atlas.createSprite("buttonStandard"));
 		skin.add("buttonPressed", atlas.createSprite("buttonPressed"));
-		skin.add("boardBright", atlas.createSprite("boardCell_bright"));
-		skin.add("boardDark", atlas.createSprite("boardCell_dark"));
-		skin.add("pawnBright", atlas.createSprite("pawn_bright"));
-		skin.add("pawnDark", atlas.createSprite("pawn_dark"));
-		skin.add("pawnBrightKing", atlas.createSprite("pawn_bright_king"));
-		skin.add("pawnDarkKing", atlas.createSprite("pawn_dark_king"));
+		skin.add("boardBright", atlas.createSprite("boardBright"));
+		skin.add("boardDark", atlas.createSprite("boardDark"));
+		skin.add("pawnBright", atlas.createSprite("pawnBright"));
+		skin.add("pawnDark", atlas.createSprite("pawnDark"));
+		skin.add("pawnBrightKing", atlas.createSprite("pawnBrightKing"));
+		skin.add("pawnDarkKing", atlas.createSprite("pawnDarkKing"));
 		skin.add("checkboxOn", atlas.createSprite("checkboxOn"));
 		skin.add("checkboxOff", atlas.createSprite("checkboxOff"));
-		skin.add("NewGameBackground", atlas.createSprite("NewGame_background"));
+		skin.add("NewGameBackground", atlas.createSprite("NewGameBackground"));
 	}
 }
