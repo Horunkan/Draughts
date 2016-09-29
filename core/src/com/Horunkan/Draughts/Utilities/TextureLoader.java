@@ -39,5 +39,6 @@ public class TextureLoader {
 		skin.add("pawnDarkKing", atlas.createSprite("pawn_dark_king"));
 		skin.add("checkboxOn", atlas.createSprite("checkboxOn"));
 		skin.add("checkboxOff", atlas.createSprite("checkboxOff"));
+		skin.add("NewGameBackground", atlas.createSprite("NewGame_background"));
 	}
 }

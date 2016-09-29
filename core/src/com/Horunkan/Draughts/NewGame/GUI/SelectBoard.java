@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class SelectBoard {
 	private final int listFontSize = 15;
+	private final float listWidth = 250;
+	private final float listHeight = 250;
 
 	private ListStyle listStyle;
 	private List<String> boardList;
@@ -31,7 +33,7 @@ public class SelectBoard {
 	}
 	
 	public void addToTable(Table tab) {
-		tab.add(boardsScroller).width(250).height(250).pad(5);
+		tab.add(boardsScroller).width(listWidth).height(listHeight).pad(5);
 	}
 	
 	public String getSelectedBoard() { return boardList.getSelected() + ".txt"; }

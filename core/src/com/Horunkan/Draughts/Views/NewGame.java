@@ -6,17 +6,11 @@ import com.Horunkan.Draughts.NewGame.GUI.*;
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class NewGame extends AbstractScreen {
 	private final float mainContainerWidth = 590;
@@ -45,7 +39,7 @@ public class NewGame extends AbstractScreen {
 		
 		
 		selectBoardTitle = new Title("Select board");
-		selectNamesTitle = new Title("Select names");
+		selectNamesTitle = new Title("Player names");
 		mainContainer.add(selectBoardTitle.get()).pad(5);
 		mainContainer.add(selectNamesTitle.get()).pad(5).row();
 		addSelectBoard();
@@ -73,13 +67,7 @@ public class NewGame extends AbstractScreen {
 		mainContainer = new Table();
 		mainContainer.setSize(mainContainerWidth, mainContainerHeight);
 		mainContainer.setPosition(Draughts.WIDTH/2 - mainContainerWidth/2, Draughts.HEIGHT/2 - mainContainerHeight/2);
-		//mainContainer.debug();
-		//TODO Create texture
-		Pixmap pixmap = new Pixmap((int)mainContainerWidth, (int)mainContainerHeight, Format.RGBA8888);
-		pixmap.setColor(0.152f, 0.152f, 0.152f, 1);
-		pixmap.fill();
-		
-		mainContainer.setBackground(new TextureRegionDrawable(new TextureRegion(new Texture(pixmap))));
+		mainContainer.setBackground(TextureLoader.getDrawable("NewGameBackground"));
 	}
 	
 	private void createButtons() {
