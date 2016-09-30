@@ -60,7 +60,7 @@ public class GameEnd extends Table {
 	private void addButtons() {
 		TextButtonStyle style = new TextButtonStyle(TextureLoader.getDrawable("buttonStandard"), TextureLoader.getDrawable("buttonPressed"), TextureLoader.getDrawable("buttonStandard"), Font.get(buttonSize));
 
-		backToMenuButton = new TextButton("Back to menu", style);
+		backToMenuButton = new TextButton("Main menu", style);
 		newGameButton = new TextButton("Play again", style);
 
 		this.add(backToMenuButton).size(buttonWidth, buttonHeight).expand();

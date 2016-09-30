@@ -1,4 +1,0 @@
-Button:
-	Author: StumpyStrust
-	Download: http://opengameart.org/content/ui-button
-	License: Public Domain
