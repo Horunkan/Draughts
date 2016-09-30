@@ -1,7 +1,6 @@
 package com.Horunkan.Draughts.NewGame.GUI;
 
 import java.util.ArrayList;
-
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -43,16 +42,15 @@ public class SelectBoard {
 		listStyle.selection = TextureLoader.getDrawable(100, 100, Color.DARK_GRAY);
 	}
 	
-	//TODO BUG: Boards don't load after build to jar file
 	private void loadList() {
 		boardList = new List<String>(listStyle);
-		FileHandle directory = Gdx.files.internal("Boards");
+		FileHandle directory = Gdx.files.internal("Boards");	
 		ArrayList<String> buffer = new ArrayList<String>();
 		
 		for(FileHandle file : directory.list()) {
 			String fileName[] = file.name().split(".txt");
 			buffer.add(fileName[0]);
-		}
+		}	
 		boardList.setItems(buffer.toArray(new String[0]));
 	}
 	

@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 public class GameScreen extends AbstractScreen {
+	private final int maxBoardSize = 520;
 	private Table boardCellContainer;
 	private Board board;
 	private DrawCell[][] boardCells;
@@ -119,8 +120,9 @@ public class GameScreen extends AbstractScreen {
 	
 	private void countBoardCellSize() {
 		boardCellSize = 65;
-		while(board.getWidth() * boardCellSize >= Draughts.WIDTH - 10) { boardCellSize -= 1; }
-		while(board.getHeight() * boardCellSize >= Draughts.HEIGHT - 60) { boardCellSize -= 1; }
+		while(board.getWidth() * boardCellSize > maxBoardSize) { boardCellSize -= 1; }
+		while(board.getHeight() * boardCellSize > maxBoardSize) { boardCellSize -= 1; }
+		System.out.println(boardCellSize);
 	}
 	
 	public int getBoardCellSize() { return boardCellSize; }
