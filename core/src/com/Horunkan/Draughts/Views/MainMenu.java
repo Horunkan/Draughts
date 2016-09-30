@@ -4,9 +4,6 @@ import com.Horunkan.Draughts.Draughts;
 import com.Horunkan.Draughts.Draughts.ScreenMode;
 import com.Horunkan.Draughts.Utilities.*;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -38,15 +35,8 @@ public class MainMenu extends AbstractScreen {
 	}
 	
 	private void createGameLogo() {
-		//TODO Create texture
-		Pixmap pixmap = new Pixmap(logoWidth, logoHeight, Format.RGBA8888);
-		pixmap.setColor(Color.WHITE);
-		pixmap.fill();
-		
-		gameLogo = new Sprite(new Texture(pixmap));
-		gameLogo.setPosition(Draughts.WIDTH/2 - logoWidth/2, Draughts.HEIGHT/2 - logoHeight/2 + 150);
-		
-		pixmap.dispose();
+		gameLogo = new Sprite(new Texture(Gdx.files.internal("Textures/Logo.png")));
+		gameLogo.setPosition(Draughts.WIDTH/2 - logoWidth/2, Draughts.HEIGHT/2 - logoHeight/2 + 100);
 	}
 	
 	private void createButtonsContainer() {
