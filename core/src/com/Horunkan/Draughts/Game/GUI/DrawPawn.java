@@ -25,25 +25,23 @@ public class DrawPawn extends Image {
 		this.activePawn = activePawn;
 		pos = new BoardPosition(posX, posY);
 		
-		if(pawnType == 2) {
-			this.setDrawable(TextureLoader.getDrawable("pawnBright"));
+		if(pawnType == 2 || pawnType == 4) {
 			this.player = Players.BRIGHT;
-			type = PawnType.STANDARD;
+			
+			if(pawnType == 2) {
+				this.setDrawable(TextureLoader.getDrawable("pawnBright"));
+				type = PawnType.STANDARD;
+			}
+			else setAsKing();
 		}
-		else if(pawnType == 3) {
-			this.setDrawable(TextureLoader.getDrawable("pawnDark"));
+		else if(pawnType == 3 || pawnType == 5) {
 			this.player = Players.DARK;
-			type = PawnType.STANDARD;
-		}
-		else if(pawnType == 4) {
-			this.setDrawable(TextureLoader.getDrawable("pawnBrightKing"));
-			this.player = Players.BRIGHT;
-			type = PawnType.KING;
-		}
-		else if(pawnType == 5) {
-			this.setDrawable(TextureLoader.getDrawable("pawnDarkKing"));
-			this.player = Players.DARK;
-			type = PawnType.KING;
+			
+			if(pawnType == 3) {
+				this.setDrawable(TextureLoader.getDrawable("pawnDark"));
+				type = PawnType.STANDARD;
+			}
+			else setAsKing();
 		}
 		
 		this.addListener(new InputListener() {
